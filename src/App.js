@@ -1,15 +1,19 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import Home from './Home/Home';
 import CreatePackageForm from "./components/CreatePackage/CreatePackageForm";
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
         <Route path='/form' element={<CreatePackageForm/>}>Crear Paquete</Route>
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
