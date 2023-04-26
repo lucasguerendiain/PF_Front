@@ -1,6 +1,7 @@
 nav {
     background-color: rgb(4, 15, 57); /* fondo azul */
     border-bottom: 5px solid rgb(29, 102, 203); /* borde inferior azul oscuro de 5px */
+    border-top: 5px solid rgb(29, 102, 203);
     display:flex;
     justify-content: center;
     border-radius: 0;
