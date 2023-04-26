@@ -1,0 +1,31 @@
+.footer {
+  background-color: rgb(4, 15, 57); /* fondo azul */
+  border-bottom: 5px solid rgb(29, 102, 203); /* borde inferior azul oscuro de 5px */
+  border-top: 5px solid rgb(29, 102, 203);
+  color: #f3ebeb;
+  padding: 20px 0;
+  
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer-options a {
+  color: white;
+  margin-right: 20px;
+}
+
+.footer-text {
+  margin-top: 20px;
+}
