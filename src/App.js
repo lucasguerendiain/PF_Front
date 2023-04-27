@@ -3,6 +3,8 @@ import './App.css';
 import Home from './Home/Home';
 import CreatePackageForm from "./components/CreatePackage/CreatePackageForm";
 import Footer from './components/Footer/Footer';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
-          <Route path='/form' element={<CreatePackageForm/>}>Crear Paquete</Route>
+          <Route path='/form' element={<CreatePackageForm/>}></Route>
+          <Route path="/login" element={<Login/>}></Route>
+          <Route path="/register" element={<Register/>}/>
         </Routes>
         <Footer />
       </div>
