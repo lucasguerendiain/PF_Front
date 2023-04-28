@@ -5,7 +5,9 @@ const Actividades = (props) => {
     return(
         <div>
             <h1>{name}</h1>
-            <img src={img} alt="image"></img>
+            {img.map((i) => {
+                <img src={i} alt="image"></img>
+            })}
             <p>Duración: {duration}</p>
         </div>
     )
