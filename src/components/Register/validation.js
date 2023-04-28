@@ -10,7 +10,7 @@ export function validation(inputs) {
     if (!password || password.length < 6 || password.length > 16 || !(/\d/.test(password))) {
         errors.password = "La contraseña debe tener entre 6 y 16 caracteres y al menos un numero";
     }
-    if (!email || !regexEmail.test(username)) {
+    if (!email || !regexEmail.test(email)) {
         errors.email = "correo electronico invalido";
     }
     if (!confirmPassword || confirmPassword !== password) {

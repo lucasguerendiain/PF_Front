@@ -1,6 +1,22 @@
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { validation } from "./validation";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from 'react';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
 
+const theme = createTheme();
 
 export default function Register() {
     const [inputs, setInputs] = useState({
@@ -18,9 +34,10 @@ export default function Register() {
     const [viewPassword, setViewPassword] = useState(false);
 
     const handleChange = (event) => {
+        const {name, value} = event.target;
         setInputs({
-            ...setInputs,
-            [event.target.name]: event.target.value
+            ...inputs,
+            [name]: value
         });
     }
 
@@ -30,72 +47,121 @@ export default function Register() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (Object.values(errors).length === 0) {
-            //dispatch del usuario  a registrar
-            //luego mandar un mensaje que confirma si se hizo con exito
-            //si no se guarda con exito, mandar un mensaje de error
-        } else alert("fallan los datos, mostro/a");
-    }
+        console.log({
+            username: inputs.username,
+            email: inputs.email,
+            password: inputs.password,
+        });
+    };
 
     useEffect(() => {
         setErrors(validation(inputs));
     }, [inputs]);
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Username: 
-                <input
-                type="text"
-                name="username"
-                value={inputs.username}
-                placeholder="Usuario..."
-                onChange={handleChange}
-                >
-                </input>
-                <br/>
-                {errors.username && <p>{errors.username}</p>}
-            </label>
-            <br/>
-            <label>Email: 
-                <input
-                type="text"
-                name="email"
-                value={inputs.email}
-                placeholder="Correo electronico..."
-                onChange={handleChange}
-                >
-                </input>
-                <br/>
-                {errors.email && <p>{errors.email}</p>}
-            </label>
-            <br/>
-            <label>Password: 
-                <input
-                    type={viewPassword ? "text" : "password"}
+        <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+            sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+            >
+            <Typography component="h1" variant="h5">
+                Sign up
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                    autoComplete="given-name"
+                    name="username"
+                    required
+                    fullWidth
+                    id="username"
+                    label="username"
+                    autoFocus
+                    onChange={handleChange}
+                    error={!!errors.username}
+                    helperText={errors.username}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={handleChange}
+                    error={!!errors.email}
+                    helperText={errors.email}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
                     name="password"
-                    value={inputs.password}
-                    placeholder="Password..."
+                    label="Password"
+                    type={viewPassword? "text" : "password"}
+                    id="password"
+                    autoComplete="new-password"
                     onChange={handleChange}
-                >
-                </input>
-                <br/>
-                {errors.password && <p>{errors.password}</p>}
-            </label>
-            <br/>
-            <label>Confirm password: 
-                <input
-                    type={viewPassword ? "text" : "password"}
+                    error={!!errors.password}
+                    helperText={errors.password}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
                     name="confirmPassword"
-                    value={inputs.confirmPassword}
-                    placeholder="confirmar contraseña"
+                    label="confirm Password"
+                    type={viewPassword? "text" : "password"}
+                    id="confirmPassword"
+                    autoComplete="confirm-password"
                     onChange={handleChange}
+                    error={!!errors.confirmPassword}
+                    helperText={errors.confirmPassword}
+                    />
+                </Grid>
+                <IconButton
+                variant="contained"
+                onClick={handleView}
+                sx={{ mt: 2, mb: 1 }}
                 >
-                </input>
-                <button type="button" onClick={handleView} name="toggle">{viewPassword ? "*hide*" : "*show*"}</button>
-                <br/>
-                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-            </label>
-            <button type="submit" name="submit">registrarse</button>
-        </form>
+                {viewPassword? <VisibilityOffIcon/> : <VisibilityIcon/>}
+                </IconButton>
+                <Grid item xs={12}>
+                    <FormControlLabel
+                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                    />
+                </Grid>
+                </Grid>
+                <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                >
+                Sign Up
+                </Button>
+                <Grid container justifyContent="flex-end">
+                <Grid item>
+                    <Link to={"/login"}>
+                        <p>Already have an account? Sign in</p>
+                    </Link>
+                </Grid>
+                </Grid>
+            </Box>
+            </Box>
+        </Container>
+        </ThemeProvider>
     );
 }
