@@ -5,6 +5,7 @@ import CreatePackageForm from "./components/CreatePackage/CreatePackageForm";
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import CardsContainer from './components/CardsContainer/CardsContainer'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/form' element={<CreatePackageForm/>}></Route>
           <Route path="/login" element={<Login/>}></Route>
           <Route path="/register" element={<Register/>}/>
+          <Route path='/cards' element={<CardsContainer/>}/>
         </Routes>
         <Footer />
       </div>

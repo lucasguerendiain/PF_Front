@@ -2,23 +2,24 @@ import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux"
 import Paquete from "../Cards/Paquetes";
 import Actividades from "../Cards/Actividades"
-import { getAllPackages } from "../../redux/actions/packageSlice";
-import { getAllActivities } from "../../redux/actions/ActivitiesActions";
+import { getAllActivity } from "../../redux/actions/ActivitiesActions";
+import { getAllPacks } from "../../redux/actions/packageActions";
 
 export default function CardsContainer() {
-    const {paquetes} = useSelector((state) => state.allPackages)
-    const {actividades} = useSelector((state) => state.allActivities)
-
+    const paquetes = useSelector((state) => state.allPackages)
+    const actividades = useSelector((state) => state.allActivities)
+    console.log(paquetes,actividades);
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        dispatch(getAllPackages())
-        dispatch(getAllActivities())
+        dispatch(getAllPacks())
+        dispatch(getAllActivity())
     },[])
+
     return (
         <>
         <div>
-            {paquetes.length ? (
+            {paquetes ? (
                 paquetes.map((p, index) => (
                     <Paquete key={index} paquete={p}/>
                 ))
@@ -27,7 +28,7 @@ export default function CardsContainer() {
             )}
         </div>
         <div>
-            {actividades.length ? (
+            {actividades ? (
                 actividades.map((a,index) => (
                     <Actividades key={index} actividad={a}/>
                 ))
