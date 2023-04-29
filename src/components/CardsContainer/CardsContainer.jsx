@@ -22,20 +22,19 @@ export default function CardsContainer() {
     // dispatch(getAllActivities())
     setPaquetes([
       {
-        id: "7c214ea0-4636-42bf-853d-01925d09b409",
-        name: "elias",
-        location: "Cusco, Perú",
-        price: 2000,
-        duration: 9,
+        name: "Paquete 2",
+        location: "Madrid, España",
+        price: 2500,
+        duration: 10,
         img: [
-          "https://example.com/image10.jpg",
-          "https://example.com/image11.jpg",
-          "https://example.com/image12.jpg",
+          "https://example.com/image4.jpg",
+          "https://example.com/image5.jpg",
+          "https://example.com/image6.jpg"
         ],
-        description:
-          "Explora la ciudadela inca de Machu Picchu y mucho más en este paquete de turismo en Cusco. ",
-        quotas: 6,
-        date: "2024-01-02 - 2024-01-10",
+        description: "Recorre la hermosa ciudad de Madrid durante 10 días con este paquete de turismo.",
+        quotas: 8,
+        dateInit: "2023-06-20",
+        dateEnd: "2023-06-26",
       },
       {
         id: "7d4b5d62-ed7e-4b4f-8782-0503de1e039f",
@@ -51,7 +50,8 @@ export default function CardsContainer() {
         description:
           "Vive una experiencia única en Bali durante 8 días. Hospédate en el Hotel Ayana Resort and Spa y disfruta de las playas paradisíacas de la isla, la cultura local y la gastronomía balinesa.",
         quotas: 12,
-        date: "2023-11-10 - 2023-11-17",
+        dateInit: "2023-06-20",
+        dateEnd: "2023-06-26",
       },
       {
         id: "4067c7b7-9073-4f2f-b98c-d2cf37583a66",
@@ -67,7 +67,8 @@ export default function CardsContainer() {
         description:
           "Disfruta de una semana inolvidable en Playa del Carmen, hospedándote en el Hotel Riviera Maya.",
         quotas: 10,
-        date: "2023-08-01 - 2023-08-07",
+        dateInit: "2023-06-20",
+        dateEnd: "2023-06-26",
       },
       {id: "7c214ea0-4636-42bf-853d-01925d09b409",
       name: "elias",
@@ -82,7 +83,8 @@ export default function CardsContainer() {
       description:
         "Explora la ciudadela inca de Machu Picchu y mucho más en este paquete de turismo en Cusco. ",
       quotas: 6,
-      date: "2024-01-02 - 2024-01-10",
+      dateInit: "2023-06-20",
+      dateEnd: "2023-06-26",
     },
     {
       id: "7d4b5d62-ed7e-4b4f-8782-0503de1e039f",
@@ -98,7 +100,8 @@ export default function CardsContainer() {
       description:
         "Vive una experiencia única en Bali durante 8 días. Hospédate en el Hotel Ayana Resort and Spa y disfruta de las playas paradisíacas de la isla, la cultura local y la gastronomía balinesa.",
       quotas: 12,
-      date: "2023-11-10 - 2023-11-17",
+      dateInit: "2023-06-20",
+        dateEnd: "2023-06-26",
     },
     {
       id: "4067c7b7-9073-4f2f-b98c-d2cf37583a66",
@@ -114,7 +117,8 @@ export default function CardsContainer() {
       description:
         "Disfruta de una semana inolvidable en Playa del Carmen, hospedándote en el Hotel Riviera Maya.",
       quotas: 10,
-      date: "2023-08-01 - 2023-08-07",
+      dateInit: "2023-06-20",
+        dateEnd: "2023-06-26",
     },
     ]);
   }, [setPaquetes]);
