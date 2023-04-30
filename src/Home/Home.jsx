@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
+      
       <div className="container">
         <h1>Bienvenidos a nuestro sitio de turismo</h1>
         <h3>La Patagonia es una de las regiones más hermosas y salvajes de América del Sur. Con sus vastas llanuras, majestuosas montañas y glaciares, bosques imponentes y una fauna única, la Patagonia es un paraíso para los amantes de la naturaleza y los aventureros por igual.</h3>
