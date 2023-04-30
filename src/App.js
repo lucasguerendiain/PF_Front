@@ -7,12 +7,14 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import PackageDetail from './components/Detail/Package/PackageDetail';
 import CardsContainer from './components/CardsContainer/CardsContainer';
+import Navbar from './components/Navbar/Navbar';
 
 
 function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
+        <Navbar/>
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
