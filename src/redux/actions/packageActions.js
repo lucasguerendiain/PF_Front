@@ -4,7 +4,7 @@ import {getAllPackages, getPackageById, setError} from "../reducer/packageSlice"
 export const getAllPacks = () => async (dispatch) => {
     try {
         axios("http://localhost:3001/package")
-        .then(res=>dispatch(getAllPackages(res.data.results)))
+        .then(res=>dispatch(getAllPackages(res.data)))
         // dispatch(getAllPackages([{
         //     "name": "Paquete de turismo en Playa del Carmen",
         //     "location": "Playa del Carmen, México",
