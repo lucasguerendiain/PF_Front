@@ -27,12 +27,12 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 // }));
 
 export default function Paquete(props) {
-const { name,img,duration,price,date,location } = props.paquete
+const { name,img,duration,price,dateInit, dateEnd,location } = props.paquete
   const [expanded, setExpanded] = React.useState(false);
 
-//   const handleExpandClick = () => {
-//     setExpanded(!expanded);
-//   };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -43,7 +43,7 @@ const { name,img,duration,price,date,location } = props.paquete
           </IconButton>
         }
         title={name}
-        subheader={date}
+        subheader={`${dateInit} to ${dateEnd}`}
       />
       <CardMedia
         component="img"
