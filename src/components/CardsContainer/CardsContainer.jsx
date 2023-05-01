@@ -4,11 +4,17 @@ import SearchBar from "../SearchBar/SearchBar";
 // import { useDispatch, useSelector } from "react-redux"
 import Paquete from "../Cards/Paquetes";
 import { Grid } from "@mui/material";
-import {Button} from "@mui/material";
-
+import { Button } from "@mui/material";
 // import Actividades from "../Cards/Actividades"
 // import { getAllActivity } from "../../redux/actions/ActivitiesActions";
 // import { getAllPacks } from "../../redux/actions/packageActions";
+
+//imports para los selects ⬇️⬇️⬇️⬇️⬇️
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export default function CardsContainer() {
   // const {paquetes} = useSelector((state) => state.allPackages)
@@ -32,8 +38,7 @@ export default function CardsContainer() {
           "https://example.com/image2.jpg",
           "https://example.com/image3.jpg",
         ],
-        description:
-          "Disfruta de una semana inolvidable en Playa del Carmen",
+        description: "Disfruta de una semana inolvidable en Playa del Carmen",
         quotas: 10,
         dateInit: 20230801,
         dateEnd: 20230807,
@@ -94,9 +99,78 @@ export default function CardsContainer() {
     ]);
   }, [setPaquetes]);
 
+  //estados y funcion de los selects ⬇️⬇️⬇️⬇️⬇️⬇️
+  const [stars, setStars] = React.useState("");
+  const starsHandleChange = (event) => {
+    setStars(event.target.value);
+  };
+  const [age, setAge] = React.useState("");
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  }
+
   return (
     <>
       <SearchBar />
+      <Grid container spacing={2}>
+        <Grid item xs={4}>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Stars</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={stars}
+                label="Age"
+                onChange={starsHandleChange}
+              >
+                <MenuItem value={10}>1</MenuItem>
+                <MenuItem value={20}>2</MenuItem>
+                <MenuItem value={30}>3</MenuItem>
+                <MenuItem value={10}>4</MenuItem>
+                <MenuItem value={20}>5</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={age}
+                label="Age"
+                onChange={handleChange}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={age}
+                label="Age"
+                onChange={handleChange}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Grid>
+      </Grid>
+
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
