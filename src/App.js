@@ -9,7 +9,7 @@ import Register from './components/Register/Register';
 import CardsContainer from './components/CardsContainer/CardsContainer'
 
 import PackageDetail from './components/Detail/Package/PackageDetail';
-import CardsContainer from './components/CardsContainer/CardsContainer';
+
 import Navbar from './components/Navbar/Navbar';
 
 
@@ -24,9 +24,7 @@ function App() {
           <Route path='/form' element={<CreatePackageForm/>}></Route>
           <Route path="/login" element={<Login/>}></Route>
           <Route path="/register" element={<Register/>}/>
-
           <Route path='/cards' element={<CardsContainer/>}/>
-
           <Route path='/detail' element={<PackageDetail/>}/>
           <Route path='/container' element={<CardsContainer/>}/>
         </Routes>
