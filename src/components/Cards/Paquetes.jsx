@@ -29,6 +29,7 @@ const ExpandMore = styled((props) => {
 
 export default function Paquete(props) {
   const {
+    id,
     name,
     location,
     price,
@@ -50,7 +51,7 @@ export default function Paquete(props) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea key={id} href={`/package/${id}`}>
         <CardHeader
           action={
             <IconButton aria-label="settings">

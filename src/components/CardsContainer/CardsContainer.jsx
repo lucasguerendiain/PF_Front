@@ -10,11 +10,13 @@ import { Button } from "@mui/material";
 // import { getAllPacks } from "../../redux/actions/packageActions";
 
 //imports para los selects ⬇️⬇️⬇️⬇️⬇️
-import Box from "@mui/material/Box";
+
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+
 
 export default function CardsContainer() {
   // const {paquetes} = useSelector((state) => state.allPackages)
@@ -99,77 +101,57 @@ export default function CardsContainer() {
     ]);
   }, [setPaquetes]);
 
-  //estados y funcion de los selects ⬇️⬇️⬇️⬇️⬇️⬇️
-  const [stars, setStars] = React.useState("");
-  const starsHandleChange = (event) => {
-    setStars(event.target.value);
-  };
-  const [age, setAge] = React.useState("");
+  //estados, estilo y funcion de los selects ⬇️⬇️⬇️⬇️⬇️⬇️
+  const [filtros, setFiltros] = useState([{ estrellas: "" }, { opciones: "" }]);
+  const [inputs, setInputs] = useState({
+    opciones: false,
+  });
   const handleChange = (event) => {
-    setAge(event.target.value);
-  }
+    const numero = filtros.length - 1;
+    setFiltros([...filtros, { ["opciones" + numero]: "" }]);
+    setInputs({
+      ...inputs,
+      [event.target.name]: true,
+      ["opciones" + numero]: false,
+    });
+  };
+
 
   return (
     <>
       <SearchBar />
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Stars</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={stars}
-                label="Age"
-                onChange={starsHandleChange}
-              >
-                <MenuItem value={10}>1</MenuItem>
-                <MenuItem value={20}>2</MenuItem>
-                <MenuItem value={30}>3</MenuItem>
-                <MenuItem value={10}>4</MenuItem>
-                <MenuItem value={20}>5</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </Grid>
-      </Grid>
+      <div>
+            {filtros && filtros.map((item) =>{
+                if (item.hasOwnProperty("estrellas")){
+                    return (
+                        <div>
+                        <select name={Object.keys(item)[0]}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <br/>
+                        </div>
+                    )
+                }
+                else return (
+                    <div>
+                    <select name={Object.keys(item)[0]} onChange={handleChange}>
+                        <option>-----------</option>
+                        <option>precio mayor que</option>
+                        <option>precio menor que</option>
+                        <option>duracion mayor que</option>
+                        <option>duracion menor que</option>
+                    </select>
+                    {inputs[Object.keys(item)[0]]? (<input type="text" placeholder="ejemplo"></input>) : ("")}
+                    <br/>
+                    </div>
+                )
+            })}
+        </div>
+      <Button variant="contained">Aplicar filtros</Button>
 
       <Grid
         container
@@ -196,6 +178,7 @@ export default function CardsContainer() {
                 <p>No hay actividades que mostrar</p>
             )}
         </div> */}
+      <Button variant="contained">Aplicar filtros</Button>
       <Link to={"/home"}>
         <Button variant="contained">Home</Button>
       </Link>
