@@ -18,12 +18,15 @@ export const packageSlice = createSlice({
         getPackageById: (state, action) => {
             state.detail = action.payload;
         },
+        getFilterPackages: (state, action) => {
+            state.viewPackages = action.payload
+        },
         setError: (state, action) => {
             state.error = action.payload;
         }
     }
 })
 
-export const {getAllPackages, getPackageById, setError} = packageSlice.actions;
+export const {getAllPackages, getPackageById, setError, getFilterPackages} = packageSlice.actions;
 
 export default packageSlice.reducer;
