@@ -47,6 +47,7 @@ export default function PackageDetail() {
     }
 
     useEffect(() => {
+        
         //de momento no se puede buscar por id
         //const response = await axios.get(`http://localhost:3001/package/${id}`);
         //la otra que se puede hacer es buscarlo en el state del store
