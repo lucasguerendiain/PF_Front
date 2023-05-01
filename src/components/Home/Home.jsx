@@ -1,14 +1,13 @@
 import React from "react";
-import Navbar from "../components/Navbar/Navbar";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import imagen1 from "../assets/imagen1.png";
-import imagen2 from "../assets/imagen2.png";
-import imagen3 from "../assets/imagen3.png";
-import imagen4 from "../assets/imagen4.png";
-import imagen5 from "../assets/imagen5.png";
-import SearchBar from "../components/SearchBar/SearchBar";
+import imagen1 from "../../assets/imagen1.png";
+import imagen2 from "../../assets/imagen2.png";
+import imagen3 from "../../assets/imagen3.png";
+import imagen4 from "../../assets/imagen4.png";
+import imagen5 from "../../assets/imagen5.png";
+import SearchBar from "../SearchBar/SearchBar"
 import "./Home.css";
 
 const Home = () => {

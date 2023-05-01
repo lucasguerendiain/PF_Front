@@ -15,12 +15,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li className={style.navItem + " nav-item"}>
-              <Link className={style.navLink + " nav-link"} to="/destinos">
-                Destinos
+              <Link className={style.navLink + " nav-link"} to="/form">
+                Crear formulario
               </Link>
             </li>
             <li className={style.navItem + " nav-item"}>
-              <Link className={style.navLink + " nav-link"} to="/container">
+              <Link className={style.navLink + " nav-link"} to="/cards">
                 Ofertas y paquetes
               </Link>
             </li>
@@ -36,12 +36,12 @@ const Navbar = () => {
             </li>
 
             <li className={style.navItem + " nav-item"}>
-              <Link className={style.navLink + " nav-link"} to="/turismo">
-                Turismo
+              <Link className={style.navLink + " nav-link"} to="/carrito">
+                carrito
               </Link>
             </li>
             <li className={style.navItem + " nav-item ml-auto"}>
-              <Link className={style.navLink + " nav-link"} to="/iniciar-sesion">
+              <Link className={style.navLink + " nav-link"} to="/login">
                 <FaUser /> Iniciar sesión {/* Icono de usuario de react-icons */}
               </Link>
             </li>
