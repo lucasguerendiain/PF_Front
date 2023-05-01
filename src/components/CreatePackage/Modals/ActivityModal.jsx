@@ -2,9 +2,15 @@ import React from "react";
 import BasicModal from "./BasicModal";
 import { useState, useEffect } from "react";
 import { validateActivity } from "./validateActivity";
-import { Grid, TextField } from '@mui/material';
+import { Grid, MenuItem, TextField } from '@mui/material';
 
 export default function ActivityModal({open, handleClose, addNewItem, defaultValues}) {
+    const [tipo, setTipo] = useState("");
+
+    const handleSelect = (event) => {
+        setTipo(event.target.value);
+    }
+
     const getContent = () => {
         return(
         <Grid container spacing={2} sx={{display: "flex", flexDirection: "column", m: 2}}>
@@ -65,6 +71,21 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
             helperText={errors.img}
             />
         </Grid>
+        <Grid >
+            <TextField
+                label="activity type"
+                select
+                value={tipo}
+                onChange={handleSelect}
+                fullWidth
+            >
+                <MenuItem value="treking">treking</MenuItem>
+                <MenuItem value="bike">bike</MenuItem>
+                <MenuItem value="travel">travel</MenuItem>
+                <MenuItem value="relax">relax</MenuItem>
+                <MenuItem value="show">show</MenuItem>
+            </TextField>
+        </Grid>
         </Grid>
         )
     }
@@ -75,8 +96,12 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
     const handleSubmit = (event) => {
         event.preventDefault();
         if (Object.values(errors).length === 0){
-            addNewItem(inputs);
-
+            const datosCombinados = {
+                ...inputs,
+                typeAct: tipo
+            }
+            addNewItem(datosCombinados);
+            setTipo("");
         }
     }
 

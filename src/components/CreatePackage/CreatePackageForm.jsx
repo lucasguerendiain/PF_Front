@@ -13,12 +13,24 @@ import BasicCard from './commons/BasicCard';
 import GenericSearchBar from './commons/GenericSearchBar';
 import ActivityModal from './Modals/ActivityModal';
 import HotelModal from './Modals/HotelModal';
+import FindHotelModal from '../CustomPackage/FindHotelModal';
 
 const theme = createTheme();
+
+const styles = {
+    width: "100%",
+    border: "1px solid black",
+    borderRadius: "3px",
+    borderShadow: "5px",
+    fontSize: "1.3rem"
+}
 
 export default function CreatePackageForm() {
     const [openActi, setOpenActi] = useState(false);
     const [openHotel, setOpenHotel] = useState(false);
+    //const [openResto, setOpenResto] = useState(false);
+    const [findHotelOpen, setFindHotelOpen] = useState(false);
+    //const [findRestoOpen, setFinRestoOpen] = useState(false);
     const [inputs, setInputs] = useState({
         name: "",
         location: "",
@@ -27,9 +39,8 @@ export default function CreatePackageForm() {
         img: "",
         description: "",
         quotas: "",
-        date: "",
-        hotel: "",
-        restaurant: "",
+        dateInit: "",
+        dateEnd: "",
     });
     const [errors, setErrors] = useState({
         name: "",
@@ -39,27 +50,30 @@ export default function CreatePackageForm() {
         img: "",
         description: "",
         quotas: "",
-        date: "",
+        dateInit: "",
+        dateEnd: ""
     });
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState([]);
-    const [resto, setResto] = useState([]);
+    //const [resto, setResto] = useState([]);
 
     const defaultValuesActivity = {
         name: "",
         description: "",
         duration: "",
-        img: ""
+        img: "",
+        typeAct: ""
     }
     const defaultValuesHotel = {
         name: "",
         location: "",
         img: "",
         description: "",
-        stars: ""
+        stars: "",
+        priceDay: ""
     }
 
-    const getHeader = (texto, boton, funcionOpen) => {
+    const getHeader = (texto, boton1, boton2, funcionOpen, funcionOpen2 = () => {}) => {
         return (
             <Box sx={{
                 display: "flex",
@@ -67,18 +81,27 @@ export default function CreatePackageForm() {
                 justifyContent: "space-between",
                 paddingLeft: "10px",
                 paddingRight: "10px",
-                height: "60px",
+                height: "100%",
                 backgroundColor: 'lightcyan',
                 border: "1px solid black",
-                width: "600px"
+                width: "100%"
             }}>
                 <GenericSearchBar placeholder={texto} onChange={(event) => {console.log(event.target.value)}}/>
-                <Box>
+                <Box >
                     <Button
                         onClick={funcionOpen}
                         variant='contained'
+                        size='small'
                     >
-                        {boton}
+                        {boton1}
+                    </Button>
+                    <br/>
+                    <Button
+                        onClick={funcionOpen2}
+                        variant='contained'
+                        size='small'
+                    >
+                        {boton2}
                     </Button>
                 </Box>
             </Box>
@@ -95,10 +118,18 @@ export default function CreatePackageForm() {
 
     const addNewHotel = (data) => {
         setHotels([
-            ...hotels,
             data
         ]);
         setOpenHotel(false);
+        setFindHotelOpen(false);
+    }
+
+    const deleteActi = (id) => {
+        setActivities(activities.filter((elem, index) => index !== id));
+    }
+
+    const deleteHotel = () => {
+        setHotels("");
     }
 
     const getContent = (type) => {
@@ -119,6 +150,8 @@ export default function CreatePackageForm() {
                             <Typography>{item.description}</Typography>
                             <Typography>{item.duration} days</Typography>
                             <Typography>{item.img}</Typography>
+                            <Typography>{item.typeAct}</Typography>
+                            <Button variant='contained' size='small' onClick={() => deleteActi(index)}>X</Button>
                         </Box> 
                     )
                 }))
@@ -135,12 +168,14 @@ export default function CreatePackageForm() {
                                 backgroundColor: 'cyan',
                                 marginBottom: "4px",
                                 marginTop: "4px"}
-                            }> Hotel {index}: 
+                            }> Hotel: 
                             <Typography>{item.name}</Typography>
                             <Typography>{item.description}</Typography>
                             <Typography>{item.location}</Typography>
                             <Typography>{item.img}</Typography>
                             <Typography>{item.stars} estrellas</Typography>
+                            <Typography>{item.priceDay} USD/day</Typography>
+                            <Button variant='contained' size='small' onClick={() => deleteHotel()}>X</Button>
                         </Box> 
                     )
                 })) : ("no hay hoteles de momento")
@@ -170,13 +205,14 @@ export default function CreatePackageForm() {
             img: inputs.img,
             description: inputs.description,
             quotas: inputs.quotas,
-            date: inputs.date,
+            dateInit: inputs.dateInit,
+            dateEnd: inputs.dateEnd,
             hotel: hotels
         });
     };
 
     useEffect(() => {
-        setErrors(validation(inputs));
+        setErrors(validation(inputs, activities));
     }, [inputs]);
 
     return (
@@ -188,7 +224,8 @@ export default function CreatePackageForm() {
                 marginTop: 8,
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
+                alignItems: "center",
+                width: "40vw"
             }}
             >
             <Typography component="h1" variant="h3">
@@ -294,20 +331,33 @@ export default function CreatePackageForm() {
                     <TextField
                     required
                     fullWidth
-                    id="date"
-                    label="Date"
-                    name="date"
-                    autoComplete="date"
+                    id="dateInit"
+                    label="Date init"
+                    name="dateInit"
+                    autoComplete="dateInit"
                     onChange={handleChange}
-                    error={!!errors.date}
-                    helperText={errors.date}
+                    error={!!errors.dateInit}
+                    helperText={errors.dateInit}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    id="dateEnd"
+                    label="Date finish"
+                    name="dateEnd"
+                    autoComplete="dateEnd"
+                    onChange={handleChange}
+                    error={!!errors.dateEnd}
+                    helperText={errors.dateEnd}
                     />
                 </Grid>
                 </Grid>
                 <br/>
-                <Grid item xs={8} sx={{marginLeft:"320px"}}>
+                <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("buscate la actividad", "Add new Activity", () => setOpenActi(true))} 
+                        header={getHeader("buscate la actividad", "Add new Activity", "add existing activity", () => setOpenActi(true), () => alert("componente muestra actividades"))} 
                         content={getContent("ACTIVITY")}/>
                     <ActivityModal 
                         open={openActi} 
@@ -316,15 +366,20 @@ export default function CreatePackageForm() {
                         defaultValues={defaultValuesActivity}/>
                 </Grid>
                 <br/>
-                <Grid item xs={8} sx={{marginLeft:"320px"}}>
+                <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("buscate el hotel", "Add new Hotel", () => setOpenHotel(true))} 
+                        header={getHeader("buscate el hotel", "Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => setFindHotelOpen(true))} 
                         content={getContent("HOTEL")}/>
                     <HotelModal 
                         open={openHotel} 
                         handleClose={() => setOpenHotel(false)} 
                         addNewItem={addNewHotel} 
                         defaultValues={defaultValuesHotel}/>
+                    <FindHotelModal
+                        open={findHotelOpen}
+                        handleClose={() => setFindHotelOpen(false)}
+                        handleAdd={addNewHotel}
+                    />
                 </Grid>
                 <Button
                 type="submit"

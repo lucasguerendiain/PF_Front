@@ -98,7 +98,6 @@ export default function FindHotelModal({open, handleClose, handleAdd}) {
         aria-describedby="modal-modal-description"
         >
             <Container sx={styles}>
-                {console.log(views)}
             <Grid container spacing={4}>
                 <Grid item xs={8} sx={{marginLeft:"320px"}}>
                     <Card sx={{
