@@ -5,10 +5,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
+import { agregarActivitie } from "../../redux/actions/carritoActions";
 
 export default function Actividades(props) {
   const { name, duration, img, description, typeAct, price } = props.actividad;
-  console.log(props.actividades, "elias");
+  const dispatch = useDispatch();
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -25,7 +27,7 @@ export default function Actividades(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Add to cart</Button>
+        <Button size="small" onClick={dispatch(agregarActivitie)}>Add to cart</Button>
         <Button size="small"></Button>
       </CardActions>
     </Card>

@@ -256,7 +256,7 @@ export default function CreatePackageForm() {
                 dateInit: a,
                 dateEnd: b,
                 hotelId: hotelId.data.id,
-                restaurantId: restaurantId.data.id,
+                restaurantId: [restaurantId.data.id],
                 activitiesId: activitiesID,
                 userId: userId.data.id,
             }
