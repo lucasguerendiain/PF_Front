@@ -47,7 +47,6 @@ export default function PackageDetail() {
     }
 
     useEffect(() => {
-        
         //de momento no se puede buscar por id
         //const response = await axios.get(`http://localhost:3001/package/${id}`);
         //la otra que se puede hacer es buscarlo en el state del store
@@ -109,7 +108,7 @@ export default function PackageDetail() {
     }, []);
 
     return (
-        <div className="container">
+        <Box className="containerDetail">
                 <Typography variant="h1" gutterBottom>
                     {pack.name}
                 </Typography>
@@ -143,7 +142,6 @@ export default function PackageDetail() {
                         })
                     }
                 </Slider>
-                <h3>esto seguro se cambia por una lista de valores, mucho laburo sino</h3>
                 <br/>
                 <Typography variant="h3">Hotel:</Typography>
                 {pack.hotel && <Box 
@@ -152,7 +150,8 @@ export default function PackageDetail() {
                         height: "auto",
                         backgroundColor: "lightgrey",
                         justifyContent: "center",
-                        alignItems: "center"
+                        alignItems: "center",
+                        marginLeft: "20%"
                     }}>
                     <Card>
                         <CardMedia
@@ -178,6 +177,6 @@ export default function PackageDetail() {
         arriba del todo para dejar un comentario nuevo
         y abajo de eso el display de los comentarios ya existentes
         */}
-        </div>
+        </Box>
     );
 }
