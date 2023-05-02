@@ -10,10 +10,10 @@ export const carritoSlice = createSlice({
     name:"carrito",
     initialState,
     reducers: {
-        addActivities: (state, action) => {
+        addActivitie: (state, action) => {
             state.activities = [...state.activities, action.payload]
         },
-        deleteActivities: (state, action) => {
+        deleteActivitie: (state, action) => {
             state.activities = state.activities.filter(activity => activity.name !== action.payload)
         },
         addRestaurant: (state, action) => {
@@ -26,11 +26,11 @@ export const carritoSlice = createSlice({
             state.hotel = action.payload;
         },
         deleteHotel: (state, action) => {
-            state.hotel = action.payload;
+            state.hotel = "";
         }
     }
 })
 
-export const { addRestaurant, deleteRestaurant, addHotel, deleteHotel} = carritoSlice.actions;
+export const { addRestaurant, deleteRestaurant, addHotel, deleteHotel, addActivitie, deleteActivitie} = carritoSlice.actions;
 
 export default carritoSlice.reducer;

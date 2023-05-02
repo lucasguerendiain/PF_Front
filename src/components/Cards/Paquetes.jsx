@@ -61,7 +61,7 @@ export default function Paquete(props) {
           title={name}
           subheader={`${duration} dias`}
         />
-        <CardMedia component="img" height="194" image={img} alt="" />
+        <CardMedia component="img" height="194" image={img[0]} alt="" />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             {description}
