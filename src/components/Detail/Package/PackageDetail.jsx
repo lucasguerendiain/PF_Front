@@ -32,7 +32,8 @@ export default function PackageDetail() {
         img: [],
         description: "si estas viendo esto, fallo algo",
         quotas: 0,
-        date: "",
+        dateInit: "",
+        dateEnd: "",
         hotel: "",
         resto: "",
         activities: []
@@ -63,37 +64,48 @@ export default function PackageDetail() {
                 ],
             description: "Disfruta de una semana inolvidable en Playa del Carmen, hospedándote en el Hotel Riviera Maya. Incluye todas las comidas en el restaurante del hotel y actividades como tour en lancha por la costa, visita a las ruinas mayas de Tulum y masajes relajantes en el spa del hotel. Cupos limitados. Fechas disponibles: del 1 al 7 de agosto de 2023.",
             quotas: 10,
-            date: "2023-08-01",
+            dateInit: "12/5/23",
+            dateEnd: "12/9/23",
             activities: [
                 {
                     "name": "Actividad 1",
                     "duration": 5,
                     "img": ["https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg"],
-                    "description": "Únete a nosotros en una caminata espectacular al Glaciar Viedma, uno de los glaciares más grandes de la Patagonia. "
+                    "description": "Únete a nosotros en una caminata espectacular al Glaciar Viedma, uno de los glaciares más grandes de la Patagonia. ",
+                    "typeAct": "treking",
+                    "price": 250
                 },
                 {
                     "name": "Actividad 2",
                     "duration": 4,
                     "img": ["https://cdn0.ecologiaverde.com/es/posts/7/7/4/animales_que_viven_en_el_campo_3477_orig.jpg"],
-                    "description": "Embárcate en una aventura única a través del Canal de Beagle, uno de los lugares más icónicos de la Patagonia. "
+                    "description": "Embárcate en una aventura única a través del Canal de Beagle, uno de los lugares más icónicos de la Patagonia. ",
+                    "typeAct": "bike",
+                    "price": 150
                 },
                 {
                     "name": "Actividad 3",
                     "duration": 10,
                     "img": ["https://cdn0.ecologiaverde.com/es/posts/6/7/4/animales_de_la_ciudad_3476_orig.jpg"],
-                    "description": "Experimenta el desafío de una subida al Cerro Torre, la montaña más icónica de la Patagonia."
+                    "description": "Experimenta el desafío de una subida al Cerro Torre, la montaña más icónica de la Patagonia.",
+                    "typeAct": "show",
+                    "price": 370
                 },
                 {
                     "name": "Actividad 4",
                     "duration": 6,
                     "img": ["https://www.rainforest-alliance.org/wp-content/uploads/2021/06/capybara-square-1.jpg.optimal.jpg"],
-                    "description": "Explora la belleza natural del Parque Nacional Tierra del Fuego, ubicado en la región más austral de la Patagonia. "
+                    "description": "Explora la belleza natural del Parque Nacional Tierra del Fuego, ubicado en la región más austral de la Patagonia. ",
+                    "typeAct": "travel",
+                    "price": 230
                 },
                 {
                     "name": "Actividad 5",
                     "duration": 5,
                     "img": ["https://upload.wikimedia.org/wikipedia/commons/7/72/Igel.JPG"],
-                    "description": "Descubre la Patagonia de una forma diferente, a caballo en la Estancia Cristina."
+                    "description": "Descubre la Patagonia de una forma diferente, a caballo en la Estancia Cristina.",
+                    "typeAct": "relax",
+                    "price": 400
                 }
             ],
             hotel: {
@@ -126,7 +138,8 @@ export default function PackageDetail() {
                 <Typography variant="h4" gutterBottom>Duration: {pack.duration} days</Typography>
                 <Typography variant="h4" gutterBottom>Description: {pack.description}</Typography>
                 <Typography variant="h4" gutterBottom>Qutoas: {pack.quotas}</Typography>
-                <Typography variant="h4" gutterBottom>Date: {pack.date}</Typography>
+                <Typography variant="h4" gutterBottom>Date start: {pack.dateInit}</Typography>
+                <Typography variant="h4" gutterBottom>Date end: {pack.dateEnd}</Typography>
                 </div>
                 <Typography variant="h3">Actividades: </Typography>
                 <Slider {...settings2}>
@@ -170,7 +183,7 @@ export default function PackageDetail() {
                         </CardActions>
                     </Card>
                 </Box>}
-                <Typography variant="h2">Price: {pack.price} USD</Typography>
+                <Typography variant="h2" gutterBottom>Price: {pack.price} USD</Typography>
                 <Button variant="contained" onClick={handleBuy}>Buy</Button>
         {/*
         abajo de esto vendria el componente de los comentarios:
