@@ -78,6 +78,20 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
             helperText={errors.stars}
             />
         </Grid>
+        <Grid>
+        <TextField 
+            placeholder='price by day' 
+            name='priceDay'
+            id='priceDay'
+            label="Price by day"
+            value={inputs.priceDay} 
+            required
+            fullWidth
+            onChange={handleChange}
+            error={!!errors.priceDay}
+            helperText={errors.priceDay}
+            />
+        </Grid>
         </Grid>
         )
     }
