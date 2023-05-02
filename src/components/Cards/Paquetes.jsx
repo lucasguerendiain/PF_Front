@@ -54,12 +54,12 @@ export default function Paquete(props) {
       <CardActionArea key={id} href={`/package/${id}`}>
         <CardHeader
           action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
+            <Typography>
+              {`$ ${price}`}
+            </Typography>
           }
           title={name}
-          subheader={`${dateInit} to ${dateEnd}`}
+          subheader={`${duration} dias`}
         />
         <CardMedia component="img" height="194" image={img} alt="" />
         <CardContent>

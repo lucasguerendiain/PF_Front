@@ -7,7 +7,6 @@ import imagen2 from "../../assets/imagen2.png";
 import imagen3 from "../../assets/imagen3.png";
 import imagen4 from "../../assets/imagen4.png";
 import imagen5 from "../../assets/imagen5.png";
-import SearchBar from "../SearchBar/SearchBar"
 import "./Home.css";
 
 const Home = () => {
