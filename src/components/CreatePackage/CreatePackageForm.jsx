@@ -57,7 +57,7 @@ export default function CreatePackageForm() {
         dateEnd: ""
     });
     const [activities, setActivities] = useState([]);
-    const [hotels, setHotels] = useState([]);
+    const [hotels, setHotels] = useState("");
     const [resto, setResto] = useState({});
 
     const defaultValuesActivity = {
@@ -197,27 +197,24 @@ export default function CreatePackageForm() {
                 : ("no hay actividades cargadas")
             };
             case "HOTEL": {
-                return hotels.length
-                ? (hotels.map((item, index) => {
-                    return (
-                        <Box 
-                            key={index} 
+                return hotels
+                ? (<Box 
                             sx={{
                                 border: "1px solid black",
                                 backgroundColor: 'cyan',
                                 marginBottom: "4px",
                                 marginTop: "4px"}
                             }> Hotel: 
-                            <Typography>{item.name}</Typography>
-                            <Typography>{item.description}</Typography>
-                            <Typography>{item.location}</Typography>
-                            <Typography>{item.img}</Typography>
-                            <Typography>{item.stars} estrellas</Typography>
-                            <Typography>{item.priceDay} USD/day</Typography>
+                            <Typography>{hotels.name}</Typography>
+                            <Typography>{hotels.description}</Typography>
+                            <Typography>{hotels.location}</Typography>
+                            <Typography>{hotels.img}</Typography>
+                            <Typography>{hotels.stars} estrellas</Typography>
+                            <Typography>{hotels.priceDay} USD/day</Typography>
                             <Button variant='contained' size='small' onClick={() => deleteHotel()}>X</Button>
                         </Box> 
                     )
-                })) : ("no hay hoteles de momento")
+                : ("no hay hoteles de momento")
             };
             default: {
                 return "fallo algo"
