@@ -58,13 +58,7 @@ export default function CreatePackageForm() {
     });
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState([]);
-    const [resto, setResto] = useState({
-            name: "Restaurant 1",
-            location: "Bariloche, Argentina",
-            img: "https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6",
-            price: "2800",
-            description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
-    });
+    const [resto, setResto] = useState({});
 
     const defaultValuesActivity = {
         name: "",
@@ -84,25 +78,33 @@ export default function CreatePackageForm() {
 
     const handlePreLoad = (number) => {
         switch(number) {
-            case "1": {
+            case "uno": {
                 setInputs(package1.package);
                 setHotels(package1.hotel);
                 setActivities(package1.activities);
+                setResto(package1.resto);
+                break;
             };
-            case "2": {
+            case "dos": {
                 setInputs(package2.package);
                 setHotels(package2.hotel);
                 setActivities(package2.activities);
+                setResto(package2.resto);
+                break;
             };
-            case "3": {
+            case "tres": {
                 setInputs(package3.package);
                 setHotels(package3.hotel);
                 setActivities(package3.activities);
+                setResto(package3.resto);
+                break;
             };
-            case "4": {
-                setInputs(package3.package);
-                setHotels(package3.hotel);
-                setActivities(package3.activities);
+            case "cuatro": {
+                setInputs(package4.package);
+                setHotels(package4.hotel);
+                setActivities(package4.activities);
+                setResto(package4.resto);
+                break;
             };
             default: {
                 alert("error");
@@ -233,27 +235,37 @@ export default function CreatePackageForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        //primero postea las acitividades
-        //postea hoteles
-        //postea restaurantes
-        //postea el paquete
-        //con userId = 0
         if (Object.values(errors).length === 0) {
-            const restaurantId = await axios.post("http://localhost:3001/restaurant",resto).id;
-            const hotelId = await axios.post("http://localhost:3001/hotel",hotels).id;
-            const activitiesID = activities.map(async (elem) => {
-                return await axios.post("http://localhost:3001/activity", elem).id;
-            });
+            const restaurantId = (await axios.post("http://localhost:3001/restaurant",resto));
+            const hotelId = await axios.post("http://localhost:3001/hotel", hotels);
+            const activitiesID = [];
+            for (let i = 0; i < activities.length; i++){
+                const actviId = await axios.post("http://localhost:3001/activity", activities[i]);
+                activitiesID.push(actviId.data.id);
+            }
+            const usuario = {
+                userName: "nada",
+                email: "nada",
+                password: "123456",
+                lastName: "perez",
+                social: true,
+                socialRed: "feisbuh"
+            }
+            const a = new Date(inputs.dateInit);
+            const b = new Date(inputs.dateEnd); 
+            const userId = await axios.post("http://localhost:3001/user", usuario);
             const body = {
                 ...inputs,
-                hotelId: hotelId,
-                restaurantId: restaurantId,
+                dateInit: a,
+                dateEnd: b,
+                hotelId: hotelId.data.id,
+                restaurantId: restaurantId.data.id,
                 activitiesId: activitiesID,
-                userId: "0",
+                userId: userId.data.id,
             }
             axios.post("http://localhost:3001/package", body)
             .then(response => console.log(response.data))
-            .catch(error => console.log(error.message));
+            .catch(error => console.log(error.data));
         }
     };
 
@@ -291,6 +303,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.name}
                     helperText={errors.name}
+                    value={inputs.name}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -304,6 +317,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.location}
                     helperText={errors.location}
+                    value={inputs.location}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -318,6 +332,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.price}
                     helperText={errors.price}
+                    value={inputs.price}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -332,6 +347,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.duration}
                     helperText={errors.duration}
+                    value={inputs.duration}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -345,6 +361,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.img}
                     helperText={errors.img}
+                    value={inputs.img}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -358,6 +375,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.description}
                     helperText={errors.description}
+                    value={inputs.description}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -371,6 +389,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.quotas}
                     helperText={errors.quotas}
+                    value={inputs.quotas}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -384,6 +403,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.dateInit}
                     helperText={errors.dateInit}
+                    value={inputs.dateInit}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -397,6 +417,7 @@ export default function CreatePackageForm() {
                     onChange={handleChange}
                     error={!!errors.dateEnd}
                     helperText={errors.dateEnd}
+                    value={inputs.dateEnd}
                     />
                 </Grid>
                 </Grid>
@@ -436,15 +457,12 @@ export default function CreatePackageForm() {
                 Confirmar
                 </Button>
             </Box>
-                <Card>
-                    cargarDatosPredefinidos
-                    <CardActions>
-                        <Button size='small' variant='contained' onClick={handlePreLoad(1)}>1</Button>
-                        <Button size='small' variant='contained' onClick={handlePreLoad(2)}>2</Button>
-                        <Button size='small' variant='contained' onClick={handlePreLoad(3)}>3</Button>
-                        <Button size='small' variant='contained' onClick={handlePreLoad(4)}>4</Button>
-                    </CardActions>
-                </Card>
+                <Box>
+                        <Button size='small' variant='contained' onClick={() => handlePreLoad("uno")}>1</Button>
+                        <Button size='small' variant='contained' onClick={() => handlePreLoad("dos")}>2</Button>
+                        <Button size='small' variant='contained' onClick={() => handlePreLoad("tres")}>3</Button>
+                        <Button size='small' variant='contained' onClick={() => handlePreLoad("cuatro")}>4</Button>
+                </Box>
             </Box>
         </Container>
         </ThemeProvider>
