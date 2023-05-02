@@ -14,6 +14,9 @@ import GenericSearchBar from './commons/GenericSearchBar';
 import ActivityModal from './Modals/ActivityModal';
 import HotelModal from './Modals/HotelModal';
 import FindHotelModal from '../CustomPackage/FindHotelModal';
+import axios from "axios";
+import { CardActions } from '@mui/material';
+import { package1, package2, package3, package4 } from './loadPackage';
 
 const theme = createTheme();
 
@@ -55,7 +58,13 @@ export default function CreatePackageForm() {
     });
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState([]);
-    //const [resto, setResto] = useState([]);
+    const [resto, setResto] = useState({
+            name: "Restaurant 1",
+            location: "Bariloche, Argentina",
+            img: "https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6",
+            price: "2800",
+            description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
+    });
 
     const defaultValuesActivity = {
         name: "",
@@ -71,6 +80,34 @@ export default function CreatePackageForm() {
         description: "",
         stars: "",
         priceDay: ""
+    }
+
+    const handlePreLoad = (number) => {
+        switch(number) {
+            case "1": {
+                setInputs(package1.package);
+                setHotels(package1.hotel);
+                setActivities(package1.activities);
+            };
+            case "2": {
+                setInputs(package2.package);
+                setHotels(package2.hotel);
+                setActivities(package2.activities);
+            };
+            case "3": {
+                setInputs(package3.package);
+                setHotels(package3.hotel);
+                setActivities(package3.activities);
+            };
+            case "4": {
+                setInputs(package3.package);
+                setHotels(package3.hotel);
+                setActivities(package3.activities);
+            };
+            default: {
+                alert("error");
+            }
+        }
     }
 
     const getHeader = (texto, boton1, boton2, funcionOpen, funcionOpen2 = () => {}) => {
@@ -194,21 +231,30 @@ export default function CreatePackageForm() {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log({
-            name: inputs.name,
-            location: inputs.location,
-            price: inputs.price,
-            activities: activities,
-            duration: inputs.duration,
-            img: inputs.img,
-            description: inputs.description,
-            quotas: inputs.quotas,
-            dateInit: inputs.dateInit,
-            dateEnd: inputs.dateEnd,
-            hotel: hotels
-        });
+        //primero postea las acitividades
+        //postea hoteles
+        //postea restaurantes
+        //postea el paquete
+        //con userId = 0
+        if (Object.values(errors).length === 0) {
+            const restaurantId = await axios.post("http://localhost:3001/restaurant",resto).id;
+            const hotelId = await axios.post("http://localhost:3001/hotel",hotels).id;
+            const activitiesID = activities.map(async (elem) => {
+                return await axios.post("http://localhost:3001/activity", elem).id;
+            });
+            const body = {
+                ...inputs,
+                hotelId: hotelId,
+                restaurantId: restaurantId,
+                activitiesId: activitiesID,
+                userId: "0",
+            }
+            axios.post("http://localhost:3001/package", body)
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error.message));
+        }
     };
 
     useEffect(() => {
@@ -390,6 +436,15 @@ export default function CreatePackageForm() {
                 Confirmar
                 </Button>
             </Box>
+                <Card>
+                    cargarDatosPredefinidos
+                    <CardActions>
+                        <Button size='small' variant='contained' onClick={handlePreLoad(1)}>1</Button>
+                        <Button size='small' variant='contained' onClick={handlePreLoad(2)}>2</Button>
+                        <Button size='small' variant='contained' onClick={handlePreLoad(3)}>3</Button>
+                        <Button size='small' variant='contained' onClick={handlePreLoad(4)}>4</Button>
+                    </CardActions>
+                </Card>
             </Box>
         </Container>
         </ThemeProvider>
