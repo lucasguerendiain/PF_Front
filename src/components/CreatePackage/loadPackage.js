@@ -14,7 +14,7 @@ export const package1 = {
         description: "Manuelita vivia en pehuajo, pero un dia se marcho...",
         quotas: 75,
         dateInit: "12/5/23",
-        dateEnd: "16/5/23",
+        dateEnd: "12/9/23",
     },
     activities: [
             {
@@ -82,8 +82,8 @@ export const package2 = {
         ],
         description: "nadie supo bien por que, a paris ella se fue...",
         quotas: 75,
-        dateInit: "12/5/23",
-        dateEnd: "17/5/23",
+        dateInit: "5/12/23",
+        dateEnd: "5/17/23",
     },
     activities: [
             {
@@ -151,8 +151,8 @@ export const package3 = {
         ],
         description: "un poquito caminando y otro poquitito a pie...",
         quotas: 75,
-        dateInit: "15/5/23",
-        dateEnd: "18/5/23",
+        dateInit: "5/15/23",
+        dateEnd: "5/18/23",
     },
     activities: [
             {
@@ -220,8 +220,8 @@ export const package4 = {
         ],
         description: "Manuelita *clap* *clap* *clap*, Mauenlita *clap* *clap* *clap*, Manuelita donde vas...",
         quotas: 75,
-        dateInit: "12/5/23",
-        dateEnd: "22/5/23",
+        dateInit: "5/12/23",
+        dateEnd: "5/22/23",
     },
     activities: [
             {
