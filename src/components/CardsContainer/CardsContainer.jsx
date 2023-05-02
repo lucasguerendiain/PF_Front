@@ -20,7 +20,7 @@ import TextField from "@mui/material/TextField";
 
 export default function CardsContainer() {
   // const {paquetes} = useSelector((state) => state.allPackages)
-  // const {actividades} = useSelector((state) => state.allActivities)
+  
   const [paquetes, setPaquetes] = useState([]);
   const dispatch = useDispatch()
 
@@ -359,16 +359,6 @@ export default function CardsContainer() {
           <p>No hay paquetes que mostrar</p>
         )}
       </Grid>
-      {/* <div>
-            {actividades.length ? (
-
-                actividades.map((a,index) => (
-                    <Actividades key={index} actividad={a}/>
-                ))
-            ) : (
-                <p>No hay actividades que mostrar</p>
-            )}
-        </div> */}
       <Link to={"/home"}>
         <Button variant="contained">Home</Button>
       </Link>

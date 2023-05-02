@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-const Actividades = (props) => {
-    const { name,img,duration } = props.actividades
-    return(
-        <div>
-            <h1>{name}</h1>
-            {img.map((i) => {
-                <img src={i} alt="image"></img>
-            })}
-            <p>Duración: {duration}</p>
-        </div>
-    )
+export default function Actividades(props) {
+  const { name, duration, img, description, typeAct, price } = props.actividad;
+  console.log(props.actividades, "elias");
+
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia component="img" alt="actividad" height="140" image={img} />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {name}
+        </Typography>
+        <Typography>
+            {price}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Add to cart</Button>
+        <Button size="small"></Button>
+      </CardActions>
+    </Card>
+  );
 }
-
-export default Actividades

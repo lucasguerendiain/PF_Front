@@ -9,6 +9,7 @@ import CardsContainer from './components/CardsContainer/CardsContainer'
 import PackageDetail from './components/Detail/Package/PackageDetail';
 import Navbar from './components/Navbar/Navbar';
 import CustomPackage from './components/CustomPackage/CustomPackage';
+import ActivityCardContainer from './components/CardsContainer/ActivityCardContainer';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/cards' element={<CardsContainer/>}/>
           <Route path='/detail' element={<PackageDetail/>}/>
           <Route path='/carrito' element={<CustomPackage/>}/>
+          <Route path="/activitycards" element={<ActivityCardContainer/>}/>
         </Routes>
         <Footer />
       </div>

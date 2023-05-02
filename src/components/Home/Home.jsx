@@ -7,7 +7,6 @@ import imagen2 from "../../assets/imagen2.png";
 import imagen3 from "../../assets/imagen3.png";
 import imagen4 from "../../assets/imagen4.png";
 import imagen5 from "../../assets/imagen5.png";
-import SearchBar from "../SearchBar/SearchBar"
 import "./Home.css";
 
 const Home = () => {
@@ -30,7 +29,6 @@ const Home = () => {
         <h3>La Patagonia es una de las regiones más hermosas y salvajes de América del Sur. Con sus vastas llanuras, majestuosas montañas y glaciares, bosques imponentes y una fauna única, la Patagonia es un paraíso para los amantes de la naturaleza y los aventureros por igual.</h3>
         
         <div className="search-container">
-          <SearchBar />
           <div className="search-img-container">
             <img src={imagen5} alt="Imagen 5" className="search-img" />
             <img src={imagen4} alt="Imagen 4" className="search-img-right" />
