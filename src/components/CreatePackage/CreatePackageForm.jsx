@@ -58,13 +58,7 @@ export default function CreatePackageForm() {
     });
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState([]);
-    const [resto, setResto] = useState([{
-            name: "Restaurant 1",
-            location: "Bariloche, Argentina",
-            img: "https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6",
-            price: "2800",
-            description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
-    },]);
+    const [resto, setResto] = useState({});
 
     const defaultValuesActivity = {
         name: "",
@@ -88,24 +82,28 @@ export default function CreatePackageForm() {
                 setInputs(package1.package);
                 setHotels(package1.hotel);
                 setActivities(package1.activities);
+                setResto(package1.resto);
                 break;
             };
             case "dos": {
                 setInputs(package2.package);
                 setHotels(package2.hotel);
                 setActivities(package2.activities);
+                setResto(package2.resto);
                 break;
             };
             case "tres": {
                 setInputs(package3.package);
                 setHotels(package3.hotel);
                 setActivities(package3.activities);
+                setResto(package3.resto);
                 break;
             };
             case "cuatro": {
-                setInputs(package3.package);
-                setHotels(package3.hotel);
-                setActivities(package3.activities);
+                setInputs(package4.package);
+                setHotels(package4.hotel);
+                setActivities(package4.activities);
+                setResto(package4.resto);
                 break;
             };
             default: {
@@ -238,11 +236,13 @@ export default function CreatePackageForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (Object.values(errors).length === 0) {
-            const restaurantId = await axios.post("http://localhost:3001/restaurant",resto).id;
-            const hotelId = await axios.post("http://localhost:3001/hotel",hotels).id;
-            const activitiesID = activities.map(async (elem) => {
-                return await axios.post("http://localhost:3001/activity", elem).id;
-            });
+            const restaurantId = (await axios.post("http://localhost:3001/restaurant",resto));
+            const hotelId = await axios.post("http://localhost:3001/hotel", hotels);
+            const activitiesID = [];
+            for (let i = 0; i < activities.length; i++){
+                const actviId = await axios.post("http://localhost:3001/activity", activities[i]);
+                activitiesID.push(actviId.data.id);
+            }
             const usuario = {
                 userName: "nada",
                 email: "nada",
@@ -253,19 +253,19 @@ export default function CreatePackageForm() {
             }
             const a = new Date(inputs.dateInit);
             const b = new Date(inputs.dateEnd); 
-            const userId = await axios.post("http://localhost:3001/user", usuario).id;
+            const userId = await axios.post("http://localhost:3001/user", usuario);
             const body = {
                 ...inputs,
                 dateInit: a,
                 dateEnd: b,
-                hotelId: hotelId,
-                restaurantId: restaurantId,
+                hotelId: hotelId.data.id,
+                restaurantId: restaurantId.data.id,
                 activitiesId: activitiesID,
-                userId: userId,
+                userId: userId.data.id,
             }
             axios.post("http://localhost:3001/package", body)
             .then(response => console.log(response.data))
-            .catch(error => console.log(error.message));
+            .catch(error => console.log(error.data));
         }
     };
 

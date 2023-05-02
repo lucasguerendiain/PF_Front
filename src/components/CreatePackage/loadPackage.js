@@ -3,8 +3,8 @@ export const package1 = {
     package: {
         name: "Guere test package 1",
         location: "pehuajo, Buenos Aires",
-        price: "2000",
-        duration: "4",
+        price: 2000,
+        duration: 4,
         img: [
             "https://upload.wikimedia.org/wikipedia/commons/6/6c/Pehuajo246.JPG",
             "https://static.hendel.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/3/1/31341.jpg",
@@ -23,7 +23,7 @@ export const package1 = {
                 "img": ["https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg"],
                 "description": "Únete a nosotros en una caminata espectacular al Glaciar Viedma, uno de los glaciares más grandes de la Patagonia. ",
                 "typeAct": "treking",
-                "price": "250"
+                "price": 250
             },
             {
                 "name": "Actividad 2",
@@ -31,7 +31,7 @@ export const package1 = {
                 "img": ["https://cdn0.ecologiaverde.com/es/posts/7/7/4/animales_que_viven_en_el_campo_3477_orig.jpg"],
                 "description": "Embárcate en una aventura única a través del Canal de Beagle, uno de los lugares más icónicos de la Patagonia. ",
                 "typeAct": "bike",
-                "price": "150"
+                "price": 150
             },
             {
                 "name": "Actividad 3",
@@ -39,7 +39,7 @@ export const package1 = {
                 "img": ["https://cdn0.ecologiaverde.com/es/posts/6/7/4/animales_de_la_ciudad_3476_orig.jpg"],
                 "description": "Experimenta el desafío de una subida al Cerro Torre, la montaña más icónica de la Patagonia.",
                 "typeAct": "show",
-                "price": "370"
+                "price": 370
             },
             {
                 "name": "Actividad 4",
@@ -47,7 +47,7 @@ export const package1 = {
                 "img": ["https://www.rainforest-alliance.org/wp-content/uploads/2021/06/capybara-square-1.jpg.optimal.jpg"],
                 "description": "Explora la belleza natural del Parque Nacional Tierra del Fuego, ubicado en la región más austral de la Patagonia. ",
                 "typeAct": "travel",
-                "price": "230"
+                "price": 230
             },
             {
                 "name": "Actividad 5",
@@ -55,7 +55,7 @@ export const package1 = {
                 "img": ["https://upload.wikimedia.org/wikipedia/commons/7/72/Igel.JPG"],
                 "description": "Descubre la Patagonia de una forma diferente, a caballo en la Estancia Cristina.",
                 "typeAct": "relax",
-                "price": "400"
+                "price": 400
             }
         ],
     hotel: {
@@ -66,14 +66,21 @@ export const package1 = {
         "stars": 4,
         "priceDay": 1500
     },
+    resto: {
+        name: "Restaurant 1",
+        location: "Bariloche, Argentina",
+        img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
+        price: "2800",
+        description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
+    }
 }
 
 export const package2 = {
     package: {
         name: "Guere test package 2",
         location: "pehuajo, Buenos Aires",
-        price: "2100",
-        duration: "5",
+        price: 2100,
+        duration: 5,
         img: [
             "https://upload.wikimedia.org/wikipedia/commons/6/6c/Pehuajo246.JPG",
             "https://static.hendel.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/3/1/31341.jpg",
@@ -92,7 +99,7 @@ export const package2 = {
                 "img": ["https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg"],
                 "description": "Únete a nosotros en una caminata espectacular al Glaciar Viedma, uno de los glaciares más grandes de la Patagonia. ",
                 "typeAct": "treking",
-                "price": "250"
+                "price": 250
             },
             {
                 "name": "Actividad 2-2",
@@ -100,7 +107,7 @@ export const package2 = {
                 "img": ["https://cdn0.ecologiaverde.com/es/posts/7/7/4/animales_que_viven_en_el_campo_3477_orig.jpg"],
                 "description": "Embárcate en una aventura única a través del Canal de Beagle, uno de los lugares más icónicos de la Patagonia. ",
                 "typeAct": "bike",
-                "price": "150"
+                "price": 150
             },
             {
                 "name": "Actividad 3-2",
@@ -108,7 +115,7 @@ export const package2 = {
                 "img": ["https://cdn0.ecologiaverde.com/es/posts/6/7/4/animales_de_la_ciudad_3476_orig.jpg"],
                 "description": "Experimenta el desafío de una subida al Cerro Torre, la montaña más icónica de la Patagonia.",
                 "typeAct": "show",
-                "price": "370"
+                "price": 370
             },
             {
                 "name": "Actividad 4-2",
@@ -116,7 +123,7 @@ export const package2 = {
                 "img": ["https://www.rainforest-alliance.org/wp-content/uploads/2021/06/capybara-square-1.jpg.optimal.jpg"],
                 "description": "Explora la belleza natural del Parque Nacional Tierra del Fuego, ubicado en la región más austral de la Patagonia. ",
                 "typeAct": "travel",
-                "price": "230"
+                "price": 230
             },
             {
                 "name": "Actividad 5-2",
@@ -134,15 +141,22 @@ export const package2 = {
         "description": "Descubre la tranquilidad de la Patagonia en medio del bosque andino.",
         "stars": 3,
         "priceDay": 2500
-      },
+    },
+    resto: {
+        name: "Restaurant 2",
+        location: "Bariloche, Argentina",
+        img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
+        price: "2800",
+        description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
+    }
 }
 
 export const package3 = {
     package: {
         name: "Guere test package 3",
         location: "pehuajo, Buenos Aires",
-        price: "1900",
-        duration: "3",
+        price: 1900,
+        duration: 3,
         img: [
             "https://upload.wikimedia.org/wikipedia/commons/6/6c/Pehuajo246.JPG",
             "https://static.hendel.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/3/1/31341.jpg",
@@ -204,14 +218,21 @@ export const package3 = {
             "stars": 2,
             "priceDay": 4000
         },
+        resto: {
+            name: "Restaurant 3",
+            location: "Bariloche, Argentina",
+            img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
+            price: "2800",
+            description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
+        }
 }
 
 export const package4 = {
     package: {
         name: "Guere test package 4",
         location: "pehuajo, Buenos Aires",
-        price: "3200",
-        duration: "10",
+        price: 3200,
+        duration: 10,
         img: [
             "https://upload.wikimedia.org/wikipedia/commons/6/6c/Pehuajo246.JPG",
             "https://static.hendel.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/3/1/31341.jpg",
@@ -273,4 +294,11 @@ export const package4 = {
         "stars": 5,
         "priceDay": 2700
     },
+    resto: {
+        name: "Restaurant 4",
+        location: "Bariloche, Argentina",
+        img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
+        price: "2800",
+        description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
+    }
 }
