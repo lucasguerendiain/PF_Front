@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import FindHotelModal from "./FindHotelModal";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
 export default function CustomPackage() {
     const navigate = useNavigate();
@@ -61,6 +62,15 @@ export default function CustomPackage() {
           "price": 3700
         }
       ]);
+
+    const calcularPrecio = (carro, hotel = "") => {
+        let suma = carro.reduce((acumulator, currentValue) => acumulator + currentValue.price, 0);
+        if (hotel) {
+            const dias = Math.ceil(carro.length / 2);
+            suma += dias * hotel.priceDay;
+        }
+        return suma;
+    }
 
     const handleDelete = (name) => {
         //dispatch action del reducer para sacar del carro
@@ -151,7 +161,13 @@ export default function CustomPackage() {
                         handleAdd={addHotel}
                     />
                 </Card>
-                <br/>
+                <Box sx={{backgroundColor: "lightcyan"}}>
+                    <br/>
+                    {carro.length? <Typography variant="h4">Total Price: {calcularPrecio(carro, hotel)} USD</Typography> : ""}
+                    <br/>
+                    {carro.length? <Typography variant="h4">Min days: {Math.ceil(carro.length / 2)}</Typography> : ""}
+                    <br/>
+                </Box>
                 <Button size="large" variant="contained" onClick={() => alert("no esta implementado")}>Buy</Button>
             </Grid>
         </Grid>
