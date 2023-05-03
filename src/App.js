@@ -5,7 +5,7 @@ import CreatePackageForm from "./components/CreatePackage/CreatePackageForm";
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import CardsContainer from './components/CardsContainer/CardsContainer'
+import PackageCardContainer from './components/CardsContainer/PackageCardContainer'
 import PackageDetail from './components/Detail/Package/PackageDetail';
 import Navbar from './components/Navbar/Navbar';
 import CustomPackage from './components/CustomPackage/CustomPackage';
@@ -13,6 +13,8 @@ import ActivityCardContainer from './components/CardsContainer/ActivityCardConta
 import ActivityDetail from './components/Detail/Activity/ActivityDetail';
 import HotelDetail from './components/Detail/Hotel/HotelDetail';
 import RestoDetail from './components/Detail/Resto/RestoDetail';
+import HotelCardContainer from './components/CardsContainer/HotelCardContainer'
+import RestaurantCardContainer from './components/CardsContainer/RestaurantCardContainer';
 
 function App() {
   return (
@@ -25,13 +27,15 @@ function App() {
           <Route path='/form' element={<CreatePackageForm/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path='/cards' element={<CardsContainer/>}/>
+          <Route path='/packagecards' element={<PackageCardContainer/>}/>
           <Route path='/detail' element={<PackageDetail/>}/>
           <Route path='/carrito' element={<CustomPackage/>}/>
           <Route path="/activitycards" element={<ActivityCardContainer/>}/>
           <Route path='/activityDetail' element={<ActivityDetail/>}/>
           <Route path='/hotelDetail' element={<HotelDetail/>}/>
           <Route path='/restoDetail' element={<RestoDetail/>}/>
+          <Route path='/hotelcards' element={<HotelCardContainer/>}/>
+          <Route path='/restaurantcards' element={<RestaurantCardContainer/>}/>
         </Routes>
         <Footer />
       </div>

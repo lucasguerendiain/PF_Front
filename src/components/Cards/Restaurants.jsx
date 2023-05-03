@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import Card from "@mui/material/Card";
 import { CardActionArea } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
@@ -9,18 +9,17 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
-import { useDispatch } from "react-redux";
-import { agregarActivitie } from "../../redux/actions/carritoActions";
+
 
 export default function Actividades(props) {
-  const { id, name, duration, img, description, typeAct, price } =
-    props.actividad;
-  const dispatch = useDispatch();
+  const { id, name, location, img, price, description, comments} =
+    props.restaurants;
+  
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} href={`/activity/byId/${id}`}>
-        <CardMedia component="img" alt="actividad" height="140" image={img} />
+      <CardActionArea key={id} href={`/restaurant/byId/${id}`}>
+        <CardMedia component="img" alt="restaurant" height="140" image={img} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
@@ -33,7 +32,7 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display="flex" justify-content="space-between" align-items="center">
         <CardActions>
-          <Button variant="outlined" onClick={dispatch(agregarActivitie)}>
+          <Button variant="outlined">
             Agregar al carrito
           </Button>
         </CardActions>
