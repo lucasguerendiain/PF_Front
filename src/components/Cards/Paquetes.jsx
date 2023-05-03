@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
-
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
@@ -69,11 +69,11 @@ export default function Paquete(props) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
+      <CardActions>
+        <Button variant="outlined">Agregar al carrito</Button>
+      </CardActions>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -88,9 +88,9 @@ export default function Paquete(props) {
         <CardContent>
           <Typography paragraph>Hotel: </Typography>
           <Typography paragraph>{hotel.name}</Typography>
-          <Typography paragraph>Restaurant: </Typography>
+          <Typography paragraph>Restoran: </Typography>
           <Typography paragraph>{restaurants[0].name}</Typography>
-          <Typography paragraph>Activity: </Typography>
+          <Typography paragraph>Actividad: </Typography>
           <Typography paragraph>{activities[0].name}</Typography>
         </CardContent>
       </Collapse>

@@ -5,7 +5,7 @@ import CreatePackageForm from "./components/CreatePackage/CreatePackageForm";
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import CardsContainer from './components/CardsContainer/CardsContainer'
+import PackageCardContainer from './components/CardsContainer/PackageCardContainer'
 import PackageDetail from './components/Detail/Package/PackageDetail';
 import Navbar from './components/Navbar/Navbar';
 import CustomPackage from './components/CustomPackage/CustomPackage';
@@ -23,7 +23,7 @@ function App() {
           <Route path='/form' element={<CreatePackageForm/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path='/cards' element={<CardsContainer/>}/>
+          <Route path='/packagecards' element={<PackageCardContainer/>}/>
           <Route path='/detail' element={<PackageDetail/>}/>
           <Route path='/carrito' element={<CustomPackage/>}/>
           <Route path="/activitycards" element={<ActivityCardContainer/>}/>
