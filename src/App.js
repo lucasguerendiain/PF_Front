@@ -10,7 +10,9 @@ import PackageDetail from './components/Detail/Package/PackageDetail';
 import Navbar from './components/Navbar/Navbar';
 import CustomPackage from './components/CustomPackage/CustomPackage';
 import ActivityCardContainer from './components/CardsContainer/ActivityCardContainer';
-
+import ActivityDetail from './components/Detail/Activity/ActivityDetail';
+import HotelDetail from './components/Detail/Hotel/HotelDetail';
+import RestoDetail from './components/Detail/Resto/RestoDetail';
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
           <Route path='/detail' element={<PackageDetail/>}/>
           <Route path='/carrito' element={<CustomPackage/>}/>
           <Route path="/activitycards" element={<ActivityCardContainer/>}/>
+          <Route path='/activityDetail' element={<ActivityDetail/>}/>
+          <Route path='/hotelDetail' element={<HotelDetail/>}/>
+          <Route path='/restoDetail' element={<RestoDetail/>}/>
         </Routes>
         <Footer />
       </div>
