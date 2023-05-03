@@ -1,27 +1,32 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./PackageDetail.css";
+import { useNavigate } from "react-router-dom";
 
 export default function PackageDetail() {
+    const navigate = useNavigate()
     const settings = {
+        dots: true,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
+        centerMode: false,
+        adaptativeHeigth: false,
+        variableWidth: false,
         autoplay: true,
-        autoplaySpeed: 3000,
-        centerMode: true,
-        variableWidth: true
+        autoplaySpeed: 6000,
     };
 
     const settings2 = {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        centerMode: true,
-        adaptativeHeigth: true
+        centerMode: false,
+        adaptativeHeigth: false,
+        variableWidth: false
     }
 
     const [pack, setPack] = useState({
@@ -44,7 +49,15 @@ export default function PackageDetail() {
     }
 
     const viewHotel = () => {
-        alert("funcionalidad no implementada");
+        navigate("/hotelDetail");
+    }
+
+    const viewActivity = () => {
+        navigate("/activityDetail");
+    }
+
+    const viewResto = () => {
+        navigate("/restoDetail");
     }
 
     useEffect(() => {
@@ -115,33 +128,67 @@ export default function PackageDetail() {
                 "description": "Disfruta de una estadía inolvidable con vistas al lago Argentino y los glaciares cercanos.",
                 "stars": 4
             },
-            restaurant: ""
+            resto: [{
+                name: "Restaurant 4",
+                location: "Bariloche, Argentina",
+                img: [
+                    "https://indiehoy.com/wp-content/uploads/2018/08/gustavo-cerati-1280x720.jpg",
+                    "https://www.fundacionkonex.org/custom/web/data/imagenes/repositorio/2010/6/1/1315/201603161112507f53f8c6c730af6aeb52e66eb74d8507.jpg",
+                    "https://distintaslatitudes.net/storage/2017/09/GUSTAVO-CERATI.jpg",
+                ],
+                price: "2800",
+                description: "Menu vegano y vegetariano, la mejor acelga de todo bariloche se maneja en este resto"
+            },
+            {
+                name: "Restaurant 3",
+                location: "Bariloche, Argentina",
+                img: [
+                    "https://www.fundacionkonex.org/custom/web/data/imagenes/repositorio/2010/6/1/1315/201603161112507f53f8c6c730af6aeb52e66eb74d8507.jpg",
+                    "https://indiehoy.com/wp-content/uploads/2018/08/gustavo-cerati-1280x720.jpg",
+                    "https://distintaslatitudes.net/storage/2017/09/GUSTAVO-CERATI.jpg",
+                ],
+                price: "2800",
+                description: "Menu vegano y vegetariano, la mejor acelga de todo bariloche se maneja en este resto"
+            },
+            {
+                name: "Restaurant 2",
+                location: "Bariloche, Argentina",
+                img: [
+                    "https://distintaslatitudes.net/storage/2017/09/GUSTAVO-CERATI.jpg",
+                    "https://indiehoy.com/wp-content/uploads/2018/08/gustavo-cerati-1280x720.jpg",
+                    "https://www.fundacionkonex.org/custom/web/data/imagenes/repositorio/2010/6/1/1315/201603161112507f53f8c6c730af6aeb52e66eb74d8507.jpg",
+                ],
+                price: "2800",
+                description: "Menu vegano y vegetariano, la mejor acelga de todo bariloche se maneja en este resto"
+            }]
         });
     }, []);
 
     return (
-        <Box className="containerDetail">
-                <Typography variant="h1" gutterBottom>
+        <Box className="containerDetail" marginTop="1%" marginBottom="1%">
+                <Typography variant="h1" component="h2" gutterBottom sx={{marginTop:"1%"}}>
                     {pack.name}
                 </Typography>
                 <Slider {...settings}>
                     {pack.img.map((item, index) => (
-                            <div key={index}>
+                        <Box key={index} sx={{
+                            maxWidth: "70%"
+                        }}>
                             <img src={item} alt=""></img>
-                            </div>
+                        </Box>
                         )
                     )
                     }
                 </Slider>
-                <div className="text-container">
-                <Typography variant="h3" gutterBottom className="typography">Location: <span>{pack.location}</span></Typography>
-                <Typography variant="h4" gutterBottom>Duration: {pack.duration} days</Typography>
-                <Typography variant="h4" gutterBottom>Description: {pack.description}</Typography>
-                <Typography variant="h4" gutterBottom>Qutoas: {pack.quotas}</Typography>
-                <Typography variant="h4" gutterBottom>Date start: {pack.dateInit}</Typography>
-                <Typography variant="h4" gutterBottom>Date end: {pack.dateEnd}</Typography>
-                </div>
-                <Typography variant="h3">Actividades: </Typography>
+                <Grid marginTop="4%" marginBottom="4%">
+                <Typography variant="h3" gutterBottom className="typography">Ubicacion: <span>{pack.location}</span></Typography>
+                <Typography variant="h4" gutterBottom>Duracion: {pack.duration} dias</Typography>
+                <Typography variant="h4" gutterBottom>Descripcion: {pack.description}</Typography>
+                <Typography variant="h4" gutterBottom>Cupos: {pack.quotas}</Typography>
+                <Typography variant="h4" gutterBottom>Fecha inicio: {pack.dateInit}</Typography>
+                <Typography variant="h4" gutterBottom>Fecha fin: {pack.dateEnd}</Typography>
+                </Grid>
+                <Typography variant="h3" sx={{fontWeight: "700"}}>Actividades: </Typography>
                 <Slider {...settings2}>
                     {
                         pack.activities.map((item, index) => {
@@ -150,13 +197,14 @@ export default function PackageDetail() {
                                     <h3>{item.name}</h3>
                                     <h4>{item.duration} hours</h4>
                                     <img src={item.img} alt={item.name}/>
+                                    <Button sx={{marginTop: "2%"}} variant="contained" size="small" onClick={viewActivity}>mas info</Button>
                                 </div>
                             )
                         })
                     }
                 </Slider>
                 <br/>
-                <Typography variant="h3">Hotel:</Typography>
+                <Typography variant="h3" sx={{fontWeight: "700", marginTop:"4%"}}>Hotel:</Typography>
                 {pack.hotel && <Box 
                     sx={{
                         width: "800px",
@@ -179,12 +227,31 @@ export default function PackageDetail() {
                             <Typography variant="subtitle1">{pack.hotel.description}</Typography>
                         </CardContent>
                         <CardActions>
-                            <Button onClick={viewHotel}>Learn more</Button>
+                            <Button onClick={viewHotel}>mas info</Button>
                         </CardActions>
                     </Card>
                 </Box>}
-                <Typography variant="h2" gutterBottom>Price: {pack.price} USD</Typography>
-                <Button variant="contained" onClick={handleBuy}>Buy</Button>
+                {pack.resto.length
+                ? (<Grid marginTop="3%" marginBottom="3%">
+                    <Typography variant="h2" gutterBottom sx={{fontWeight: "700"}}>Restaurant/s:</Typography> 
+                    <Slider {...settings2}>
+                        {pack.resto.map((item, index) => (
+                                <Box key={index} sx={{
+                                    maxWidth: "70%",
+                                }}>
+                                    <Typography variant="h4" gutterBottom>{item.name}</Typography>
+                                    <img src={item.img[0]} alt=""></img>
+                                    <Button variant="text" onClick={viewResto} sx={{marginTop: "2%"}}>mas info</Button>
+                                </Box>
+                        ))}
+                    </Slider>
+                    </Grid>)
+                : ("no incluye comida/s en restaurante/s")
+                }
+                <Typography variant="h2" gutterBottom sx={{fontWeight: "700"}} display="inline">{"Precio: "} 
+                    <Typography variant="h3" display="inline">{pack.price} USD</Typography>
+                </Typography>
+                <Button variant="contained" onClick={handleBuy} sx={{maxWidth: "20vw", alignSelf:"center", marginBottom:"2%"}}>Comprar</Button>
         {/*
         abajo de esto vendria el componente de los comentarios:
         arriba del todo para dejar un comentario nuevo
