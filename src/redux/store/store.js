@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import packagesReducer from "../reducer/packageSlice";
-import activitiesReducer from "../reducer/activitiesSlice"
-import hotelesReducer from "../reducer/hotelesSlice"
+import activitiesReducer from "../reducer/activitiesSlice";
+import hotelesReducer from "../reducer/hotelesSlice";
+import restaurantsReducer from "../reducer/restaurantsSlice";
+
 export const store = configureStore({
     reducer: {
         packages: packagesReducer,
         activities: activitiesReducer,
-        hoteles: hotelesReducer
+        hoteles: hotelesReducer,
+        restaurants: restaurantsReducer,
     },
 })

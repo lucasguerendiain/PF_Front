@@ -12,19 +12,19 @@ import Typography from "@mui/material/Typography";
 
 
 export default function Actividades(props) {
-  const { id, name, location, description, img, stars, priceDay } =
-    props.hotel;
+  const { id, name, location, img, price, description, comments} =
+    props.restaurants;
   
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} href={`/hotel/byId/${id}`}>
-        <CardMedia component="img" alt="hotel" height="140" image={img} />
+      <CardActionArea key={id} href={`/restaurant/byId/${id}`}>
+        <CardMedia component="img" alt="restaurant" height="140" image={img} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Typography>{priceDay}</Typography>
+          <Typography>{price}</Typography>
           <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>
@@ -32,7 +32,7 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display="flex" justify-content="space-between" align-items="center">
         <CardActions>
-          <Button variant="outlined" >
+          <Button variant="outlined">
             Agregar al carrito
           </Button>
         </CardActions>

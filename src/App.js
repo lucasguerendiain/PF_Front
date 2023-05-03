@@ -11,6 +11,7 @@ import Navbar from './components/Navbar/Navbar';
 import CustomPackage from './components/CustomPackage/CustomPackage';
 import ActivityCardContainer from './components/CardsContainer/ActivityCardContainer';
 import HotelCardContainer from './components/CardsContainer/HotelCardContainer'
+import RestaurantCardContainer from './components/CardsContainer/RestaurantCardContainer';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/carrito' element={<CustomPackage/>}/>
           <Route path="/activitycards" element={<ActivityCardContainer/>}/>
           <Route path='/hotelcards' element={<HotelCardContainer/>}/>
+          <Route path='/restaurantcards' element={<RestaurantCardContainer/>}/>
         </Routes>
         <Footer />
       </div>
