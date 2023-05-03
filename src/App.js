@@ -10,7 +10,7 @@ import PackageDetail from './components/Detail/Package/PackageDetail';
 import Navbar from './components/Navbar/Navbar';
 import CustomPackage from './components/CustomPackage/CustomPackage';
 import ActivityCardContainer from './components/CardsContainer/ActivityCardContainer';
-
+import HotelCardContainer from './components/CardsContainer/HotelCardContainer'
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
           <Route path='/detail' element={<PackageDetail/>}/>
           <Route path='/carrito' element={<CustomPackage/>}/>
           <Route path="/activitycards" element={<ActivityCardContainer/>}/>
+          <Route path='/hotelcards' element={<HotelCardContainer/>}/>
         </Routes>
         <Footer />
       </div>
