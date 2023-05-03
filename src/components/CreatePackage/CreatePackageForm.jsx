@@ -10,13 +10,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { validation } from "./validation";
 import { useState, useEffect } from 'react';
 import BasicCard from './commons/BasicCard';
-import GenericSearchBar from './commons/GenericSearchBar';
 import ActivityModal from './Modals/ActivityModal';
 import HotelModal from './Modals/HotelModal';
 import FindHotelModal from '../CustomPackage/FindHotelModal';
 import axios from "axios";
 import { CardActions } from '@mui/material';
 import { package1, package2, package3, package4 } from './loadPackage';
+import RestoModal from './Modals/RestoModal';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
@@ -29,11 +30,12 @@ const styles = {
 }
 
 export default function CreatePackageForm() {
+    const navigate = useNavigate();
     const [openActi, setOpenActi] = useState(false);
     const [openHotel, setOpenHotel] = useState(false);
-    //const [openResto, setOpenResto] = useState(false);
+    const [openResto, setOpenResto] = useState(false);
     const [findHotelOpen, setFindHotelOpen] = useState(false);
-    //const [findRestoOpen, setFinRestoOpen] = useState(false);
+    const [findRestoOpen, setFinRestoOpen] = useState(false);
     const [inputs, setInputs] = useState({
         name: "",
         location: "",
@@ -58,22 +60,40 @@ export default function CreatePackageForm() {
     });
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState("");
-    const [resto, setResto] = useState({});
+    const [resto, setResto] = useState([]);
 
     const defaultValuesActivity = {
         name: "",
         description: "",
         duration: "",
-        img: "",
+        price: "",
+        img1: "",
+        img2: "",
+        img3: "",
+        img4: "",
         typeAct: ""
     }
     const defaultValuesHotel = {
         name: "",
         location: "",
-        img: "",
+        img1: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         stars: "",
         priceDay: ""
+    }
+
+    const defaultValuesResto = {
+        name: "",
+        location: "",
+        description: "",
+        img1: "",
+        img2: "",
+        img3: "",
+        img4: "",
+        price: ""
     }
 
     const handlePreLoad = (number) => {
@@ -112,29 +132,25 @@ export default function CreatePackageForm() {
         }
     }
 
-    const getHeader = (texto, boton1, boton2, funcionOpen, funcionOpen2 = () => {}) => {
+    const getHeader = (boton1, boton2, funcionOpen, funcionOpen2 = () => {}) => {
         return (
-            <Box sx={{
+            <Box>
+                <Box sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
                 paddingLeft: "10px",
-                paddingRight: "10px",
                 height: "100%",
                 backgroundColor: 'lightcyan',
                 border: "1px solid black",
-                width: "100%"
-            }}>
-                <GenericSearchBar placeholder={texto} onChange={(event) => {console.log(event.target.value)}}/>
-                <Box >
+                width: "100%"}}>
                     <Button
                         onClick={funcionOpen}
                         variant='contained'
                         size='small'
+                        sx={{marginRight: "2%"}}
                     >
                         {boton1}
                     </Button>
-                    <br/>
                     <Button
                         onClick={funcionOpen2}
                         variant='contained'
@@ -156,15 +172,25 @@ export default function CreatePackageForm() {
     }
 
     const addNewHotel = (data) => {
-        setHotels([
-            data
-        ]);
+        setHotels(data);
         setOpenHotel(false);
         setFindHotelOpen(false);
     }
 
+    const addNewResto = (data) => {
+        setResto([
+            ...resto,
+            data
+        ]);
+        setOpenResto(false);
+    }
+
     const deleteActi = (id) => {
         setActivities(activities.filter((elem, index) => index !== id));
+    }
+
+    const deleteResto = (id) => {
+        setResto(resto.filter((elem, index) => index !== id));
     }
 
     const deleteHotel = () => {
@@ -185,11 +211,12 @@ export default function CreatePackageForm() {
                                 marginBottom: "4px",
                                 marginTop: "4px"}
                             }> Actividad {index}: 
-                            <Typography>{item.name}</Typography>
-                            <Typography>{item.description}</Typography>
-                            <Typography>{item.duration} days</Typography>
-                            <Typography>{item.img}</Typography>
-                            <Typography>{item.typeAct}</Typography>
+                            <Typography>Nombre: {item.name}</Typography>
+                            <Typography>Descrip: {item.description}</Typography>
+                            <Typography>Duracion: {item.duration} days</Typography>
+                            <Typography>Imagenes: [{item.img}]</Typography>
+                            <Typography>Tipo: {item.typeAct}</Typography>
+                            <Typography>Precio: {item.price} USD</Typography>
                             <Button variant='contained' size='small' onClick={() => deleteActi(index)}>X</Button>
                         </Box> 
                     )
@@ -205,16 +232,39 @@ export default function CreatePackageForm() {
                                 marginBottom: "4px",
                                 marginTop: "4px"}
                             }> Hotel: 
-                            <Typography>{hotels.name}</Typography>
-                            <Typography>{hotels.description}</Typography>
-                            <Typography>{hotels.location}</Typography>
-                            <Typography>{hotels.img}</Typography>
-                            <Typography>{hotels.stars} estrellas</Typography>
-                            <Typography>{hotels.priceDay} USD/day</Typography>
+                            <Typography>Nombre : {hotels.name}</Typography>
+                            <Typography>Desc. : {hotels.description}</Typography>
+                            <Typography>Ubicacion : {hotels.location}</Typography>
+                            <Typography>Imagenes : [{hotels.img}]</Typography>
+                            <Typography>Estrellas: {hotels.stars}</Typography>
+                            <Typography>Precio: {hotels.priceDay} USD/dia</Typography>
                             <Button variant='contained' size='small' onClick={() => deleteHotel()}>X</Button>
                         </Box> 
                     )
                 : ("no hay hoteles de momento")
+            };
+            case "RESTO": {
+                return resto.length
+                ? (resto.map((item, index) => {
+                    return (
+                        <Box 
+                            key={index} 
+                            sx={{
+                                border: "1px solid black",
+                                backgroundColor: 'lightsalmon',
+                                marginBottom: "4px",
+                                marginTop: "4px"}
+                            }> Restaurant {index}: 
+                            <Typography>Nombre : {item.name}</Typography>
+                            <Typography>Desc. : {item.description}</Typography>
+                            <Typography>Ubicacion : {item.location}</Typography>
+                            <Typography>Imagenes : [{item.img}]</Typography>
+                            <Typography>Precio? : {item.price} USD</Typography>
+                            <Button variant='contained' size='small' onClick={() => deleteResto(index)}>X</Button>
+                        </Box> 
+                    )
+                }))
+                : ("no hay restaurantes cargados")
             };
             default: {
                 return "fallo algo"
@@ -233,36 +283,62 @@ export default function CreatePackageForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (Object.values(errors).length === 0) {
-            const restaurantId = (await axios.post("http://localhost:3001/restaurant",resto));
-            const hotelId = await axios.post("http://localhost:3001/hotel", hotels);
-            const activitiesID = [];
-            for (let i = 0; i < activities.length; i++){
-                const actviId = await axios.post("http://localhost:3001/activity", activities[i]);
-                activitiesID.push(actviId.data.id);
+            try{
+                const ids = {
+                    restaurantID: [],
+                    hotelId: hotels.id || "",
+                    activitiesID: []
+                }
+                for (let i = 0; i < resto.length; i++){
+                    if (resto[i].id) {
+                        ids.restaurantID.push(resto[i].id)
+                    } else {
+                        const restaurantId = (await axios.post("http://localhost:3001/restaurant", resto[i]));
+                        ids.restaurantID.push(restaurantId.data.id);
+                    }
+                }
+                if (!ids.hotelId) {
+                    const hotelId = await axios.post("http://localhost:3001/hotel", hotels);
+                    ids.hotelId = hotelId.data.id;
+                }
+                for (let i = 0; i < activities.length; i++){
+                    if (activities[i].id) {
+                        ids.activitiesID.push(activities[i].id)
+                    } else {
+                        const actviId = await axios.post("http://localhost:3001/activity", activities[i]);
+                        ids.activitiesID.push(actviId.data.id);
+                    }
+                }
+                const usuario = {
+                    userName: "nada",
+                    email: "nada",
+                    password: "123456",
+                    lastName: "perez",
+                    social: true,
+                    socialRed: "feisbuh"
+                }
+                const a = new Date(inputs.dateInit);
+                const b = new Date(inputs.dateEnd);
+                const userId = await axios.post("http://localhost:3001/user", usuario);
+                const body = {
+                    ...inputs,
+                    dateInit: a,
+                    dateEnd: b,
+                    hotelId: ids.hotelId,
+                    restaurantId: ids.restaurantID,
+                    activitiesId: ids.activitiesID,
+                    userId: userId.data.id || 0,
+                }
+                axios.post("http://localhost:3001/package", body)
+                .then(response => {
+                    if (response.status === 200) {
+                        alert("paquete creado con exito");
+                        navigate(0);
+                    }
+                })
+            } catch(error) {
+                alert(error.response.data.error);
             }
-            const usuario = {
-                userName: "nada",
-                email: "nada",
-                password: "123456",
-                lastName: "perez",
-                social: true,
-                socialRed: "feisbuh"
-            }
-            const a = new Date(inputs.dateInit);
-            const b = new Date(inputs.dateEnd); 
-            const userId = await axios.post("http://localhost:3001/user", usuario);
-            const body = {
-                ...inputs,
-                dateInit: a,
-                dateEnd: b,
-                hotelId: hotelId.data.id,
-                restaurantId: [restaurantId.data.id],
-                activitiesId: activitiesID,
-                userId: userId.data.id,
-            }
-            axios.post("http://localhost:3001/package", body)
-            .then(response => console.log(response.data))
-            .catch(error => console.log(error.data));
         }
     };
 
@@ -290,12 +366,12 @@ export default function CreatePackageForm() {
                 <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField
-                    autoComplete="given-name"
+                    autoComplete="nombre del paquete"
                     name="name"
                     required
                     fullWidth
                     id="name"
-                    label="name"
+                    label="Nombre"
                     autoFocus
                     onChange={handleChange}
                     error={!!errors.name}
@@ -308,9 +384,9 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     id="location"
-                    label="Location"
+                    label="Ubicacion"
                     name="location"
-                    autoComplete="location"
+                    autoComplete="ubicacion"
                     onChange={handleChange}
                     error={!!errors.location}
                     helperText={errors.location}
@@ -322,10 +398,10 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     name="price"
-                    label="Price"
+                    label="Precio"
                     type='number'
                     id="price"
-                    autoComplete="price"
+                    autoComplete="precio"
                     onChange={handleChange}
                     error={!!errors.price}
                     helperText={errors.price}
@@ -337,10 +413,10 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     name="duration"
-                    label="Duration"
+                    label="Duracion"
                     type="number"
                     id="duration"
-                    autoComplete="duration(in days)"
+                    autoComplete="duracion(numero de dias)"
                     onChange={handleChange}
                     error={!!errors.duration}
                     helperText={errors.duration}
@@ -366,9 +442,9 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     id="description"
-                    label="Description"
+                    label="Descripcion"
                     name="description"
-                    autoComplete="description"
+                    autoComplete="descripcion"
                     onChange={handleChange}
                     error={!!errors.description}
                     helperText={errors.description}
@@ -380,9 +456,9 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     id="quotas"
-                    label="Quotas"
+                    label="Cupos"
                     name="quotas"
-                    autoComplete="quotas"
+                    autoComplete="cupos"
                     onChange={handleChange}
                     error={!!errors.quotas}
                     helperText={errors.quotas}
@@ -394,9 +470,9 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     id="dateInit"
-                    label="Date init"
+                    label="Fecha inicio"
                     name="dateInit"
-                    autoComplete="dateInit"
+                    autoComplete="Fecha inicio"
                     onChange={handleChange}
                     error={!!errors.dateInit}
                     helperText={errors.dateInit}
@@ -408,9 +484,9 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     id="dateEnd"
-                    label="Date finish"
+                    label="Fecha fin"
                     name="dateEnd"
-                    autoComplete="dateEnd"
+                    autoComplete="fecha fin"
                     onChange={handleChange}
                     error={!!errors.dateEnd}
                     helperText={errors.dateEnd}
@@ -421,7 +497,7 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("buscate la actividad", "Add new Activity", "add existing activity", () => setOpenActi(true), () => alert("componente muestra actividades"))} 
+                        header={getHeader("Add new Activity", "add existing activity", () => setOpenActi(true), () => alert("componente muestra actividades"))} 
                         content={getContent("ACTIVITY")}/>
                     <ActivityModal 
                         open={openActi} 
@@ -432,18 +508,29 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("buscate el hotel", "Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => setFindHotelOpen(true))} 
+                        header={getHeader("Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => alert("componente muestra hotel"))} 
                         content={getContent("HOTEL")}/>
                     <HotelModal 
                         open={openHotel} 
                         handleClose={() => setOpenHotel(false)} 
                         addNewItem={addNewHotel} 
                         defaultValues={defaultValuesHotel}/>
-                    <FindHotelModal
+                    {/* <FindHotelModal
                         open={findHotelOpen}
                         handleClose={() => setFindHotelOpen(false)}
                         handleAdd={addNewHotel}
-                    />
+                    /> */}
+                </Grid>
+                <br/>
+                <Grid item xs={8} sx={styles}>
+                    <BasicCard 
+                        header={getHeader("Add new resto", "add existing resto", () => setOpenResto(true), () => alert("componente muestra restoranes"))} 
+                        content={getContent("RESTO")}/>
+                    <RestoModal 
+                        open={openResto} 
+                        handleClose={() => setOpenResto(false)} 
+                        addNewItem={addNewResto} 
+                        defaultValues={defaultValuesResto}/>
                 </Grid>
                 <Button
                 type="submit"

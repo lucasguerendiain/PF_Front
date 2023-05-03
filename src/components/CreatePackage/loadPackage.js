@@ -66,13 +66,13 @@ export const package1 = {
         "stars": 4,
         "priceDay": 1500
     },
-    resto: {
+    resto: [{
         name: "Restaurant 1",
         location: "Bariloche, Argentina",
         img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
         price: "2800",
         description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
-    }
+    },]
 }
 
 export const package2 = {
@@ -142,13 +142,13 @@ export const package2 = {
         "stars": 3,
         "priceDay": 2500
     },
-    resto: {
+    resto: [{
         name: "Restaurant 2",
         location: "Bariloche, Argentina",
         img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
         price: "2800",
         description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
-    }
+    },]
 }
 
 export const package3 = {
@@ -218,13 +218,13 @@ export const package3 = {
             "stars": 2,
             "priceDay": 4000
         },
-        resto: {
+        resto: [{
             name: "Restaurant 3",
             location: "Bariloche, Argentina",
             img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
             price: "2800",
             description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
-        }
+        },]
 }
 
 export const package4 = {
@@ -294,11 +294,11 @@ export const package4 = {
         "stars": 5,
         "priceDay": 2700
     },
-    resto: {
+    resto: [{
         name: "Restaurant 4",
         location: "Bariloche, Argentina",
         img: ["https://www.hotelriogrande.com.ar/sites/default/files/styles/gallery_main_image/public/2021-02/restaurante_0.jpg?itok=lltTfj_6"],
         price: "2800",
         description: "El Fogón de María es un restaurante acogedor y elegante en el corazón de Bariloche."
-    }
+    },]
 }
