@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from "react-router-dom";
+import CommentBoard from "../../CommentBoard/CommentBoard";
 
 export default function RestoDetail() {
     const navigate = useNavigate();
@@ -50,6 +51,7 @@ export default function RestoDetail() {
     }
 
     return (
+        <Box>
         <Grid sx={{
             maxWidth: "70vw",
             display: "flex",
@@ -89,5 +91,7 @@ export default function RestoDetail() {
                 <Button variant="contained" sx={{fontSize: "1.6rem"}} startIcon={<ArrowBackIosIcon/>} onClick={goBack}>volver</Button>
             </Box>
         </Grid>
+        <CommentBoard/>
+        </Box>
     )
 }
