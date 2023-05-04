@@ -233,11 +233,11 @@ export default function CreatePackageForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (Object.values(errors).length === 0) {
-            const restaurantId = (await axios.post("http://localhost:3001/restaurant",resto));
-            const hotelId = await axios.post("http://localhost:3001/hotel", hotels);
+            const restaurantId = (await axios.post("restaurant",resto));
+            const hotelId = await axios.post("hotel", hotels);
             const activitiesID = [];
             for (let i = 0; i < activities.length; i++){
-                const actviId = await axios.post("http://localhost:3001/activity", activities[i]);
+                const actviId = await axios.post("activity", activities[i]);
                 activitiesID.push(actviId.data.id);
             }
             const usuario = {
@@ -250,7 +250,7 @@ export default function CreatePackageForm() {
             }
             const a = new Date(inputs.dateInit);
             const b = new Date(inputs.dateEnd); 
-            const userId = await axios.post("http://localhost:3001/user", usuario);
+            const userId = await axios.post("/user", usuario);
             const body = {
                 ...inputs,
                 dateInit: a,
@@ -260,7 +260,7 @@ export default function CreatePackageForm() {
                 activitiesId: activitiesID,
                 userId: userId.data.id,
             }
-            axios.post("http://localhost:3001/package", body)
+            axios.post("/package", body)
             .then(response => console.log(response.data))
             .catch(error => console.log(error.data));
         }
