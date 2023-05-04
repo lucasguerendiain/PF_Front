@@ -1,18 +1,18 @@
 import React, { useEffect, } from "react";
-import Actividades from "../Cards/Actividades";
+import Restaurants from "../Cards/Restaurants";
 import { Grid, Button} from "@mui/material";
 import SearchBar from "../SearchBar/SearchBar";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllActivity } from "../../redux/actions/ActivitiesActions";
+import { getAllRestaurant} from "../../redux/actions/RestaurantsActions";
 import LoadingComponent from "../Loading/LoadingComponent"
 import {Link} from "react-router-dom"
 
-export default function ActivityCardontainer() {
-  const actividades = useSelector((state) => state.activities.allActivities)
+export default function RestaurantCardContainer() {
+  const restaurants = useSelector((state) => state.restaurants.allRestaurants)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAllActivity())
+    dispatch((getAllRestaurant()))
   }, [dispatch]);
 
   return (
@@ -24,10 +24,10 @@ export default function ActivityCardontainer() {
         columns={{ xs: 4, sm: 8, md: 12 }}
         marginBottom="2em"
       >
-        {actividades.length ? (
-          actividades.map((p, index) => (
+        {restaurants.length ? (
+          restaurants.map((p, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
-              <Actividades key={index} actividad={p} />
+              <Restaurants key={index} restaurants={p} />
             </Grid>
           ))
         ) : (

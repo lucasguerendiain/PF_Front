@@ -1,12 +1,12 @@
 import React from "react";
 import BasicModal from "./BasicModal";
 import { useState, useEffect } from "react";
-import { validateHotel } from "./validateHotel";
-import { Box, Grid, TextField } from '@mui/material';
+import { validateResto } from "./validateResto";
+import { Box, TextField } from '@mui/material';
 
-export default function HotelModal({open, handleClose, addNewItem, defaultValues}) {
+export default function RestoModal({open, handleClose, addNewItem, defaultValues}) {
     const getContent = () => {
-        return (
+        return(
         <Box sx={{
             display: "flex",
             flexDirection: "column", 
@@ -53,7 +53,19 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
             helperText={errors.location}
             />
         <TextField 
-            placeholder='img 1' 
+            placeholder='precio' 
+            name='price'
+            id='price'
+            label="Precio"
+            value={inputs.price}
+            required
+            fullWidth
+            onChange={handleChange}
+            error={!!errors.price}
+            helperText={errors.price}
+            />
+        <TextField 
+            placeholder='img1' 
             name='img1'
             id='img1'
             label="Imagen 1"
@@ -65,7 +77,7 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
             helperText={errors.img1}
             />
         <TextField 
-            placeholder='img 2' 
+            placeholder='img2' 
             name='img2'
             id='img2'
             label="Imagen 2"
@@ -76,7 +88,7 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
             helperText={errors.img2}
             />
         <TextField 
-            placeholder='img 3' 
+            placeholder='img3' 
             name='img3'
             id='img3'
             label="Imagen 3"
@@ -97,37 +109,12 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
             error={!!errors.img4}
             helperText={errors.img4}
             />
-        <TextField 
-            placeholder='estrellas' 
-            name='stars'
-            id='stars'
-            label="Estrellas"
-            value={inputs.stars} 
-            required
-            fullWidth
-            onChange={handleChange}
-            error={!!errors.stars}
-            helperText={errors.stars}
-            />
-        <TextField 
-            placeholder='precio por noche' 
-            name='priceDay'
-            id='priceDay'
-            label="Precio la noche"
-            value={inputs.priceDay}
-            type="number" 
-            required
-            fullWidth
-            onChange={handleChange}
-            error={!!errors.priceDay}
-            helperText={errors.priceDay}
-            />
         </Box>
         )
     }
-
-    const [inputs, setInputs] = useState(defaultValues);
-    const [errors, setErrors] = useState(defaultValues);
+    
+    const [inputs, setInputs] = useState(defaultValues)
+    const [errors, setErrors] = useState(defaultValues)
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -137,8 +124,7 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
                 description: inputs.description,
                 location: inputs.location,
                 img: Array.from([inputs.img1, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== ""),
-                priceDay: inputs.priceDay,
-                stars: inputs.stars
+                price: inputs.price
             }
             addNewItem(datosCombinados);
         }
@@ -157,7 +143,7 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
     },[open])
 
     useEffect(() => {
-        setErrors(validateHotel(inputs));
+        setErrors(validateResto(inputs));
     }, [inputs])
 
     return (
@@ -166,7 +152,7 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
             handleClose={handleClose}
             addNewItem={addNewItem}
             defaultValues={defaultValues}
-            title={"Nuevo Hotel:"}
+            title={"Nuevo Restaurant:"}
             content={getContent()}
             handleSubmit={handleSubmit}
         />
