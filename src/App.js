@@ -16,6 +16,7 @@ import RestoDetail from './components/Detail/Resto/RestoDetail';
 import HotelCardContainer from './components/CardsContainer/HotelCardContainer'
 import RestaurantCardContainer from './components/CardsContainer/RestaurantCardContainer';
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -28,7 +29,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path='/packagecards' element={<PackageCardContainer/>}/>
-          <Route path='/detail' element={<PackageDetail/>}/>
+          <Route path='/package/:id' element={<PackageDetail/>}/>
           <Route path='/carrito' element={<CustomPackage/>}/>
           <Route path="/activitycards" element={<ActivityCardContainer/>}/>
           <Route path='/activityDetail' element={<ActivityDetail/>}/>
