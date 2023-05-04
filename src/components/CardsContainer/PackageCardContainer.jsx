@@ -22,7 +22,7 @@ export default function PackageCardContainer() {
 
   useEffect(() => {
     dispatch(getAllPacks());
-  }, []);
+  }, [dispatch]);
 
   //estados, estilo y funcion de los selects ⬇️⬇️⬇️⬇️⬇️⬇️
   // const [filtros, setFiltros] = useState([{ estrellas: "" }, { opciones: "" }]);
