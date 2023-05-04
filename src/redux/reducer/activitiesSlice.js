@@ -15,12 +15,15 @@ export const activitiesSlice = createSlice({
             state.allActivities = action.payload;
             state.viewActivities = action.payload;
         },
+        getActivityById: (state, action) => {
+            state.detail = action.payload
+        },
         setError: (state, action) => {
             state.error = action.payload;
         }
     }
 })
 
-export const {getAllActivities, setError} = activitiesSlice.actions;
+export const {getAllActivities, getActivityById, setError} = activitiesSlice.actions;
 
 export default activitiesSlice.reducer;

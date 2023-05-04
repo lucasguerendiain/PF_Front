@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPackageDetailById } from "../../../redux/actions/packageActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
 import { useParams } from "react-router-dom/dist";
-
 import {
   Box,
   Button,
@@ -20,7 +19,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./PackageDetail.css";
-
 //PayPal
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -55,8 +53,8 @@ export default function PackageDetail() {
     alert("funcionalidad no implementada");
   };
 
-  const viewActivity = () => {
-    navigate("/activityDetail");
+  const viewActivity = (id) => {
+    navigate(`/activity/byId/${id}`);
   };
 
   const viewResto = () => {
@@ -139,7 +137,7 @@ export default function PackageDetail() {
                     sx={{ marginTop: "2%" }}
                     variant="contained"
                     size="small"
-                    onClick={viewActivity}
+                    onClick={() => viewActivity(item.id)}
                   >
                     mas info
                   </Button>

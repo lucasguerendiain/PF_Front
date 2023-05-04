@@ -31,7 +31,7 @@ function App() {
           <Route path='/package/:id' element={<PackageDetail/>}/>
           <Route path='/carrito' element={<CustomPackage/>}/>
           <Route path="/activitycards" element={<ActivityCardContainer/>}/>
-          <Route path='/activityDetail' element={<ActivityDetail/>}/>
+          <Route path='/activity/byId/:id' element={<ActivityDetail/>}/>
           <Route path='/hotelDetail' element={<HotelDetail/>}/>
           <Route path='/restoDetail' element={<RestoDetail/>}/>
           <Route path='/hotelcards' element={<HotelCardContainer/>}/>
