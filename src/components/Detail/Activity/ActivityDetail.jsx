@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from "react-router-dom";
+import CommentBoard from "../../CommentBoard/CommentBoard";
 
 export default function ActivityDetail() {
     const navigate = useNavigate();
@@ -53,6 +54,7 @@ export default function ActivityDetail() {
     }
 
     return (
+        <Box>
         <Grid sx={{
             maxWidth: "70vw",
             display: "flex",
@@ -96,5 +98,7 @@ export default function ActivityDetail() {
             <Button variant="contained" sx={{fontSize: "1.4rem"}} startIcon={<ArrowBackIosIcon/>} onClick={goBack}>volver</Button>
             </Box>
         </Grid>
+        <CommentBoard/>
+        </Box>
     )
 }
