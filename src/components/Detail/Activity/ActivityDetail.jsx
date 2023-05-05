@@ -11,6 +11,7 @@ import { getActivityDetailById } from "../../../redux/actions/ActivitiesActions"
 import LoadingComponent from "../../Loading/LoadingComponent";
 import CommentBoard from "../../CommentBoard/CommentBoard";
 
+
 export default function ActivityDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -48,7 +49,6 @@ export default function ActivityDetail() {
 
 
   return (
-  <Box>
     <Grid>
         {Object.keys(activity).length ? (<Grid
         sx={{
@@ -128,10 +128,9 @@ export default function ActivityDetail() {
         </Box>
       </Grid>) : <LoadingComponent/>
       }
+       <CommentBoard/>
     </Grid>
   );
 }
-        <CommentBoard/>
-        </Box>
-    )
-}
+
+

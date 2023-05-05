@@ -50,16 +50,16 @@ export default function PackageDetail() {
     variableWidth: false,
   };
 
-  const viewHotel = () => {
-    navigate("/hotelDetail");
+  const viewHotel = (id) => {
+    navigate(`/hotel/byId/${id}`);
   };
 
   const viewActivity = (id) => {
     navigate(`/activity/byId/${id}`);
   };
 
-  const viewResto = () => {
-    navigate("/restoDetail");
+  const viewRestaurant = () => {
+    navigate(`/restaurant/byId/${id}`);
   };
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function PackageDetail() {
   }, [dispatch, id]);
 
   return (
-    <Box>
+    <Box sx={{backgroundColor: "lightgray"}}>
     <Box className="containerDetail" marginTop="1%" marginBottom="1%">
       {Object.keys(pack).length ? (
         <Grid>
@@ -181,7 +181,7 @@ export default function PackageDetail() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button onClick={viewHotel}>mas info</Button>
+                  <Button onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
                 </CardActions>
               </Card>
             </Box>
@@ -205,7 +205,7 @@ export default function PackageDetail() {
                     <img src={item.img[0]} alt=""></img>
                     <Button
                       variant="text"
-                      onClick={viewResto}
+                      onClick={() => viewRestaurant(item.id)}
                       sx={{ marginTop: "2%" }}
                     >
                       mas info
@@ -259,7 +259,6 @@ export default function PackageDetail() {
         />
       </PayPalScriptProvider>
       {/* handlePrecio={(pack) => handlePrecio(pack)} */}
-    </Box>
     <CommentBoard/>
     </Box>
   );
