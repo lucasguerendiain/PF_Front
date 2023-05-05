@@ -17,8 +17,9 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 
 export default function PackageCardContainer() {
-  const paquetes = useSelector((state) => state.packages.allPackages);
+  const paquetes = useSelector((state) => state.packages.viewPackages);
   const dispatch = useDispatch();
+  const lugar = "package"
 
   useEffect(() => {
     dispatch(getAllPacks());
@@ -78,7 +79,7 @@ export default function PackageCardContainer() {
 
   return (
     <>
-      <SearchBar />
+      <SearchBar ubicacion={lugar}/>
       <div>
         {/*
         <label>Precio:
