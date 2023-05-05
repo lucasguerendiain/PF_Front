@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPackageDetailById } from "../../../redux/actions/packageActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
 import { useParams } from "react-router-dom/dist";
-
 import {
   Box,
   Button,
@@ -20,7 +19,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./PackageDetail.css";
-
 //PayPal
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import CommentBoard from "../../CommentBoard/CommentBoard";
@@ -52,16 +50,16 @@ export default function PackageDetail() {
     variableWidth: false,
   };
 
-  const viewHotel = () => {
-    navigate("/hotelDetail");
+  const viewHotel = (id) => {
+    navigate(`/hotel/byId/${id}`);
   };
 
-  const viewActivity = () => {
-    navigate("/activityDetail");
+  const viewActivity = (id) => {
+    navigate(`/activity/byId/${id}`);
   };
 
-  const viewResto = () => {
-    navigate("/restoDetail");
+  const viewRestaurant = () => {
+    navigate(`/restaurant/byId/${id}`);
   };
 
   useEffect(() => {
@@ -141,7 +139,7 @@ export default function PackageDetail() {
                     sx={{ marginTop: "2%" }}
                     variant="contained"
                     size="small"
-                    onClick={viewActivity}
+                    onClick={() => viewActivity(item.id)}
                   >
                     mas info
                   </Button>
@@ -183,7 +181,7 @@ export default function PackageDetail() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button onClick={viewHotel}>mas info</Button>
+                  <Button onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
                 </CardActions>
               </Card>
             </Box>
@@ -207,7 +205,7 @@ export default function PackageDetail() {
                     <img src={item.img[0]} alt=""></img>
                     <Button
                       variant="text"
-                      onClick={viewResto}
+                      onClick={() => viewRestaurant(item.id)}
                       sx={{ marginTop: "2%" }}
                     >
                       mas info
@@ -261,7 +259,6 @@ export default function PackageDetail() {
         />
       </PayPalScriptProvider>
       {/* handlePrecio={(pack) => handlePrecio(pack)} */}
-    </Box>
     <CommentBoard/>
     </Box>
   );
