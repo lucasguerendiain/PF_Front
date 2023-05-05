@@ -8,6 +8,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate, useParams } from "react-router-dom";
 import { getRestaurantDetailById } from "../../../redux/actions/RestaurantsActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
+import CommentBoard from "../../CommentBoard/CommentBoard";
 
 export default function RestoDetail() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ export default function RestoDetail() {
   const goBack = () => {
     navigate(-1);
   };
-
+  
   return (
     <Grid>
       {Object.keys(restaurant).length ? (
@@ -110,6 +111,7 @@ export default function RestoDetail() {
       ) : (
         <LoadingComponent />
       )}
+       <CommentBoard/>
     </Grid>
   );
 }

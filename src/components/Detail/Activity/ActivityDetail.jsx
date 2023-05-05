@@ -9,6 +9,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate, useParams } from "react-router-dom";
 import { getActivityDetailById } from "../../../redux/actions/ActivitiesActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
+import CommentBoard from "../../CommentBoard/CommentBoard";
+
 
 export default function ActivityDetail() {
   const navigate = useNavigate();
@@ -125,6 +127,8 @@ export default function ActivityDetail() {
         </Box>
       </Grid>) : <LoadingComponent/>
       }
+       <CommentBoard/>
     </Grid>
   );
 }
+

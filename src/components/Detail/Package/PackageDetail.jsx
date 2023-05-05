@@ -21,6 +21,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./PackageDetail.css";
 //PayPal
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import CommentBoard from "../../CommentBoard/CommentBoard";
 
 export default function PackageDetail() {
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ export default function PackageDetail() {
   }, [dispatch, id]);
 
   return (
+    <Box>
     <Box className="containerDetail" marginTop="1%" marginBottom="1%">
       {Object.keys(pack).length ? (
         <Grid>
@@ -257,6 +259,7 @@ export default function PackageDetail() {
         />
       </PayPalScriptProvider>
       {/* handlePrecio={(pack) => handlePrecio(pack)} */}
+    <CommentBoard/>
     </Box>
   );
 }

@@ -8,6 +8,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate, useParams } from "react-router-dom";
 import { getHotelDetailById } from "../../../redux/actions/HotelesActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
+import CommentBoard from "../../CommentBoard/CommentBoard";
 
 export default function HotelDetail() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ export default function HotelDetail() {
   const goBack = () => {
     navigate(-1);
   };
-
+  
   return (
     <Grid>
       {Object.keys(hotel).length ? (
@@ -117,6 +118,8 @@ export default function HotelDetail() {
         <LoadingComponent />
       )
       }
+      <CommentBoard/>
     </Grid>
   );
 }
+
