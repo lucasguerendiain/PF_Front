@@ -261,5 +261,6 @@ export default function PackageDetail() {
       {/* handlePrecio={(pack) => handlePrecio(pack)} */}
     <CommentBoard/>
     </Box>
+    </Box>
   );
 }

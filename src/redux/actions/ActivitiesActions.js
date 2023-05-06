@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getAllActivities, getActivityName, setError } from "../reducer/activitiesSlice";
+import { getAllActivities, getActivityName, getActivityById, setError } from "../reducer/activitiesSlice";
 
 export const getAllActivity = () => async (dispatch) => {
     try {
@@ -18,6 +18,7 @@ export const getActivityByName = (name) => async (dispatch) => {
     } catch (error) {
           dispatch(setError(error.message));
     }
+}
 
 export const getActivityDetailById = (id) => async (dispatch) => {
     try {
