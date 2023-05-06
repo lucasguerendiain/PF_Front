@@ -10,7 +10,8 @@ import PackageDetail from './components/Detail/Package/PackageDetail';
 import Navbar from './components/Navbar/Navbar';
 import CustomPackage from './components/CustomPackage/CustomPackage';
 import ActivityCardContainer from './components/CardsContainer/ActivityCardContainer';
-
+import axios from "axios"
+axios.defaults.url = "https://pfback-production.up.railway.app"
 
 function App() {
   return (
