@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     activities: [],
     hotel:'',
-    restaurant:''
+    restaurant:'',
+    error: ""
 }
 
 export const carritoSlice = createSlice({
@@ -27,10 +28,13 @@ export const carritoSlice = createSlice({
         },
         deleteHotel: (state, action) => {
             state.hotel = "";
+        },
+        setError: (state, action) => {
+            state.error = action.payload
         }
     }
 })
 
-export const { addRestaurant, deleteRestaurant, addHotel, deleteHotel, addActivitie, deleteActivitie} = carritoSlice.actions;
+export const { addRestaurant, setError, deleteRestaurant, addHotel, deleteHotel, addActivitie, deleteActivitie} = carritoSlice.actions;
 
 export default carritoSlice.reducer;

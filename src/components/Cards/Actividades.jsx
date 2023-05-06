@@ -11,11 +11,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { agregarActivitie } from "../../redux/actions/carritoActions";
+import { getActivityByName } from "../../redux/actions/ActivitiesActions";
 
 export default function Actividades(props) {
   const { id, name, duration, img, description, typeAct, price } =
     props.actividad;
   const dispatch = useDispatch();
+
+  const handleClick = async (e) => {
+    dispatch(agregarActivitie(props.actividad))
+    alert("Se agrego la actividad al carrito.")
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -33,7 +39,7 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display="flex" justify-content="space-between" align-items="center">
         <CardActions>
-          <Button variant="outlined" onClick={dispatch(agregarActivitie)}>
+          <Button variant="outlined" value={name} onClick={ e => handleClick(e)}>
             Agregar al carrito
           </Button>
         </CardActions>
