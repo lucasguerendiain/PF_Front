@@ -41,9 +41,9 @@
 .activity {
     max-width: 50%;
     height: auto;
-    display: block;
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
 }
 

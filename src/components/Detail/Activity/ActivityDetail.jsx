@@ -47,7 +47,6 @@ export default function ActivityDetail() {
     adaptativeHeigth: false,
   };
 
-
   return (
     <Grid>
         {Object.keys(activity).length ? (<Grid

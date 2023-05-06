@@ -39,6 +39,8 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
             name='description'
             id='description'
             label="Descripcion"
+            multiline
+            rows={4}
             value={inputs.description} 
             required
             fullWidth

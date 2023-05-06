@@ -27,7 +27,7 @@ export const activitiesSlice = createSlice({
     }
 })
 
-export const {getAllActivities, getActivityName, setError} = activitiesSlice.actions;
+export const {getAllActivities, getActivityName, getActivityById, setError} = activitiesSlice.actions;
 
 
 export default activitiesSlice.reducer;
