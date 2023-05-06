@@ -15,6 +15,10 @@ export const packageSlice = createSlice({
             state.allPackages = action.payload;
             state.viewPackages = action.payload;
         },
+        getPackageName: (state, action) => {
+            state.viewPackages = action.payload
+            console.log(state.viewPackages);
+        },
         getPackageById: (state, action) => {
             state.detail = action.payload;
         },
@@ -27,6 +31,6 @@ export const packageSlice = createSlice({
     }
 })
 
-export const {getAllPackages, getPackageById, setError, getFilterPackages} = packageSlice.actions;
+export const {getAllPackages, getPackageById, setError, getFilterPackages, getPackageName} = packageSlice.actions;
 
 export default packageSlice.reducer;

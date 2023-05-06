@@ -8,8 +8,9 @@ import LoadingComponent from "../Loading/LoadingComponent"
 import {Link} from "react-router-dom"
 
 export default function ActivityCardontainer() {
-  const actividades = useSelector((state) => state.activities.allActivities)
+  const actividades = useSelector((state) => state.activities.viewActivities)
   const dispatch = useDispatch()
+  const lugar = "activity"
 
   useEffect(() => {
     dispatch(getAllActivity())
@@ -17,7 +18,7 @@ export default function ActivityCardontainer() {
 
   return (
     <>
-    <SearchBar/>
+    <SearchBar ubicacion={lugar}/>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

@@ -15,6 +15,9 @@ export const activitiesSlice = createSlice({
             state.allActivities = action.payload;
             state.viewActivities = action.payload;
         },
+        getActivityName: (state, action) => {
+            state.viewActivities = action.payload;
+        },
         getActivityById: (state, action) => {
             state.detail = action.payload
         },
@@ -24,6 +27,7 @@ export const activitiesSlice = createSlice({
     }
 })
 
-export const {getAllActivities, getActivityById, setError} = activitiesSlice.actions;
+export const {getAllActivities, getActivityName, setError} = activitiesSlice.actions;
+
 
 export default activitiesSlice.reducer;
