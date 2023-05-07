@@ -15,11 +15,13 @@ import HotelDetail from './components/Detail/Hotel/HotelDetail';
 import RestoDetail from './components/Detail/Resto/RestoDetail';
 import HotelCardContainer from './components/CardsContainer/HotelCardContainer'
 import RestaurantCardContainer from './components/CardsContainer/RestaurantCardContainer';
+import ScrollToTop from './scrollToTop';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
+        <ScrollToTop/>
         <Navbar/>
         <Routes>
           <Route path="/" element={<Navigate to="/home"/>}/>

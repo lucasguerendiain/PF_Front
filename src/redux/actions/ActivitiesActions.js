@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getAllActivities, getActivityName, setError } from "../reducer/activitiesSlice";
+import { getAllActivities, getActivityName, setError, getActivityById } from "../reducer/activitiesSlice";
 
 export const getAllActivity = () => async (dispatch) => {
     try {
@@ -18,12 +18,13 @@ export const getActivityByName = (name) => async (dispatch) => {
     } catch (error) {
           dispatch(setError(error.message));
     }
+}
 
 export const getActivityDetailById = (id) => async (dispatch) => {
     try {
         const  response = await axios.get(`http://localhost:3001/activity/byId/${id}`)
         dispatch(getActivityById(response.data))
-    } catch (error){
+    } catch (error) {
         dispatch(setError(error.message));
     }
 }
