@@ -77,7 +77,6 @@ export default function PackageDetail() {
   }, [dispatch, id]);
 
   return (
-    <Box sx={{backgroundColor: "lightgray"}}>
     <Box className="containerDetail" marginTop="1%" marginBottom="1%">
       {Object.keys(pack).length ? (
         <Grid>

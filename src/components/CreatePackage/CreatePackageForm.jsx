@@ -12,12 +12,14 @@ import { useState, useEffect } from 'react';
 import BasicCard from './commons/BasicCard';
 import ActivityModal from './Modals/ActivityModal';
 import HotelModal from './Modals/HotelModal';
-import FindHotelModal from '../CustomPackage/FindHotelModal';
 import axios from "axios";
 import { CardActions } from '@mui/material';
 import { package1, package2, package3, package4 } from './loadPackage';
 import RestoModal from './Modals/RestoModal';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addActiForm, addHotelForm, addRestoForm, deleteActiForm, deleteHotelForm, deleteRestoForm, setButtonToCart, setButtonToForm } from '../../redux/actions/formActions';
+import { inputSet } from '../../redux/actions/formActions';
 
 const theme = createTheme();
 
@@ -31,11 +33,11 @@ const styles = {
 
 export default function CreatePackageForm() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [openActi, setOpenActi] = useState(false);
     const [openHotel, setOpenHotel] = useState(false);
     const [openResto, setOpenResto] = useState(false);
-    const [findHotelOpen, setFindHotelOpen] = useState(false);
-    const [findRestoOpen, setFinRestoOpen] = useState(false);
+    const state = useSelector((state) => state.form);
     const [inputs, setInputs] = useState({
         name: "",
         location: "",
@@ -61,6 +63,25 @@ export default function CreatePackageForm() {
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState("");
     const [resto, setResto] = useState([]);
+
+    const changePage = (name) => {
+        dispatch(setButtonToForm());
+        dispatch(inputSet(inputs));
+        switch(name) {
+            case "ACTIVIDAD": {
+                navigate("/activitycards");
+                break;
+            };
+            case "HOTEL": {
+                navigate("/hotelcards");
+                break;
+            };
+            case "RESTO": {
+                navigate("/restaurantcards");
+                break;
+            }
+        }
+    }
 
     const defaultValuesActivity = {
         name: "",
@@ -169,12 +190,13 @@ export default function CreatePackageForm() {
             data
         ]);
         setOpenActi(false);
+        dispatch(addActiForm(data));
     }
 
     const addNewHotel = (data) => {
         setHotels(data);
         setOpenHotel(false);
-        setFindHotelOpen(false);
+        dispatch(addHotelForm(data));
     }
 
     const addNewResto = (data) => {
@@ -183,18 +205,22 @@ export default function CreatePackageForm() {
             data
         ]);
         setOpenResto(false);
+        dispatch(addRestoForm(data));
     }
 
-    const deleteActi = (id) => {
-        setActivities(activities.filter((elem, index) => index !== id));
+    const deleteActi = (name) => {
+        setActivities(activities.filter((elem) => elem.name !== name))
+        dispatch(deleteActiForm(name));
     }
 
-    const deleteResto = (id) => {
-        setResto(resto.filter((elem, index) => index !== id));
+    const deleteResto = (name) => {
+        setHotels(hotels.filter((elem) => elem.name !== name));
+        dispatch(deleteRestoForm(name));
     }
 
     const deleteHotel = () => {
         setHotels("");
+        dispatch(deleteHotelForm());
     }
 
     const getContent = (type) => {
@@ -217,7 +243,7 @@ export default function CreatePackageForm() {
                             <Typography>Imagenes: [{item.img}]</Typography>
                             <Typography>Tipo: {item.typeAct}</Typography>
                             <Typography>Precio: {item.price} USD</Typography>
-                            <Button variant='contained' size='small' onClick={() => deleteActi(index)}>X</Button>
+                            <Button variant='contained' size='small' onClick={() => deleteActi(item.name)}>X</Button>
                         </Box> 
                     )
                 }))
@@ -260,7 +286,7 @@ export default function CreatePackageForm() {
                             <Typography>Ubicacion : {item.location}</Typography>
                             <Typography>Imagenes : [{item.img}]</Typography>
                             <Typography>Precio? : {item.price} USD</Typography>
-                            <Button variant='contained' size='small' onClick={() => deleteResto(index)}>X</Button>
+                            <Button variant='contained' size='small' onClick={() => deleteResto(item.name)}>X</Button>
                         </Box> 
                     )
                 }))
@@ -281,6 +307,7 @@ export default function CreatePackageForm() {
     }
 
     const handleSubmit = async (event) => {
+        dispatch(setButtonToCart());
         event.preventDefault();
         if (Object.values(errors).length === 0) {
             try{
@@ -345,6 +372,13 @@ export default function CreatePackageForm() {
     useEffect(() => {
         setErrors(validation(inputs, activities));
     }, [inputs]);
+
+    useEffect(() => {
+        setInputs(state.inputs);
+        setHotels(state.hotel);
+        setResto(state.restaurants);
+        setActivities(state.activities);
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -497,7 +531,7 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("Add new Activity", "add existing activity", () => setOpenActi(true), () => alert("componente muestra actividades"))} 
+                        header={getHeader("Add new Activity", "add existing activity", () => setOpenActi(true), () => changePage("ACTIVIDAD"))} 
                         content={getContent("ACTIVITY")}/>
                     <ActivityModal 
                         open={openActi} 
@@ -508,7 +542,7 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => alert("componente muestra hotel"))} 
+                        header={getHeader("Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => changePage("HOTEL"))} 
                         content={getContent("HOTEL")}/>
                     <HotelModal 
                         open={openHotel} 
@@ -524,7 +558,7 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("Add new resto", "add existing resto", () => setOpenResto(true), () => alert("componente muestra restoranes"))} 
+                        header={getHeader("Add new resto", "add existing resto", () => setOpenResto(true), () => changePage("RESTO"))} 
                         content={getContent("RESTO")}/>
                     <RestoModal 
                         open={openResto} 
