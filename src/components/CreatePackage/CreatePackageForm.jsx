@@ -224,7 +224,7 @@ export default function CreatePackageForm() {
     }
 
     const deleteResto = (name) => {
-        setHotels(hotels.filter((elem) => elem.name !== name));
+        setResto(resto.filter((elem) => elem.name !== name));
         dispatch(deleteRestoForm(name));
     }
 
