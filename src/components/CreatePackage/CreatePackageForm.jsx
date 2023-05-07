@@ -38,12 +38,18 @@ export default function CreatePackageForm() {
     const [openHotel, setOpenHotel] = useState(false);
     const [openResto, setOpenResto] = useState(false);
     const state = useSelector((state) => state.form);
+    const [findHotelOpen, setFindHotelOpen] = useState(false);
+    const [findRestoOpen, setFinRestoOpen] = useState(false);
+    const [user, setUser] = useState({});
     const [inputs, setInputs] = useState({
         name: "",
         location: "",
         price: "",
         duration: "",
         img: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         quotas: "",
         dateInit: "",
@@ -55,6 +61,9 @@ export default function CreatePackageForm() {
         price: "",
         duration: "",
         img: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         quotas: "",
         dateInit: "",
@@ -124,6 +133,7 @@ export default function CreatePackageForm() {
                 setHotels(package1.hotel);
                 setActivities(package1.activities);
                 setResto(package1.resto);
+                setUser(package1.user);
                 break;
             };
             case "dos": {
@@ -131,6 +141,7 @@ export default function CreatePackageForm() {
                 setHotels(package2.hotel);
                 setActivities(package2.activities);
                 setResto(package2.resto);
+                setUser(package2.user);
                 break;
             };
             case "tres": {
@@ -138,6 +149,7 @@ export default function CreatePackageForm() {
                 setHotels(package3.hotel);
                 setActivities(package3.activities);
                 setResto(package3.resto);
+                setUser(package3.user);
                 break;
             };
             case "cuatro": {
@@ -145,6 +157,7 @@ export default function CreatePackageForm() {
                 setHotels(package4.hotel);
                 setActivities(package4.activities);
                 setResto(package4.resto);
+                setUser(package4.user);
                 break;
             };
             default: {
@@ -310,11 +323,13 @@ export default function CreatePackageForm() {
         dispatch(setButtonToCart());
         event.preventDefault();
         if (Object.values(errors).length === 0) {
-            try{
+            try {
+                const combinedImages = Array.from([inputs.img, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== "")
                 const ids = {
                     restaurantID: [],
                     hotelId: hotels.id || "",
-                    activitiesID: []
+                    activitiesID: [],
+                    userId: user.id || ""
                 }
                 for (let i = 0; i < resto.length; i++){
                     if (resto[i].id) {
@@ -336,25 +351,21 @@ export default function CreatePackageForm() {
                         ids.activitiesID.push(actviId.data.id);
                     }
                 }
-                const usuario = {
-                    userName: "nada",
-                    email: "nada",
-                    password: "123456",
-                    lastName: "perez",
-                    social: true,
-                    socialRed: "feisbuh"
-                }
                 const a = new Date(inputs.dateInit);
                 const b = new Date(inputs.dateEnd);
-                const userId = await axios.post("http://localhost:3001/user", usuario);
+                if (!user.id) {
+                    const userId = await axios.post("http://localhost:3001/user", user);
+                    ids.userId = userId.data.id;
+                }
                 const body = {
                     ...inputs,
+                    img: combinedImages,
                     dateInit: a,
                     dateEnd: b,
                     hotelId: ids.hotelId,
                     restaurantId: ids.restaurantID,
                     activitiesId: ids.activitiesID,
-                    userId: userId.data.id || 0,
+                    userId: ids.userId,
                 }
                 axios.post("http://localhost:3001/package", body)
                 .then(response => {
@@ -364,7 +375,7 @@ export default function CreatePackageForm() {
                     }
                 })
             } catch(error) {
-                alert(error.response.data.error);
+                alert(error.response.data.error || error.message);
             }
         }
     };
@@ -473,8 +484,49 @@ export default function CreatePackageForm() {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
+                    fullWidth
+                    id="img2"
+                    label="Imagen 2"
+                    name="img2"
+                    autoComplete="imagen 2"
+                    onChange={handleChange}
+                    error={!!errors.img2}
+                    helperText={errors.img2}
+                    value={inputs.img2}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    fullWidth
+                    id="img3"
+                    label="Imagen 3"
+                    name="img3"
+                    autoComplete="imagen 3"
+                    onChange={handleChange}
+                    error={!!errors.img3}
+                    helperText={errors.img3}
+                    value={inputs.img3}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    fullWidth
+                    id="img4"
+                    label="Imagen 4"
+                    name="img4"
+                    autoComplete="imagen 4"
+                    onChange={handleChange}
+                    error={!!errors.img4}
+                    helperText={errors.img4}
+                    value={inputs.img4}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
                     required
                     fullWidth
+                    multiline
+                    rows={6}
                     id="description"
                     label="Descripcion"
                     name="description"
@@ -506,7 +558,7 @@ export default function CreatePackageForm() {
                     id="dateInit"
                     label="Fecha inicio"
                     name="dateInit"
-                    autoComplete="Fecha inicio"
+                    placeholder="mm/dd/yy"
                     onChange={handleChange}
                     error={!!errors.dateInit}
                     helperText={errors.dateInit}
@@ -520,7 +572,7 @@ export default function CreatePackageForm() {
                     id="dateEnd"
                     label="Fecha fin"
                     name="dateEnd"
-                    autoComplete="fecha fin"
+                    placeholder="mm/dd/yy"
                     onChange={handleChange}
                     error={!!errors.dateEnd}
                     helperText={errors.dateEnd}

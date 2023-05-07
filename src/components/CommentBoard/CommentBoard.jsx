@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, Grid, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
@@ -7,6 +7,7 @@ export default function CommentBoard() {
     const [hearts, setHearts] = useState(0);
     const [commentValue, setCommentValue] = useState("");
     const [existingComments, setExistingComments] = useState([]);
+    const [errors, setErrors] = useState(false);
 
     const user = {
         name: "Lucas",
@@ -24,8 +25,12 @@ export default function CommentBoard() {
         setCommentValue(event.target.value);
     }
 
+    useEffect(() => {
+        setErrors(commentValue.split("\n").length > 7? true : false);
+    }, [commentValue])
+
     const handleSend = () => {
-        if (commentValue && hearts) {
+        if (commentValue && hearts && !errors) {
             const nuevoComentario = {
                 userName: user.name,
                 date: date,
@@ -84,6 +89,8 @@ export default function CommentBoard() {
                             onChange={handleComment}
                             value={commentValue}
                             placeholder="deja tu comentario..."
+                            error={errors}
+                            helperText={errors? "no mas de 7 saltos de linea" : ""}
                         />
                     </CardContent>
                     <CardActions>
