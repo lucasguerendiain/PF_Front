@@ -9,7 +9,6 @@ import { getActivityByName } from '../../redux/actions/ActivitiesActions';
 const SearchBar = (dondeEstoy) => {
 
   const { ubicacion } = dondeEstoy
-  console.log(ubicacion);
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
 

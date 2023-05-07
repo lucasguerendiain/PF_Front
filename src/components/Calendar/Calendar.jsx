@@ -130,7 +130,7 @@ export default function Calendar({handleClick}) {
 
 
     return (
-        <Box width="30vw" sx={{border: "1px solid black", display: "flex", flexDirection: "column"}}>
+        <Box width="30vw" sx={{border: "1px solid black", display: "flex", flexDirection: "column", backgroundColor: "white"}}>
             <Box>
                 <Box display="flex" flexDirection="row" justifyContent="space-between">
                     <Box display="flex" flexDirection="row" marginTop="0.5%" marginLeft="1%">

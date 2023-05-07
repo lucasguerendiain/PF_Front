@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { addHotelForm } from "../../redux/actions/formActions";
 import { agregarHotel } from "../../redux/actions/carritoActions";
+import { Link } from "react-router-dom";
 
 
 export default function Actividades(props) {
@@ -32,8 +33,8 @@ export default function Actividades(props) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} href={`/hotel/byId/${id}`}>
-        <CardMedia component="img" alt="hotel" height="140" image={img} />
+      <CardActionArea key={id} component={Link} to={`/hotel/byId/${id}`}>
+        <CardMedia component="img" alt="hotel" height="140" image={img[0]} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
