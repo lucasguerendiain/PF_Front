@@ -77,7 +77,17 @@ export default function PackageDetail() {
   }, [dispatch, id]);
 
   return (
-    <Box className="containerDetail" marginTop="1%" marginBottom="1%">
+    <Box sx={{
+      display: "flex",
+      flexDirection: "column",
+      textAlign: "center",
+      justifyContent: "space-between",
+      backgroundColor: "beige",
+      marginLeft: "8%",
+      marginRight: "8%",
+      width: "85vw",
+      border: "1px solid black",
+    }}>
       {Object.keys(pack).length ? (
         <Grid>
           <Typography
@@ -101,7 +111,6 @@ export default function PackageDetail() {
               </Box>
             ))}
           </Slider>
-
           <Grid marginTop="4%" marginBottom="4%" sx={{display: "flex", flexDirection:"column"}}>
             <Typography variant="h3" gutterBottom display="inline" fontWeight="600">{"Ubicacion: "}
                 <Typography variant="h3" display="inline">{pack.location}</Typography>
@@ -109,8 +118,8 @@ export default function PackageDetail() {
             <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Duracion: "}
               <Typography variant="h4" display="inline">{pack.duration} dias</Typography>
             </Typography>
-            <Typography variant="h4" gutterBottom fontWeight="600" display="inline" whiteSpace="pre-line">{"Descripcion: "}
-              <Typography variant="h4" display="inline">{pack.description}</Typography>
+            <Typography variant="h4" gutterBottom fontWeight="600">{"Descripcion: "}
+              <Typography variant="h4" whiteSpace="pre-line">{pack.description}</Typography>
             </Typography>
             <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Cupos: "}
               <Typography variant="h4" display="inline">{pack.quotas}</Typography>
@@ -136,7 +145,7 @@ export default function PackageDetail() {
                   </CardContent>
                   <CardActions>
                   <Button
-                    sx={{ marginTop: "2%" }}
+                    sx={{ marginTop: "2%", fontSize: "1.5rem" }}
                     variant="contained"
                     size="small"
                     onClick={() => viewActivity(item.id)}
@@ -178,7 +187,7 @@ export default function PackageDetail() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
+                  <Button sx={{fontSize:"1.5rem"}} onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
                 </CardActions>
               </Card>
           )}
@@ -202,7 +211,7 @@ export default function PackageDetail() {
                     <Button
                       variant="text"
                       onClick={() => viewRestaurant(item.id)}
-                      sx={{ marginTop: "2%" }}
+                      sx={{ marginTop: "2%", fontSize: "1.5rem" }}
                     >
                       mas info
                     </Button>
