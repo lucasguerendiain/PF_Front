@@ -9,12 +9,26 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
+import { useDispatch, useSelector } from "react-redux";
+import { addHotelForm } from "../../redux/actions/formActions";
+import { agregarHotel } from "../../redux/actions/carritoActions";
 
 
 export default function Actividades(props) {
   const { id, name, location, description, img, stars, priceDay } =
     props.hotel;
-  
+  const toForm = useSelector((state) => state.form.toForm);
+  const dispatch = useDispatch();
+
+  const handleClick = async (e) => {
+    if (toForm) {
+      dispatch(addHotelForm(props.hotel));
+      alert("se agrego con exito");
+    } else {
+      dispatch(agregarHotel(props.hotel))
+      alert("Se agrego el hotel al carrito.")
+    }
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -32,8 +46,8 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display="flex" justify-content="space-between" align-items="center">
         <CardActions>
-          <Button variant="outlined" >
-            Agregar al carrito
+          <Button variant="outlined" onClick={handleClick}>
+            {toForm? "Agregar al paquete" : "Agregar al carrito"}
           </Button>
         </CardActions>
         <IconButton aria-label="add to favorites">
