@@ -6,8 +6,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+// import IconButton from "@mui/material/IconButton";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { addHotelForm } from "../../redux/actions/formActions";
@@ -51,9 +51,9 @@ export default function Actividades(props) {
             {toForm? "Agregar al paquete" : "Agregar al carrito"}
           </Button>
         </CardActions>
-        <IconButton aria-label="add to favorites">
+        {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
+        </IconButton> */}
       </Grid>
     </Card>
   );

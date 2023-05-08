@@ -16,6 +16,7 @@ import RestoDetail from './components/Detail/Resto/RestoDetail';
 import HotelCardContainer from './components/CardsContainer/HotelCardContainer'
 import RestaurantCardContainer from './components/CardsContainer/RestaurantCardContainer';
 import ScrollToTop from './scrollToTop';
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/home"/>}/>
           <Route path="/home" element={<Home/>} />
-          <Route path='/form' element={<CreatePackageForm/>}/>
+          <Route path='/dashboard/form' element={<CreatePackageForm/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path='/packagecards' element={<PackageCardContainer/>}/>
@@ -38,6 +39,7 @@ function App() {
           <Route path='/restaurant/byId/:id' element={<RestoDetail/>}/>
           <Route path='/hotelcards' element={<HotelCardContainer/>}/>
           <Route path='/restaurantcards' element={<RestaurantCardContainer/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
         <Footer />
       </div>
