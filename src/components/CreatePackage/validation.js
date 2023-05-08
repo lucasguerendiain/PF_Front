@@ -33,8 +33,8 @@ export function validation(inputs, activities) {
     if (img4 && !regexImage.test(img4)) errors.img4 = "imagen no valida";
     if (!description || !regexAnyLetter.test(description)) errors.description = "descripcion vacia o no contiene letras";
     if (!quotas || quotas < 20 || !regexAllNumbers.test(quotas)) errors.quotas = "no se puede menos de 20 cupos / solo  ingresar numeros";
-    if (!dateInit || dateInit === dateEnd || fechaValida(dateInit)) errors.dateInit = "fecha invalida";
-    if (!dateEnd || dateInit === dateEnd) errors.dateEnd = "fecha invalida";
+    // if (!dateInit || dateInit === dateEnd) errors.dateInit = "fecha invalida";
+    // if (!dateEnd || dateInit === dateEnd) errors.dateEnd = "fecha invalida";
 
     return errors;
 }

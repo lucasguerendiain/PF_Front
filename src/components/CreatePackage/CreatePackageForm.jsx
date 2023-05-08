@@ -16,9 +16,15 @@ import axios from "axios";
 import { package1, package2, package3, package4 } from './loadPackage';
 import RestoModal from './Modals/RestoModal';
 import { useNavigate } from 'react-router-dom';
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"
+import es from "date-fns/locale/es";
+import { addDays, addYears } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { addActiForm, addHotelForm, addRestoForm, deleteActiForm, deleteHotelForm, deleteRestoForm, emptyFormCommand, setButtonToCart, setButtonToForm } from '../../redux/actions/formActions';
 import { inputSet } from '../../redux/actions/formActions';
+registerLocale("es", es)
+
 
 const theme = createTheme();
 
@@ -29,6 +35,13 @@ const styles = {
     borderShadow: "5px",
     fontSize: "1.3rem"
 }
+const stylesDateInput = {
+display:"flex",
+flexDirection: "row-Reverse",
+alignItems: "center"
+}
+
+
 
 export default function CreatePackageForm() {
     const navigate = useNavigate();
@@ -36,8 +49,10 @@ export default function CreatePackageForm() {
     const [openActi, setOpenActi] = useState(false);
     const [openHotel, setOpenHotel] = useState(false);
     const [openResto, setOpenResto] = useState(false);
+    const [selectDate, setSelectDate] = useState(new Date())
     const state = useSelector((state) => state.form);
     const [user, setUser] = useState({});
+
     const [inputs, setInputs] = useState({
         name: "",
         location: "",
@@ -124,7 +139,7 @@ export default function CreatePackageForm() {
     }
 
     const handlePreLoad = (number) => {
-        switch(number) {
+        switch (number) {
             case "uno": {
                 setInputs(package1.package);
                 setHotels(package1.hotel);
@@ -163,10 +178,11 @@ export default function CreatePackageForm() {
         }
     }
 
-    const getHeader = (boton1, boton2, funcionOpen, funcionOpen2 = () => {}) => {
+    const getHeader = (boton1, boton2, funcionOpen, funcionOpen2 = () => { }) => {
         return (
             <Box>
                 <Box sx={{
+
                 display: "flex",
                 alignItems: "center",
                 height: "100%",
@@ -174,11 +190,12 @@ export default function CreatePackageForm() {
                 border: "1px solid black",
                 justifyContent: "space-between",
                 width: "100%"}}>
+
                     <Button
                         onClick={funcionOpen}
                         variant='contained'
                         size='small'
-                        sx={{marginRight: "2%"}}
+                        sx={{ marginRight: "2%" }}
                     >
                         {boton1}
                     </Button>
@@ -234,9 +251,10 @@ export default function CreatePackageForm() {
     }
 
     const getContent = (type) => {
-        switch(type) {
+        switch (type) {
             case "ACTIVITY": {
                 return activities.length
+
                 ? (activities.map((item, index) => {
                     return (
                         <Box 
@@ -261,26 +279,28 @@ export default function CreatePackageForm() {
             };
             case "HOTEL": {
                 return hotels
-                ? (<Box 
-                            sx={{
-                                border: "1px solid black",
-                                backgroundColor: 'cyan',
-                                marginBottom: "4px",
-                                marginTop: "4px"}
-                            }> Hotel: 
-                            <Typography>Nombre : {hotels.name}</Typography>
-                            <Typography>Desc. : {hotels.description}</Typography>
-                            <Typography>Ubicacion : {hotels.location}</Typography>
-                            <Typography>Imagenes : [{hotels.img}]</Typography>
-                            <Typography>Estrellas: {hotels.stars}</Typography>
-                            <Typography>Precio: {hotels.priceDay} USD/dia</Typography>
-                            <Button variant='contained' size='small' onClick={() => deleteHotel()}>X</Button>
-                        </Box> 
+                    ? (<Box
+                        sx={{
+                            border: "1px solid black",
+                            backgroundColor: 'cyan',
+                            marginBottom: "4px",
+                            marginTop: "4px"
+                        }
+                        }> Hotel:
+                        <Typography>Nombre : {hotels.name}</Typography>
+                        <Typography>Desc. : {hotels.description}</Typography>
+                        <Typography>Ubicacion : {hotels.location}</Typography>
+                        <Typography>Imagenes : [{hotels.img}]</Typography>
+                        <Typography>Estrellas: {hotels.stars}</Typography>
+                        <Typography>Precio: {hotels.priceDay} USD/dia</Typography>
+                        <Button variant='contained' size='small' onClick={() => deleteHotel()}>X</Button>
+                    </Box>
                     )
-                : ("no hay hoteles de momento")
+                    : ("no hay hoteles de momento")
             };
             case "RESTO": {
                 return resto.length
+
                 ? (resto.map((item, index) => {
                     return (
                         <Box 
@@ -309,7 +329,7 @@ export default function CreatePackageForm() {
     }
 
     const handleChange = (event) => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
         setInputs({
             ...inputs,
             [name]: value
@@ -321,14 +341,16 @@ export default function CreatePackageForm() {
         event.preventDefault();
         if (Object.values(errors).length === 0) {
             try {
+
                 const combinedImages = Array.from([inputs.img, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== "")
+
                 const ids = {
                     restaurantID: [],
                     hotelId: hotels.id || "",
                     activitiesID: [],
                     userId: user.id || ""
                 }
-                for (let i = 0; i < resto.length; i++){
+                for (let i = 0; i < resto.length; i++) {
                     if (resto[i].id) {
                         ids.restaurantID.push(resto[i].id)
                     } else {
@@ -340,7 +362,7 @@ export default function CreatePackageForm() {
                     const hotelId = await axios.post("http://localhost:3001/hotel", hotels);
                     ids.hotelId = hotelId.data.id;
                 }
-                for (let i = 0; i < activities.length; i++){
+                for (let i = 0; i < activities.length; i++) {
                     if (activities[i].id) {
                         ids.activitiesID.push(activities[i].id)
                     } else {
@@ -348,8 +370,6 @@ export default function CreatePackageForm() {
                         ids.activitiesID.push(actviId.data.id);
                     }
                 }
-                const a = new Date(inputs.dateInit);
-                const b = new Date(inputs.dateEnd);
                 if (!user.id) {
                     const userId = await axios.post("http://localhost:3001/user", user);
                     ids.userId = userId.data.id;
@@ -357,14 +377,16 @@ export default function CreatePackageForm() {
                 const body = {
                     ...inputs,
                     img: combinedImages,
-                    dateInit: a,
-                    dateEnd: b,
+                   dateInit: selectDate,
+                    dateEnd: addDays(selectDate, inputs.duration),
+
                     hotelId: ids.hotelId,
                     restaurantId: ids.restaurantID,
                     activitiesId: ids.activitiesID,
                     userId: ids.userId,
                 }
                 axios.post("http://localhost:3001/package", body)
+
                 .then(response => {
                     if (response.status === 200) {
                         dispatch(emptyFormCommand());
@@ -549,34 +571,43 @@ export default function CreatePackageForm() {
                     value={inputs.quotas}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="dateInit"
-                    label="Fecha inicio"
-                    name="dateInit"
-                    placeholder="mm/dd/yy"
-                    onChange={handleChange}
-                    error={!!errors.dateInit}
-                    helperText={errors.dateInit}
-                    value={inputs.dateInit}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="dateEnd"
-                    label="Fecha fin"
-                    name="dateEnd"
-                    placeholder="mm/dd/yy"
-                    onChange={handleChange}
-                    error={!!errors.dateEnd}
-                    helperText={errors.dateEnd}
-                    value={inputs.dateEnd}
-                    />
-                </Grid>
+          <Grid item xs={12} sx={stylesDateInput}>
+                                <DatePicker
+                                    // selected={selectDate}
+                                    placeholderText='Eligir fecha'
+                                    onChange={(date) => { setSelectDate(date) }}
+                                    locale="es"
+                                    minDate={new Date()}
+                                    maxDate={addYears(new Date(), 1)}
+                                />
+                            
+                                <TextField
+                                    required
+                                     fullWidth
+                                    id="dateInit"
+                                    label="Fecha inicio"
+                                    name="dateInit"
+                                    autoComplete="Fecha inicio"
+                                    onChange={handleChange}
+                                    error={!!errors.dateInit}
+                                    helperText={errors.dateInit}
+                                    value={selectDate.toLocaleDateString('es', { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="dateEnd"
+                                    label="Fecha fin"
+                                    name="dateEnd"
+                                    autoComplete="fecha fin"
+                                    onChange={handleChange}
+                                    error={!!errors.dateEnd}
+                                    helperText={errors.dateEnd}
+                                    value={addDays(selectDate, inputs.duration).toLocaleDateString('es', { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                                />
+                            </Grid>
                 </Grid>
                 <br/>
                 <Grid item xs={8} sx={styles}>
@@ -625,9 +656,9 @@ export default function CreatePackageForm() {
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("dos")}>2</Button>
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("tres")}>3</Button>
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("cuatro")}>4</Button>
+                    </Box>
                 </Box>
-            </Box>
-        </Container>
+            </Container>
         </ThemeProvider>
     );
 }
