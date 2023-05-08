@@ -1,4 +1,5 @@
 import React from "react";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate } from "react-router-dom/dist";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageDetailById } from "../../../redux/actions/packageActions";
@@ -62,6 +63,10 @@ export default function PackageDetail() {
     navigate(`/restaurant/byId/${id}`);
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     const getDetail = async () => {
       try {
@@ -111,9 +116,9 @@ export default function PackageDetail() {
               </Box>
             ))}
           </Slider>
-          <Grid marginTop="4%" marginBottom="4%" sx={{display: "flex", flexDirection:"column"}}>
+          <Grid marginTop="4%" marginBottom="4%" sx={{ display: "flex", flexDirection: "column" }}>
             <Typography variant="h3" gutterBottom display="inline" fontWeight="600">{"Ubicacion: "}
-                <Typography variant="h3" display="inline">{pack.location}</Typography>
+              <Typography variant="h3" display="inline">{pack.location}</Typography>
             </Typography>
             <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Duracion: "}
               <Typography variant="h4" display="inline">{pack.duration} dias</Typography>
@@ -125,10 +130,10 @@ export default function PackageDetail() {
               <Typography variant="h4" display="inline">{pack.quotas}</Typography>
             </Typography>
             <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Fecha inicio: "}
-                <Typography variant="h4" display="inline">{pack.dateInit}</Typography>
+              <Typography variant="h4" display="inline">{pack.dateInit}</Typography>
             </Typography>
             <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Fecha fin: "}
-                <Typography variant="h4" display="inline">{pack.dateEnd}</Typography>
+              <Typography variant="h4" display="inline">{pack.dateEnd}</Typography>
             </Typography>
           </Grid>
           <Typography gutterBottom variant="h3" sx={{ fontWeight: "700" }}>
@@ -137,21 +142,21 @@ export default function PackageDetail() {
           <Slider {...settings2}>
             {pack.activities.map((item, index) => {
               return (
-                <Card sx={{maxWidth: "50%", display: "flex", flexDirection: "column", backgroundColor: "lightgray"}} key={index}>
+                <Card sx={{ maxWidth: "50%", display: "flex", flexDirection: "column", backgroundColor: "lightgray" }} key={index}>
                   <Typography fontWeight="600" variant="h3">{item.name}</Typography>
                   <Typography variant="h3">duracion: {item.duration} horas</Typography>
                   <CardContent>
-                  <img src={item.img[0]} alt={item.name}/>
+                    <img src={item.img[0]} alt={item.name} />
                   </CardContent>
                   <CardActions>
-                  <Button
-                    sx={{ marginTop: "2%", fontSize: "1.5rem" }}
-                    variant="contained"
-                    size="small"
-                    onClick={() => viewActivity(item.id)}
-                  >
-                    mas info
-                  </Button>
+                    <Button
+                      sx={{ marginTop: "2%", fontSize: "1.5rem" }}
+                      variant="contained"
+                      size="small"
+                      onClick={() => viewActivity(item.id)}
+                    >
+                      mas info
+                    </Button>
                   </CardActions>
                 </Card>
               );
@@ -162,34 +167,34 @@ export default function PackageDetail() {
             Hotel:
           </Typography>
           {pack.hotel && (
-              <Card sx={{
-                maxWidth: "50%",
-                maxHeight: "50vh",
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "25%",
-              }}>
-                <CardMedia
-                  component="img"
-                  sx={{maxHeight: "25vh"}}
-                  image={pack.hotel.img[0]}
-                  alt={pack.hotel.name}
-                />
-                <CardContent>
-                  <Typography fontWeight="600" variant="h4" gutterBottom>
-                    Nombre: {pack.hotel.name}
-                  </Typography>
-                  <Typography variant="h5" gutterBottom>
-                    Estrellas: {pack.hotel.stars}
-                  </Typography>
-                  <Typography variant="h6">
-                    {pack.hotel.description}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button sx={{fontSize:"1.5rem"}} onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
-                </CardActions>
-              </Card>
+            <Card sx={{
+              maxWidth: "50%",
+              maxHeight: "50vh",
+              justifyContent: "center",
+              alignItems: "center",
+              marginLeft: "25%",
+            }}>
+              <CardMedia
+                component="img"
+                sx={{ maxHeight: "25vh" }}
+                image={pack.hotel.img[0]}
+                alt={pack.hotel.name}
+              />
+              <CardContent>
+                <Typography fontWeight="600" variant="h4" gutterBottom>
+                  Nombre: {pack.hotel.name}
+                </Typography>
+                <Typography variant="h5" gutterBottom>
+                  Estrellas: {pack.hotel.stars}
+                </Typography>
+                <Typography variant="h6">
+                  {pack.hotel.description}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button sx={{ fontSize: "1.5rem" }} onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
+              </CardActions>
+            </Card>
           )}
           {pack.restaurants.length ? (
             <Grid marginTop="3%" marginBottom="3%">
@@ -220,7 +225,7 @@ export default function PackageDetail() {
               </Slider>
             </Grid>
           ) : (
-            "no incluye comida/s en restaurante/s"
+            <Typography fontWeight="600" variant="h4" gutterBottom marginTop="2%">no incluye comida/s en restaurante/s</Typography>
           )}
           <Typography
             variant="h2"
@@ -237,35 +242,45 @@ export default function PackageDetail() {
       ) : (
         <LoadingComponent />
       )}
-
-      <PayPalScriptProvider
-        options={{
-          "client-id":
-            "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
-        }}
-      >
-        <PayPalButtons
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: pack.price,
+      <Box sx={{marginTop: "2%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Button
+              variant="contained"
+              sx={{ fontSize: "1.6rem", maxWidth: "20vw"}}
+              startIcon={<ArrowBackIosIcon />}
+              onClick={goBack}
+            >
+              volver
+        </Button>
+        </Box>
+      <Box sx={{marginTop: "5%", marginBottom: "3%"}}>
+        <PayPalScriptProvider
+          options={{
+            "client-id":
+              "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
+          }}
+        >
+          <PayPalButtons
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: pack.price,
+                    },
                   },
-                },
-              ],
-            });
-          }}
-          onApprove={(data, actions) => {
-            return actions.order.capture().then(function () {
-              alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
-            });
-          }}
-        />
-      </PayPalScriptProvider>
-      {/* handlePrecio={(pack) => handlePrecio(pack)} */}
+                ],
+              });
+            }}
+            onApprove={(data, actions) => {
+              return actions.order.capture().then(function () {
+                alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
+              });
+            }}
+          />
+        </PayPalScriptProvider>
+        {/* handlePrecio={(pack) => handlePrecio(pack)} */}
+      </Box>
     <CommentBoard/>
     </Box>
-    
   );
 }
