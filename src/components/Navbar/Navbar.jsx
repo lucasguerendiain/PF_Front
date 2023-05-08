@@ -31,7 +31,7 @@ const Navbar = () => {
             </li>
             <li className={style.navItem + " nav-item"}>
               <Link className={style.navLink + " nav-link"} to="/activitycards">
-                Activities
+                Actividades
               </Link>
             </li>
 
