@@ -13,12 +13,11 @@ import BasicCard from './commons/BasicCard';
 import ActivityModal from './Modals/ActivityModal';
 import HotelModal from './Modals/HotelModal';
 import axios from "axios";
-import { CardActions } from '@mui/material';
 import { package1, package2, package3, package4 } from './loadPackage';
 import RestoModal from './Modals/RestoModal';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addActiForm, addHotelForm, addRestoForm, deleteActiForm, deleteHotelForm, deleteRestoForm, setButtonToCart, setButtonToForm } from '../../redux/actions/formActions';
+import { addActiForm, addHotelForm, addRestoForm, deleteActiForm, deleteHotelForm, deleteRestoForm, emptyFormCommand, setButtonToCart, setButtonToForm } from '../../redux/actions/formActions';
 import { inputSet } from '../../redux/actions/formActions';
 
 const theme = createTheme();
@@ -38,8 +37,6 @@ export default function CreatePackageForm() {
     const [openHotel, setOpenHotel] = useState(false);
     const [openResto, setOpenResto] = useState(false);
     const state = useSelector((state) => state.form);
-    const [findHotelOpen, setFindHotelOpen] = useState(false);
-    const [findRestoOpen, setFinRestoOpen] = useState(false);
     const [user, setUser] = useState({});
     const [inputs, setInputs] = useState({
         name: "",
@@ -172,10 +169,10 @@ export default function CreatePackageForm() {
                 <Box sx={{
                 display: "flex",
                 alignItems: "center",
-                paddingLeft: "10px",
                 height: "100%",
                 backgroundColor: 'lightcyan',
                 border: "1px solid black",
+                justifyContent: "space-between",
                 width: "100%"}}>
                     <Button
                         onClick={funcionOpen}
@@ -227,7 +224,7 @@ export default function CreatePackageForm() {
     }
 
     const deleteResto = (name) => {
-        setHotels(hotels.filter((elem) => elem.name !== name));
+        setResto(resto.filter((elem) => elem.name !== name));
         dispatch(deleteRestoForm(name));
     }
 
@@ -370,6 +367,7 @@ export default function CreatePackageForm() {
                 axios.post("http://localhost:3001/package", body)
                 .then(response => {
                     if (response.status === 200) {
+                        dispatch(emptyFormCommand());
                         alert("paquete creado con exito");
                         navigate(0);
                     }
@@ -601,11 +599,6 @@ export default function CreatePackageForm() {
                         handleClose={() => setOpenHotel(false)} 
                         addNewItem={addNewHotel} 
                         defaultValues={defaultValuesHotel}/>
-                    {/* <FindHotelModal
-                        open={findHotelOpen}
-                        handleClose={() => setFindHotelOpen(false)}
-                        handleAdd={addNewHotel}
-                    /> */}
                 </Grid>
                 <br/>
                 <Grid item xs={8} sx={styles}>

@@ -9,13 +9,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getHotelDetailById } from "../../../redux/actions/HotelesActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
 import CommentBoard from "../../CommentBoard/CommentBoard";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { addHotelForm } from "../../../redux/actions/formActions";
+import { agregarHotel } from "../../../redux/actions/carritoActions";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export default function HotelDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const hotel = useSelector((state) => state.hoteles.detail);
+  const toForm = useSelector((state) => state.form.toForm);
   const { id } = useParams();
-  console.log(hotel);
   const setings = {
     dots: true,
     infinite: true,
@@ -40,6 +44,16 @@ export default function HotelDetail() {
   const goBack = () => {
     navigate(-1);
   };
+
+  const handleClick = () => {
+    if (toForm) {
+      dispatch(addHotelForm(hotel));
+      alert("añadida con exito");
+    } else {
+      dispatch(agregarHotel(hotel));
+      alert("el hotel se añadio al carrito");
+    }
+  }
   
   return (
     <Grid sx={{
@@ -105,6 +119,14 @@ export default function HotelDetail() {
               padding: "3%",
             }}
           >
+            <Button
+              variant="contained"
+              sx={{ fontSize: "1.4rem", marginRight: "3%" }}
+              startIcon={toForm? <AddCircleIcon/> : <AddShoppingCartIcon/>}
+              onClick={handleClick}
+            >
+              {toForm? "Añadir al paquete" : "Añadir al Carrito"}
+            </Button>
             <Button
               variant="contained"
               sx={{ fontSize: "1.6rem" }}

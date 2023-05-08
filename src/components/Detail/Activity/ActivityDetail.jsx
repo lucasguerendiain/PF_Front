@@ -10,14 +10,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getActivityDetailById } from "../../../redux/actions/ActivitiesActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
 import CommentBoard from "../../CommentBoard/CommentBoard";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { addActiForm } from "../../../redux/actions/formActions";
+import { agregarActivitie } from "../../../redux/actions/carritoActions";
 
 
 export default function ActivityDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const activity = useSelector((state) => state.activities.detail);
+  const toForm = useSelector((state) => state.form.toForm);
   const { id } = useParams();
-  console.log(activity);
 
   useEffect(() => {
     const getDetail = async () => {
@@ -36,6 +39,16 @@ export default function ActivityDetail() {
   const goBack = () => {
     navigate(-1);
   };
+
+  const handleClick = () => {
+    if (toForm) {
+      dispatch(addActiForm(activity));
+      alert("añadida con exito");
+    } else {
+      dispatch(agregarActivitie(activity));
+      alert("la actividad se añadio al carrito");
+    }
+  }
 
   const setings = {
     dots: true,
@@ -119,9 +132,10 @@ export default function ActivityDetail() {
             <Button
               variant="contained"
               sx={{ fontSize: "1.4rem", marginRight: "3%" }}
-              startIcon={<AddShoppingCartIcon />}
+              startIcon={toForm? <AddCircleIcon/> : <AddShoppingCartIcon/>}
+              onClick={handleClick}
             >
-              Añadir al Carrito
+              {toForm? "Añadir al paquete" : "Añadir al Carrito"}
             </Button>
             <Button
               variant="contained"

@@ -9,7 +9,7 @@ import Collapse from "@mui/material/Collapse";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
+import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -51,7 +51,7 @@ export default function Paquete(props) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} href={`/package/${id}`}>
+      <CardActionArea key={id} component={Link} to={`/package/${id}`}>
         <CardHeader
           action={
             <Typography>

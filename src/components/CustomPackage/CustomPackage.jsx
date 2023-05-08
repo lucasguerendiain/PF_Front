@@ -44,7 +44,7 @@ export default function CustomPackage() {
 
     const handleClick = (data) => {
         console.log(data);
-        setDate(data.toString());
+        setDate(data.toLocaleString());
     }
 
     return(
@@ -72,9 +72,9 @@ export default function CustomPackage() {
                                             <CardMedia
                                                 component="img"
                                                 sx={{
-                                                    pt: "46.25%"
+                                                    height: "20vh"
                                                 }}
-                                                image={item.img}
+                                                image={item.img[0]}
                                                 alt={item.name}
                                             />
                                             <CardContent>
@@ -100,7 +100,6 @@ export default function CustomPackage() {
                     </CardContent>
                     <CardActions>
                         <Button size="medium" variant="contained" onClick={() => navigate("/activitycards")}>Añadir Actividad</Button>
-                        {/* add activity te lleva al componente que muestra todas las actividades */}
                         <Button size="medium" variant="contained" onClick={() => navigate("/hotelcards")}>Añadir Hotel</Button>
                     </CardActions>
                     {hotel
@@ -115,11 +114,11 @@ export default function CustomPackage() {
                         </Card>) 
                     : ("")}
                 </Card>
-                <Box sx={{backgroundColor: "white", marginTop: "2%", marginBottom: "2%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                <Box sx={{backgroundColor: "lightgrey", marginTop: "2%", marginBottom: "2%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                     <Calendar handleClick={handleClick}/>
-                    <Typography variant="h4" gutterBottom>fecha de inicio: {date}</Typography>
+                    <Typography marginTop="1%" variant="h4" gutterBottom>fecha de inicio: {date}</Typography>
                     {activities.length? <Typography gutterBottom variant="h4">precio total: {calcularPrecio(activities, hotel)} USD</Typography> : ""}
-                    {activities.length? <Typography gutterBottom variant="h4">duracion del viaje: {Math.ceil(activities.length / 2)}</Typography> : ""}
+                    {activities.length? <Typography gutterBottom variant="h4">duracion del viaje: {Math.ceil(activities.length / 2)} dias</Typography> : ""}
                 </Box>
                 <PayPalScriptProvider
         options={{
