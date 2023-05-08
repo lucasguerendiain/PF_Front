@@ -1,4 +1,5 @@
 import React from "react";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate } from "react-router-dom/dist";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageDetailById } from "../../../redux/actions/packageActions";
@@ -60,6 +61,10 @@ export default function PackageDetail() {
 
   const viewRestaurant = (id) => {
     navigate(`/restaurant/byId/${id}`);
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -220,7 +225,7 @@ export default function PackageDetail() {
               </Slider>
             </Grid>
           ) : (
-            "no incluye comida/s en restaurante/s"
+            <Typography fontWeight="600" variant="h4" gutterBottom marginTop="2%">no incluye comida/s en restaurante/s</Typography>
           )}
           <Typography
             variant="h2"
@@ -237,35 +242,45 @@ export default function PackageDetail() {
       ) : (
         <LoadingComponent />
       )}
-
-      <PayPalScriptProvider
-        options={{
-          "client-id":
-            "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
-        }}
-      >
-        <PayPalButtons
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: pack.price,
+      <Box sx={{marginTop: "2%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Button
+              variant="contained"
+              sx={{ fontSize: "1.6rem", maxWidth: "20vw"}}
+              startIcon={<ArrowBackIosIcon />}
+              onClick={goBack}
+            >
+              volver
+        </Button>
+        </Box>
+      <Box sx={{marginTop: "5%", marginBottom: "3%"}}>
+        <PayPalScriptProvider
+          options={{
+            "client-id":
+              "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
+          }}
+        >
+          <PayPalButtons
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: pack.price,
+                    },
                   },
-                },
-              ],
-            });
-          }}
-          onApprove={(data, actions) => {
-            return actions.order.capture().then(function () {
-              alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
-            });
-          }}
-        />
-      </PayPalScriptProvider>
-      {/* handlePrecio={(pack) => handlePrecio(pack)} */}
+                ],
+              });
+            }}
+            onApprove={(data, actions) => {
+              return actions.order.capture().then(function () {
+                alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
+              });
+            }}
+          />
+        </PayPalScriptProvider>
+        {/* handlePrecio={(pack) => handlePrecio(pack)} */}
+      </Box>
     <CommentBoard/>
-    </Box>
     </Box>
   );
 }

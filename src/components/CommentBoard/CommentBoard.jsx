@@ -61,7 +61,7 @@ export default function CommentBoard() {
 
     return (
         <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
-            <Card sx={{backgroundColor: "cyan", width: "70vw", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid grey"}}>
+            <Card sx={{backgroundColor: "warning.main", width: "70vw", display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid grey"}}>
                 <Card sx={{border: "1px solid black", marginTop: "1%", borderBottom: "1px dashed"}}>
                     <CardHeader
                         title={
