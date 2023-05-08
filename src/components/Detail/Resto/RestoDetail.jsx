@@ -120,15 +120,16 @@ export default function RestoDetail() {
               padding: "3%",
             }}
           >
-            <Button
+            {toForm
+            ? (<Button
               variant="contained"
               sx={{ fontSize: "1.4rem", marginRight: "3%" }}
-              startIcon={toForm? <AddCircleIcon/> : ""}
+              startIcon={<AddCircleIcon/>}
               onClick={handleClick}
-              disabled={toForm? false : true}
             >
-              {toForm? "Añadir al paquete" : ""}
-            </Button>
+              Añadir al paquete
+            </Button>) 
+            : ("")}
             <Button
               variant="contained"
               sx={{ fontSize: "1.6rem" }}

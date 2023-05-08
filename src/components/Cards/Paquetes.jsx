@@ -15,6 +15,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CardActionArea } from "@mui/material";
+import { useNavigate } from "react-router-dom/dist";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,6 +27,7 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
+
 
 export default function Paquete(props) {
   const {
@@ -48,6 +50,7 @@ export default function Paquete(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const navigate = useNavigate();
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -69,8 +72,8 @@ export default function Paquete(props) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-      <CardActions>
-        <Button variant="outlined">Agregar al carrito</Button>
+      <CardActions onClick={() => navigate(`/package/${id}`)}>
+        <Button variant="outlined">mas info</Button>
       </CardActions>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
@@ -89,7 +92,7 @@ export default function Paquete(props) {
           <Typography paragraph>Hotel: </Typography>
           <Typography paragraph>{hotel.name}</Typography>
           <Typography paragraph>Restoran: </Typography>
-          <Typography paragraph>{restaurants[0].name}</Typography>
+          <Typography paragraph>{restaurants.length? (restaurants[0].name) : ("")}</Typography>
           <Typography paragraph>Actividad: </Typography>
           <Typography paragraph>{activities[0].name}</Typography>
         </CardContent>

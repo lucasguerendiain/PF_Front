@@ -51,7 +51,14 @@ export default function CreatePackageForm() {
     const [openResto, setOpenResto] = useState(false);
     const [selectDate, setSelectDate] = useState(new Date())
     const state = useSelector((state) => state.form);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({
+        userName: "damian",
+        email: "adna",
+        password: "321456",
+        lastName: "broglia",
+        social: true,
+        socialRed: "feisbuh"
+    });
 
     const [inputs, setInputs] = useState({
         name: "",
@@ -89,18 +96,21 @@ export default function CreatePackageForm() {
         dispatch(setButtonToForm());
         dispatch(inputSet(inputs));
         switch(name) {
-            case "ACTIVIDAD": {
+            case "ACTIVIDAD": 
                 navigate("/activitycards");
                 break;
-            };
-            case "HOTEL": {
+            ;
+            case "HOTEL": 
                 navigate("/hotelcards");
                 break;
-            };
-            case "RESTO": {
+            ;
+            case "RESTO": 
                 navigate("/restaurantcards");
                 break;
-            }
+            ;
+            default: 
+                alert("algo salio mal");
+            ;
         }
     }
 
@@ -140,41 +150,40 @@ export default function CreatePackageForm() {
 
     const handlePreLoad = (number) => {
         switch (number) {
-            case "uno": {
+            case "uno": 
                 setInputs(package1.package);
                 setHotels(package1.hotel);
                 setActivities(package1.activities);
                 setResto(package1.resto);
                 setUser(package1.user);
                 break;
-            };
-            case "dos": {
+            ;
+            case "dos": 
                 setInputs(package2.package);
                 setHotels(package2.hotel);
                 setActivities(package2.activities);
                 setResto(package2.resto);
                 setUser(package2.user);
                 break;
-            };
-            case "tres": {
+            ;
+            case "tres": 
                 setInputs(package3.package);
                 setHotels(package3.hotel);
                 setActivities(package3.activities);
                 setResto(package3.resto);
                 setUser(package3.user);
                 break;
-            };
-            case "cuatro": {
+            ;
+            case "cuatro": 
                 setInputs(package4.package);
                 setHotels(package4.hotel);
                 setActivities(package4.activities);
                 setResto(package4.resto);
                 setUser(package4.user);
                 break;
-            };
-            default: {
+            ;
+            default: 
                 alert("error");
-            }
         }
     }
 
@@ -252,9 +261,8 @@ export default function CreatePackageForm() {
 
     const getContent = (type) => {
         switch (type) {
-            case "ACTIVITY": {
+            case "ACTIVITY": 
                 return activities.length
-
                 ? (activities.map((item, index) => {
                     return (
                         <Box 
@@ -276,8 +284,8 @@ export default function CreatePackageForm() {
                     )
                 }))
                 : ("no hay actividades cargadas")
-            };
-            case "HOTEL": {
+            ;
+            case "HOTEL": 
                 return hotels
                     ? (<Box
                         sx={{
@@ -297,10 +305,9 @@ export default function CreatePackageForm() {
                     </Box>
                     )
                     : ("no hay hoteles de momento")
-            };
-            case "RESTO": {
+            ;
+            case "RESTO": 
                 return resto.length
-
                 ? (resto.map((item, index) => {
                     return (
                         <Box 
@@ -321,10 +328,10 @@ export default function CreatePackageForm() {
                     )
                 }))
                 : ("no hay restaurantes cargados")
-            };
-            default: {
+            ;
+            default: 
                 return "fallo algo"
-            };
+            ;
         }
     }
 
@@ -341,9 +348,7 @@ export default function CreatePackageForm() {
         event.preventDefault();
         if (Object.values(errors).length === 0) {
             try {
-
                 const combinedImages = Array.from([inputs.img, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== "")
-
                 const ids = {
                     restaurantID: [],
                     hotelId: hotels.id || "",
@@ -370,23 +375,23 @@ export default function CreatePackageForm() {
                         ids.activitiesID.push(actviId.data.id);
                     }
                 }
+                const aux = await axios.get("http://localhost:3001/user/1");
+                setUser(aux.data);
                 if (!user.id) {
                     const userId = await axios.post("/user", user);
                     ids.userId = userId.data.id;
-                }
+                } else ids.userId = user.id;
                 const body = {
                     ...inputs,
                     img: combinedImages,
-                   dateInit: selectDate,
+                    dateInit: selectDate,
                     dateEnd: addDays(selectDate, inputs.duration),
-
                     hotelId: ids.hotelId,
                     restaurantId: ids.restaurantID,
                     activitiesId: ids.activitiesID,
                     userId: ids.userId,
                 }
                 axios.post("/package", body)
-
                 .then(response => {
                     if (response.status === 200) {
                         dispatch(emptyFormCommand());
@@ -612,7 +617,7 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("Add new Activity", "add existing activity", () => setOpenActi(true), () => changePage("ACTIVIDAD"))} 
+                        header={getHeader("Crear nueva actividad", "Cargar actividad de la BD", () => setOpenActi(true), () => changePage("ACTIVIDAD"))} 
                         content={getContent("ACTIVITY")}/>
                     <ActivityModal 
                         open={openActi} 
@@ -623,7 +628,7 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => changePage("HOTEL"))} 
+                        header={getHeader("Crear nuevo hotel", "Cargar hotel de la BD", () => setOpenHotel(true), () => changePage("HOTEL"))} 
                         content={getContent("HOTEL")}/>
                     <HotelModal 
                         open={openHotel} 
@@ -634,7 +639,7 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("Add new resto", "add existing resto", () => setOpenResto(true), () => changePage("RESTO"))} 
+                        header={getHeader("Crear nuevo resto", "Cargar resto de la BD", () => setOpenResto(true), () => changePage("RESTO"))} 
                         content={getContent("RESTO")}/>
                     <RestoModal 
                         open={openResto} 
