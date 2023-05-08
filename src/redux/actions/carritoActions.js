@@ -1,17 +1,24 @@
-import { addHotel, deleteHotel, addRestaurant, deleteRestaurant, addActivitie, deleteActivitie } from "../reducer/carritoSlice"
+import { addHotel, setError, deleteHotel, addRestaurant, deleteRestaurant, addActivitie, deleteActivitie } from "../reducer/carritoSlice"
 
 export const agregarActivitie = (Actividad) => async (dispatch) => {
-    dispatch(addActivitie(Actividad))
+    try {
+         dispatch(addActivitie(Actividad))
+    } catch (error) {
+        dispatch(setError(error.message))
+    }
+   
 }
 
 export const borrarActivitie = (Actividad) => async (dispatch) => {
-    const { name } = Actividad;
-    dispatch(deleteActivitie(name))
+    try {
+        dispatch(deleteActivitie(Actividad))
+    } catch (error) {
+        dispatch(setError(error.message)) 
+    }
 } 
 
 export const agregarHotel = (Hotel) => async (dispatch) => {
-    const { name } = Hotel
-    dispatch(addHotel(name))
+    dispatch(addHotel(Hotel))
 }
 
 export const borrarHotel = () => async (dispatch) => {

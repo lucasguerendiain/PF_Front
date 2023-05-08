@@ -42,7 +42,17 @@ export default function RestoDetail() {
   };
   
   return (
-    <Grid>
+    <Grid sx={{
+      width: "85vw",
+      display: "flex",
+      flexDirection: "column",
+      textAlign: "center",
+      marginTop: "2%",
+      marginLeft: "8%",
+      marginRight: "8%",
+      border: "1px solid black",
+      backgroundColor: "beige"
+    }}>
       {Object.keys(restaurant).length ? (
         <Grid
           sx={{
@@ -54,7 +64,7 @@ export default function RestoDetail() {
             marginLeft: "8%",
           }}
         >
-          <Typography variant="h1" component="subtitle1" gutterBottom>
+          <Typography variant="h1" component="subtitle1" gutterBottom marginTop="1%">
             {restaurant.name}
           </Typography>
           <Slider {...setings}>
@@ -72,7 +82,7 @@ export default function RestoDetail() {
               : "cargando"}
           </Slider>
           <Grid marginTop="4%">
-            <Typography variant="h3" sx={{ fontWeight: "600" }} gutterBottom>
+            <Typography variant="h3" sx={{ fontWeight: "600", whiteSpace: "pre-line" }} gutterBottom>
               {" "}
               Descripcion:
               <Typography variant="h4" sx={{ display: "block" }}>

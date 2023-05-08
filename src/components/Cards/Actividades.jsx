@@ -9,13 +9,26 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { agregarActivitie } from "../../redux/actions/carritoActions";
+import { addActiForm } from "../../redux/actions/formActions"
+
 
 export default function Actividades(props) {
   const { id, name, duration, img, description, typeAct, price } =
     props.actividad;
   const dispatch = useDispatch();
+  const toForm = useSelector((state) => state.form.toForm);
+
+  const handleClick = async (e) => {
+    if (toForm) {
+      dispatch(addActiForm(props.actividad));
+      alert("se agrego con exito");
+    } else {
+      dispatch(agregarActivitie(props.actividad))
+      alert("Se agrego la actividad al carrito.")
+    }
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -33,8 +46,8 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display="flex" justify-content="space-between" align-items="center">
         <CardActions>
-          <Button variant="outlined" onClick={dispatch(agregarActivitie)}>
-            Agregar al carrito
+          <Button variant="outlined" value={name} onClick={ e => handleClick(e)}>
+            {toForm? "Agregar al paquete" : "Agregar al carrito"}
           </Button>
         </CardActions>
         <IconButton aria-label="add to favorites">

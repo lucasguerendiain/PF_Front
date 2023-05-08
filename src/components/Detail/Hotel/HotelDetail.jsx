@@ -42,19 +42,20 @@ export default function HotelDetail() {
   };
   
   return (
-    <Grid>
+    <Grid sx={{
+      width: "85vw",
+      display: "flex",
+      flexDirection: "column",
+      textAlign: "center",
+      marginTop: "2%",
+      marginLeft: "8%",
+      marginRight: "8%",
+      border: "1px solid black",
+      backgroundColor: "beige"
+    }}>
       {Object.keys(hotel).length ? (
-        <Grid
-          sx={{
-            maxWidth: "70vw",
-            display: "flex",
-            flexDirection: "column",
-            textAlign: "center",
-            marginTop: "2%",
-            marginLeft: "8%",
-          }}
-        >
-          <Typography variant="h1" gutterBottom>
+        <Grid>
+          <Typography variant="h1" gutterBottom marginTop="1%">
             {hotel.name}
           </Typography>
           <Slider {...setings}>
@@ -72,7 +73,7 @@ export default function HotelDetail() {
               : "cargando"}
           </Slider>
           <Grid marginTop="4%">
-            <Typography variant="h3" sx={{ fontWeight: "600" }} gutterBottom>
+            <Typography variant="h3" sx={{ fontWeight: "600", whiteSpace: "pre-line" }} gutterBottom>
               {" "}
               Descripcion:
               <Typography variant="h4" sx={{ display: "block" }}>
