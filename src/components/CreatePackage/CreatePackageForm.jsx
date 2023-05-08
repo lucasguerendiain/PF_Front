@@ -376,7 +376,7 @@ export default function CreatePackageForm() {
                         ids.activitiesID.push(actviId.data.id);
                     }
                 }
-                const aux = await axios.get("http://localhost:3001/user/1");
+                const aux = await axios.get("/user/1");
                 setUser(aux.data);
                 if (!user.id) {
                     const userId = await axios.post("/user", user);
