@@ -264,7 +264,7 @@ export default function PackageDetail() {
         />
       </PayPalScriptProvider>
       {/* handlePrecio={(pack) => handlePrecio(pack)} */}
-      <CommentBoard />
+    <CommentBoard/>
     </Box>
   );
 }
