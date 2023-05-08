@@ -68,4 +68,21 @@
     margin-right: 10px;
   }
   
-  
+ 
+  .titulo{
+    font-size: 51px;
+    color: royalblue;
+    text-align: center;
+  }
+  .h3{
+    margin-top: -18px;
+    text-align: center;
+    font-size: 22px;
+  }
+  .titulo2{
+    font-size: 31px;
+    text-align: center;
+  }
+  .texto{
+    text-align: center;
+  }
