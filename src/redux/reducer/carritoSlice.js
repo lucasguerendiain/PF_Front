@@ -17,6 +17,9 @@ export const carritoSlice = createSlice({
         deleteActivitie: (state, action) => {
             state.activities = state.activities.filter(activity => activity.name !== action.payload)
         },
+        estadoInicial: (state, action) => {
+            state.activities = []
+        },
         addRestaurant: (state, action) => {
             state.restaurant = action.payload;
         },
@@ -35,6 +38,6 @@ export const carritoSlice = createSlice({
     }
 })
 
-export const { addRestaurant, setError, deleteRestaurant, addHotel, deleteHotel, addActivitie, deleteActivitie} = carritoSlice.actions;
+export const { addRestaurant, setError, estadoInicial, deleteRestaurant, addHotel, deleteHotel, addActivitie, deleteActivitie} = carritoSlice.actions;
 
 export default carritoSlice.reducer;
