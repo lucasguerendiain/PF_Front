@@ -9,11 +9,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getRestaurantDetailById } from "../../../redux/actions/RestaurantsActions";
 import LoadingComponent from "../../Loading/LoadingComponent";
 import CommentBoard from "../../CommentBoard/CommentBoard";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { addRestoForm } from "../../../redux/actions/formActions";
 
 export default function RestoDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const restaurant = useSelector((state) => state.restaurants.detail);
+  const toForm = useSelector((state) => state.form.toForm);
   const { id } = useParams();
   const setings = {
     dots: true,
@@ -40,9 +43,28 @@ export default function RestoDetail() {
   const goBack = () => {
     navigate(-1);
   };
+
+  const handleClick = () => {
+    if (toForm) {
+      dispatch(addRestoForm(restaurant));
+      alert("añadida con exito");
+    } else {
+      alert("no deberias estar viendo esto");
+    }
+  }
   
   return (
-    <Grid>
+    <Grid sx={{
+      width: "85vw",
+      display: "flex",
+      flexDirection: "column",
+      textAlign: "center",
+      marginTop: "2%",
+      marginLeft: "8%",
+      marginRight: "8%",
+      border: "1px solid black",
+      backgroundColor: "beige"
+    }}>
       {Object.keys(restaurant).length ? (
         <Grid
           sx={{
@@ -54,7 +76,7 @@ export default function RestoDetail() {
             marginLeft: "8%",
           }}
         >
-          <Typography variant="h1" component="subtitle1" gutterBottom>
+          <Typography variant="h1" component="subtitle1" gutterBottom marginTop="1%">
             {restaurant.name}
           </Typography>
           <Slider {...setings}>
@@ -72,7 +94,7 @@ export default function RestoDetail() {
               : "cargando"}
           </Slider>
           <Grid marginTop="4%">
-            <Typography variant="h3" sx={{ fontWeight: "600" }} gutterBottom>
+            <Typography variant="h3" sx={{ fontWeight: "600", whiteSpace: "pre-line" }} gutterBottom>
               {" "}
               Descripcion:
               <Typography variant="h4" sx={{ display: "block" }}>
@@ -98,6 +120,15 @@ export default function RestoDetail() {
               padding: "3%",
             }}
           >
+            <Button
+              variant="contained"
+              sx={{ fontSize: "1.4rem", marginRight: "3%" }}
+              startIcon={toForm? <AddCircleIcon/> : ""}
+              onClick={handleClick}
+              disabled={toForm? false : true}
+            >
+              {toForm? "Añadir al paquete" : ""}
+            </Button>
             <Button
               variant="contained"
               sx={{ fontSize: "1.6rem" }}

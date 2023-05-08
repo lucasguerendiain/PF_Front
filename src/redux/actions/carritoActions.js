@@ -18,8 +18,7 @@ export const borrarActivitie = (Actividad) => async (dispatch) => {
 } 
 
 export const agregarHotel = (Hotel) => async (dispatch) => {
-    const { name } = Hotel
-    dispatch(addHotel(name))
+    dispatch(addHotel(Hotel))
 }
 
 export const borrarHotel = () => async (dispatch) => {

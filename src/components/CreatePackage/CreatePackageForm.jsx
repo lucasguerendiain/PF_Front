@@ -12,9 +12,7 @@ import { useState, useEffect } from 'react';
 import BasicCard from './commons/BasicCard';
 import ActivityModal from './Modals/ActivityModal';
 import HotelModal from './Modals/HotelModal';
-import FindHotelModal from '../CustomPackage/FindHotelModal';
 import axios from "axios";
-import { CardActions } from '@mui/material';
 import { package1, package2, package3, package4 } from './loadPackage';
 import RestoModal from './Modals/RestoModal';
 import { useNavigate } from 'react-router-dom';
@@ -22,9 +20,11 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
 import es from "date-fns/locale/es";
 import { addDays, addYears } from 'date-fns';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addActiForm, addHotelForm, addRestoForm, deleteActiForm, deleteHotelForm, deleteRestoForm, emptyFormCommand, setButtonToCart, setButtonToForm } from '../../redux/actions/formActions';
+import { inputSet } from '../../redux/actions/formActions';
 registerLocale("es", es)
+
 
 const theme = createTheme();
 
@@ -45,12 +45,13 @@ alignItems: "center"
 
 export default function CreatePackageForm() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [openActi, setOpenActi] = useState(false);
     const [openHotel, setOpenHotel] = useState(false);
     const [openResto, setOpenResto] = useState(false);
-    const [findHotelOpen, setFindHotelOpen] = useState(false);
-    const [findRestoOpen, setFinRestoOpen] = useState(false);
     const [selectDate, setSelectDate] = useState(new Date())
+    const state = useSelector((state) => state.form);
+    const [user, setUser] = useState({});
 
     const [inputs, setInputs] = useState({
         name: "",
@@ -58,6 +59,9 @@ export default function CreatePackageForm() {
         price: "",
         duration: "",
         img: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         quotas: "",
         dateInit: "",
@@ -69,6 +73,9 @@ export default function CreatePackageForm() {
         price: "",
         duration: "",
         img: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         quotas: "",
         dateInit: "",
@@ -77,6 +84,25 @@ export default function CreatePackageForm() {
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState("");
     const [resto, setResto] = useState([]);
+
+    const changePage = (name) => {
+        dispatch(setButtonToForm());
+        dispatch(inputSet(inputs));
+        switch(name) {
+            case "ACTIVIDAD": {
+                navigate("/activitycards");
+                break;
+            };
+            case "HOTEL": {
+                navigate("/hotelcards");
+                break;
+            };
+            case "RESTO": {
+                navigate("/restaurantcards");
+                break;
+            }
+        }
+    }
 
     const defaultValuesActivity = {
         name: "",
@@ -119,6 +145,7 @@ export default function CreatePackageForm() {
                 setHotels(package1.hotel);
                 setActivities(package1.activities);
                 setResto(package1.resto);
+                setUser(package1.user);
                 break;
             };
             case "dos": {
@@ -126,6 +153,7 @@ export default function CreatePackageForm() {
                 setHotels(package2.hotel);
                 setActivities(package2.activities);
                 setResto(package2.resto);
+                setUser(package2.user);
                 break;
             };
             case "tres": {
@@ -133,6 +161,7 @@ export default function CreatePackageForm() {
                 setHotels(package3.hotel);
                 setActivities(package3.activities);
                 setResto(package3.resto);
+                setUser(package3.user);
                 break;
             };
             case "cuatro": {
@@ -140,6 +169,7 @@ export default function CreatePackageForm() {
                 setHotels(package4.hotel);
                 setActivities(package4.activities);
                 setResto(package4.resto);
+                setUser(package4.user);
                 break;
             };
             default: {
@@ -152,14 +182,15 @@ export default function CreatePackageForm() {
         return (
             <Box>
                 <Box sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    paddingLeft: "10px",
-                    height: "100%",
-                    backgroundColor: 'lightcyan',
-                    border: "1px solid black",
-                    width: "100%"
-                }}>
+
+                display: "flex",
+                alignItems: "center",
+                height: "100%",
+                backgroundColor: 'lightcyan',
+                border: "1px solid black",
+                justifyContent: "space-between",
+                width: "100%"}}>
+
                     <Button
                         onClick={funcionOpen}
                         variant='contained'
@@ -186,12 +217,13 @@ export default function CreatePackageForm() {
             data
         ]);
         setOpenActi(false);
+        dispatch(addActiForm(data));
     }
 
     const addNewHotel = (data) => {
         setHotels(data);
         setOpenHotel(false);
-        setFindHotelOpen(false);
+        dispatch(addHotelForm(data));
     }
 
     const addNewResto = (data) => {
@@ -200,46 +232,50 @@ export default function CreatePackageForm() {
             data
         ]);
         setOpenResto(false);
+        dispatch(addRestoForm(data));
     }
 
-    const deleteActi = (id) => {
-        setActivities(activities.filter((elem, index) => index !== id));
+    const deleteActi = (name) => {
+        setActivities(activities.filter((elem) => elem.name !== name))
+        dispatch(deleteActiForm(name));
     }
 
-    const deleteResto = (id) => {
-        setResto(resto.filter((elem, index) => index !== id));
+    const deleteResto = (name) => {
+        setResto(resto.filter((elem) => elem.name !== name));
+        dispatch(deleteRestoForm(name));
     }
 
     const deleteHotel = () => {
         setHotels("");
+        dispatch(deleteHotelForm());
     }
 
     const getContent = (type) => {
         switch (type) {
             case "ACTIVITY": {
                 return activities.length
-                    ? (activities.map((item, index) => {
-                        return (
-                            <Box
-                                key={index}
-                                sx={{
-                                    border: "1px solid black",
-                                    backgroundColor: 'lightsalmon',
-                                    marginBottom: "4px",
-                                    marginTop: "4px"
-                                }
-                                }> Actividad {index}:
-                                <Typography>Nombre: {item.name}</Typography>
-                                <Typography>Descrip: {item.description}</Typography>
-                                <Typography>Duracion: {item.duration} days</Typography>
-                                <Typography>Imagenes: [{item.img}]</Typography>
-                                <Typography>Tipo: {item.typeAct}</Typography>
-                                <Typography>Precio: {item.price} USD</Typography>
-                                <Button variant='contained' size='small' onClick={() => deleteActi(index)}>X</Button>
-                            </Box>
-                        )
-                    }))
-                    : ("no hay actividades cargadas")
+
+                ? (activities.map((item, index) => {
+                    return (
+                        <Box 
+                            key={index} 
+                            sx={{
+                                border: "1px solid black",
+                                backgroundColor: 'lightsalmon',
+                                marginBottom: "4px",
+                                marginTop: "4px"}
+                            }> Actividad {index}: 
+                            <Typography>Nombre: {item.name}</Typography>
+                            <Typography>Descrip: {item.description}</Typography>
+                            <Typography>Duracion: {item.duration} days</Typography>
+                            <Typography>Imagenes: [{item.img}]</Typography>
+                            <Typography>Tipo: {item.typeAct}</Typography>
+                            <Typography>Precio: {item.price} USD</Typography>
+                            <Button variant='contained' size='small' onClick={() => deleteActi(item.name)}>X</Button>
+                        </Box> 
+                    )
+                }))
+                : ("no hay actividades cargadas")
             };
             case "HOTEL": {
                 return hotels
@@ -264,27 +300,27 @@ export default function CreatePackageForm() {
             };
             case "RESTO": {
                 return resto.length
-                    ? (resto.map((item, index) => {
-                        return (
-                            <Box
-                                key={index}
-                                sx={{
-                                    border: "1px solid black",
-                                    backgroundColor: 'lightsalmon',
-                                    marginBottom: "4px",
-                                    marginTop: "4px"
-                                }
-                                }> Restaurant {index}:
-                                <Typography>Nombre : {item.name}</Typography>
-                                <Typography>Desc. : {item.description}</Typography>
-                                <Typography>Ubicacion : {item.location}</Typography>
-                                <Typography>Imagenes : [{item.img}]</Typography>
-                                <Typography>Precio? : {item.price} USD</Typography>
-                                <Button variant='contained' size='small' onClick={() => deleteResto(index)}>X</Button>
-                            </Box>
-                        )
-                    }))
-                    : ("no hay restaurantes cargados")
+
+                ? (resto.map((item, index) => {
+                    return (
+                        <Box 
+                            key={index} 
+                            sx={{
+                                border: "1px solid black",
+                                backgroundColor: 'lightsalmon',
+                                marginBottom: "4px",
+                                marginTop: "4px"}
+                            }> Restaurant {index}: 
+                            <Typography>Nombre : {item.name}</Typography>
+                            <Typography>Desc. : {item.description}</Typography>
+                            <Typography>Ubicacion : {item.location}</Typography>
+                            <Typography>Imagenes : [{item.img}]</Typography>
+                            <Typography>Precio? : {item.price} USD</Typography>
+                            <Button variant='contained' size='small' onClick={() => deleteResto(item.name)}>X</Button>
+                        </Box> 
+                    )
+                }))
+                : ("no hay restaurantes cargados")
             };
             default: {
                 return "fallo algo"
@@ -301,13 +337,18 @@ export default function CreatePackageForm() {
     }
 
     const handleSubmit = async (event) => {
+        dispatch(setButtonToCart());
         event.preventDefault();
         if (Object.values(errors).length === 0) {
             try {
+
+                const combinedImages = Array.from([inputs.img, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== "")
+
                 const ids = {
                     restaurantID: [],
                     hotelId: hotels.id || "",
-                    activitiesID: []
+                    activitiesID: [],
+                    userId: user.id || ""
                 }
                 for (let i = 0; i < resto.length; i++) {
                     if (resto[i].id) {
@@ -329,35 +370,32 @@ export default function CreatePackageForm() {
                         ids.activitiesID.push(actviId.data.id);
                     }
                 }
-                const usuario = {
-                    userName: "nada",
-                    email: "nada",
-                    password: "123456",
-                    lastName: "perez",
-                    social: true,
-                    socialRed: "feisbuh"
+                if (!user.id) {
+                    const userId = await axios.post("http://localhost:3001/user", user);
+                    ids.userId = userId.data.id;
                 }
-                // const a = new Date(inputs.dateInit);
-                // const b = new Date(inputs.dateEnd);
-                const userId = await axios.post("http://localhost:3001/user", usuario);
                 const body = {
                     ...inputs,
-                    dateInit: selectDate,
+                    img: combinedImages,
+                   dateInit: selectDate,
                     dateEnd: addDays(selectDate, inputs.duration),
+
                     hotelId: ids.hotelId,
                     restaurantId: ids.restaurantID,
                     activitiesId: ids.activitiesID,
-                    userId: userId.data.id || 0,
+                    userId: ids.userId,
                 }
                 axios.post("http://localhost:3001/package", body)
-                    .then(response => {
-                        if (response.status === 200) {
-                            alert("paquete creado con exito");
-                            navigate(0);
-                        }
-                    })
-            } catch (error) {
-                alert(error.response.data.error);
+
+                .then(response => {
+                    if (response.status === 200) {
+                        dispatch(emptyFormCommand());
+                        alert("paquete creado con exito");
+                        navigate(0);
+                    }
+                })
+            } catch(error) {
+                alert(error.response.data.error || error.message);
             }
         }
     };
@@ -366,126 +404,174 @@ export default function CreatePackageForm() {
         setErrors(validation(inputs, activities));
     }, [inputs]);
 
+    useEffect(() => {
+        setInputs(state.inputs);
+        setHotels(state.hotel);
+        setResto(state.restaurants);
+        setActivities(state.activities);
+    }, [])
+
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: "center",
-                        width: "40vw"
-                    }}
-                >
-                    <Typography component="h1" variant="h3">
-                        Crear paquete
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="nombre del paquete"
-                                    name="name"
-                                    required
-                                    fullWidth
-                                    id="name"
-                                    label="Nombre"
-                                    autoFocus
-                                    onChange={handleChange}
-                                    error={!!errors.name}
-                                    helperText={errors.name}
-                                    value={inputs.name}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="location"
-                                    label="Ubicacion"
-                                    name="location"
-                                    autoComplete="ubicacion"
-                                    onChange={handleChange}
-                                    error={!!errors.location}
-                                    helperText={errors.location}
-                                    value={inputs.location}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="price"
-                                    label="Precio"
-                                    type='number'
-                                    id="price"
-                                    autoComplete="precio"
-                                    onChange={handleChange}
-                                    error={!!errors.price}
-                                    helperText={errors.price}
-                                    value={inputs.price}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="duration"
-                                    label="Duracion"
-                                    type="number"
-                                    id="duration"
-                                    autoComplete="duracion(numero de dias)"
-                                    onChange={handleChange}
-                                    error={!!errors.duration}
-                                    helperText={errors.duration}
-                                    value={inputs.duration}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="img"
-                                    label="Imagen"
-                                    name="img"
-                                    autoComplete="imagen"
-                                    onChange={handleChange}
-                                    error={!!errors.img}
-                                    helperText={errors.img}
-                                    value={inputs.img}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="description"
-                                    label="Descripcion"
-                                    name="description"
-                                    autoComplete="descripcion"
-                                    onChange={handleChange}
-                                    error={!!errors.description}
-                                    helperText={errors.description}
-                                    value={inputs.description}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="quotas"
-                                    label="Cupos"
-                                    name="quotas"
-                                    autoComplete="cupos"
-                                    onChange={handleChange}
-                                    error={!!errors.quotas}
-                                    helperText={errors.quotas}
-                                    value={inputs.quotas}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sx={stylesDateInput}>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+            sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: "center",
+                width: "40vw"
+            }}
+            >
+            <Typography component="h1" variant="h3">
+                Crear paquete
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                    autoComplete="nombre del paquete"
+                    name="name"
+                    required
+                    fullWidth
+                    id="name"
+                    label="Nombre"
+                    autoFocus
+                    onChange={handleChange}
+                    error={!!errors.name}
+                    helperText={errors.name}
+                    value={inputs.name}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    id="location"
+                    label="Ubicacion"
+                    name="location"
+                    autoComplete="ubicacion"
+                    onChange={handleChange}
+                    error={!!errors.location}
+                    helperText={errors.location}
+                    value={inputs.location}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    name="price"
+                    label="Precio"
+                    type='number'
+                    id="price"
+                    autoComplete="precio"
+                    onChange={handleChange}
+                    error={!!errors.price}
+                    helperText={errors.price}
+                    value={inputs.price}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    name="duration"
+                    label="Duracion"
+                    type="number"
+                    id="duration"
+                    autoComplete="duracion(numero de dias)"
+                    onChange={handleChange}
+                    error={!!errors.duration}
+                    helperText={errors.duration}
+                    value={inputs.duration}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    id="img"
+                    label="Imagen"
+                    name="img"
+                    autoComplete="imagen"
+                    onChange={handleChange}
+                    error={!!errors.img}
+                    helperText={errors.img}
+                    value={inputs.img}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    fullWidth
+                    id="img2"
+                    label="Imagen 2"
+                    name="img2"
+                    autoComplete="imagen 2"
+                    onChange={handleChange}
+                    error={!!errors.img2}
+                    helperText={errors.img2}
+                    value={inputs.img2}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    fullWidth
+                    id="img3"
+                    label="Imagen 3"
+                    name="img3"
+                    autoComplete="imagen 3"
+                    onChange={handleChange}
+                    error={!!errors.img3}
+                    helperText={errors.img3}
+                    value={inputs.img3}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    fullWidth
+                    id="img4"
+                    label="Imagen 4"
+                    name="img4"
+                    autoComplete="imagen 4"
+                    onChange={handleChange}
+                    error={!!errors.img4}
+                    helperText={errors.img4}
+                    value={inputs.img4}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    multiline
+                    rows={6}
+                    id="description"
+                    label="Descripcion"
+                    name="description"
+                    autoComplete="descripcion"
+                    onChange={handleChange}
+                    error={!!errors.description}
+                    helperText={errors.description}
+                    value={inputs.description}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    id="quotas"
+                    label="Cupos"
+                    name="quotas"
+                    autoComplete="cupos"
+                    onChange={handleChange}
+                    error={!!errors.quotas}
+                    helperText={errors.quotas}
+                    value={inputs.quotas}
+                    />
+                </Grid>
+          <Grid item xs={12} sx={stylesDateInput}>
                                 <DatePicker
                                     // selected={selectDate}
                                     placeholderText='Eligir fecha'
@@ -522,55 +608,50 @@ export default function CreatePackageForm() {
                                     value={addDays(selectDate, inputs.duration).toLocaleDateString('es', { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                                 />
                             </Grid>
-                        </Grid>
-                        <br />
-                        <Grid item xs={8} sx={styles}>
-                            <BasicCard
-                                header={getHeader("Add new Activity", "add existing activity", () => setOpenActi(true), () => alert("componente muestra actividades"))}
-                                content={getContent("ACTIVITY")} />
-                            <ActivityModal
-                                open={openActi}
-                                handleClose={() => setOpenActi(false)}
-                                addNewItem={addNewActivity}
-                                defaultValues={defaultValuesActivity} />
-                        </Grid>
-                        <br />
-                        <Grid item xs={8} sx={styles}>
-                            <BasicCard
-                                header={getHeader("Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => alert("componente muestra hotel"))}
-                                content={getContent("HOTEL")} />
-                            <HotelModal
-                                open={openHotel}
-                                handleClose={() => setOpenHotel(false)}
-                                addNewItem={addNewHotel}
-                                defaultValues={defaultValuesHotel} />
-                            {/* <FindHotelModal
-                        open={findHotelOpen}
-                        handleClose={() => setFindHotelOpen(false)}
-                        handleAdd={addNewHotel}
-                    /> */}
-                        </Grid>
-                        <br />
-                        <Grid item xs={8} sx={styles}>
-                            <BasicCard
-                                header={getHeader("Add new resto", "add existing resto", () => setOpenResto(true), () => alert("componente muestra restoranes"))}
-                                content={getContent("RESTO")} />
-                            <RestoModal
-                                open={openResto}
-                                handleClose={() => setOpenResto(false)}
-                                addNewItem={addNewResto}
-                                defaultValues={defaultValuesResto} />
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Confirmar
-                        </Button>
-                    </Box>
-                    <Box>
+                </Grid>
+                <br/>
+                <Grid item xs={8} sx={styles}>
+                    <BasicCard 
+                        header={getHeader("Add new Activity", "add existing activity", () => setOpenActi(true), () => changePage("ACTIVIDAD"))} 
+                        content={getContent("ACTIVITY")}/>
+                    <ActivityModal 
+                        open={openActi} 
+                        handleClose={() => setOpenActi(false)} 
+                        addNewItem={addNewActivity} 
+                        defaultValues={defaultValuesActivity}/>
+                </Grid>
+                <br/>
+                <Grid item xs={8} sx={styles}>
+                    <BasicCard 
+                        header={getHeader("Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => changePage("HOTEL"))} 
+                        content={getContent("HOTEL")}/>
+                    <HotelModal 
+                        open={openHotel} 
+                        handleClose={() => setOpenHotel(false)} 
+                        addNewItem={addNewHotel} 
+                        defaultValues={defaultValuesHotel}/>
+                </Grid>
+                <br/>
+                <Grid item xs={8} sx={styles}>
+                    <BasicCard 
+                        header={getHeader("Add new resto", "add existing resto", () => setOpenResto(true), () => changePage("RESTO"))} 
+                        content={getContent("RESTO")}/>
+                    <RestoModal 
+                        open={openResto} 
+                        handleClose={() => setOpenResto(false)} 
+                        addNewItem={addNewResto} 
+                        defaultValues={defaultValuesResto}/>
+                </Grid>
+                <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                >
+                Confirmar
+                </Button>
+            </Box>
+                <Box>
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("uno")}>1</Button>
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("dos")}>2</Button>
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("tres")}>3</Button>

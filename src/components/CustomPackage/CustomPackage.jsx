@@ -7,26 +7,25 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import FindHotelModal from "./FindHotelModal";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 //PayPal
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
 import { borrarActivitie } from "../../redux/actions/carritoActions";
+import Calendar from "../Calendar/Calendar";
 
 export default function CustomPackage() {
     const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const [hotel, setHotel] = useState("");
     const dispatch = useDispatch();
+    const [date, setDate] = useState("");
     //esto tiene que pedir el carro del reducer;
     //el carro del reducer tiene que agregar objetos a medidda que le dan al boton "agregar al carro"
     //las cards del carro tienen que tenre la opcion de removerse
     //el carro tiene que calcular el precio total del viaje y los dias
     //tenemos que hacer que el componenete organize las actividades por dia
   const carrito = useSelector((state) => state.carrito)
-  const { activities } = carrito
+  const { activities, hotel } = carrito
 
     const calcularPrecio = (activities, hotel = "") => {
         let suma = activities.reduce((acumulator, currentValue) => acumulator + currentValue.price, 0);
@@ -43,15 +42,9 @@ export default function CustomPackage() {
         dispatch(borrarActivitie(name))
     }
 
-    const handleViewActivity = (name) => {
-        //abre un modal con la info de la actividad
-        // o tambien puede agrandar la tarjeta
-        alert(name);
-    }
-
-    const addHotel = (data) => {
-        setHotel(data);
-        setOpen(false);
+    const handleClick = (data) => {
+        console.log(data);
+        setDate(data.toLocaleString());
     }
 
     return(
@@ -79,9 +72,9 @@ export default function CustomPackage() {
                                             <CardMedia
                                                 component="img"
                                                 sx={{
-                                                    pt: "46.25%"
+                                                    height: "20vh"
                                                 }}
-                                                image={item.img}
+                                                image={item.img[0]}
                                                 alt={item.name}
                                             />
                                             <CardContent>
@@ -89,14 +82,14 @@ export default function CustomPackage() {
                                                     {item.name}
                                                 </Typography>
                                                 <Typography>
-                                                    price: {item.price} USD
+                                                    Precio: {item.price} USD
                                                     <br/>
-                                                    duration: {item.duration} hours
+                                                    duracion: {item.duration} horas
                                                 </Typography>
                                             </CardContent>
                                             <CardActions>
-                                                <Button size="small" variant="contained" onClick={() => handleDelete(item.name)}>delete</Button>
-                                                <Button size="small" variant="contained" onClick={() => handleViewActivity(item.name)}>more info</Button>
+                                                <Button size="small" variant="contained" onClick={() => handleDelete(item.name)}>eliminar</Button>
+                                                <Button size="small" variant="contained" onClick={() => navigate(`/activity/byId/${item.id}`)}>mas info</Button>
                                             </CardActions>
                                         </Card>
                                     </Grid>
@@ -106,33 +99,26 @@ export default function CustomPackage() {
                         }
                     </CardContent>
                     <CardActions>
-                        <Button size="medium" variant="contained" onClick={() => navigate("/activitycards")}>Add Activity</Button>
-                        {/* add activity te lleva al componente que muestra todas las actividades */}
-                        <Button size="medium" variant="contained" onClick={() => (setOpen(true))}>Add Hotel</Button>
+                        <Button size="medium" variant="contained" onClick={() => navigate("/activitycards")}>Añadir Actividad</Button>
+                        <Button size="medium" variant="contained" onClick={() => navigate("/hotelcards")}>Añadir Hotel</Button>
                     </CardActions>
                     {hotel
                         ? (
                         <Card>{hotel.name}
                             <CardContent>
-                                <Typography>price: {hotel.priceDay} USD/day</Typography>
-                                <Typography>location: {hotel.location}</Typography>
-                                <Typography>stars: {hotel.stars}</Typography>
+                                <Typography>precio: {hotel.priceDay} USD/noche</Typography>
+                                <Typography>ubicacion: {hotel.location}</Typography>
+                                <Typography>estrellas: {hotel.stars}</Typography>
                                 <img src={hotel.img} alt={hotel.name} width="45px" />
                             </CardContent>
                         </Card>) 
                     : ("")}
-                    <FindHotelModal 
-                        open={open}
-                        handleClose={() => setOpen(false)}
-                        handleAdd={addHotel}
-                    />
                 </Card>
-                <Box sx={{backgroundColor: "lightcyan"}}>
-                    <br/>
-                    {activities.length? <Typography variant="h4">Total Price: {calcularPrecio(activities, hotel)} USD</Typography> : ""}
-                    <br/>
-                    {activities.length? <Typography variant="h4">Min days: {Math.ceil(activities.length / 2)}</Typography> : ""}
-                    <br/>
+                <Box sx={{backgroundColor: "lightgrey", marginTop: "2%", marginBottom: "2%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <Calendar handleClick={handleClick}/>
+                    <Typography marginTop="1%" variant="h4" gutterBottom>fecha de inicio: {date}</Typography>
+                    {activities.length? <Typography gutterBottom variant="h4">precio total: {calcularPrecio(activities, hotel)} USD</Typography> : ""}
+                    {activities.length? <Typography gutterBottom variant="h4">duracion del viaje: {Math.ceil(activities.length / 2)} dias</Typography> : ""}
                 </Box>
                 <PayPalScriptProvider
         options={{

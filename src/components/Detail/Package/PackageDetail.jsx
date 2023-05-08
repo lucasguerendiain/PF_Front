@@ -58,7 +58,7 @@ export default function PackageDetail() {
     navigate(`/activity/byId/${id}`);
   };
 
-  const viewRestaurant = () => {
+  const viewRestaurant = (id) => {
     navigate(`/restaurant/byId/${id}`);
   };
 
@@ -77,14 +77,24 @@ export default function PackageDetail() {
   }, [dispatch, id]);
 
   return (
-    <Box sx={{backgroundColor: "lightgray"}}>
-    <Box className="containerDetail" marginTop="1%" marginBottom="1%">
+    <Box sx={{
+      display: "flex",
+      flexDirection: "column",
+      textAlign: "center",
+      justifyContent: "space-between",
+      backgroundColor: "beige",
+      marginLeft: "8%",
+      marginRight: "8%",
+      width: "85vw",
+      border: "1px solid black",
+    }}>
       {Object.keys(pack).length ? (
         <Grid>
           <Typography
             variant="h1"
             component="h2"
             gutterBottom
+            fontWeight="600"
             sx={{ marginTop: "1%" }}
           >
             {pack.name}
@@ -101,49 +111,49 @@ export default function PackageDetail() {
               </Box>
             ))}
           </Slider>
-
-          <Grid marginTop="4%" marginBottom="4%">
-            <Typography variant="h3" gutterBottom className="typography">
-              Ubicacion: <span>{pack.location}</span>
+          <Grid marginTop="4%" marginBottom="4%" sx={{display: "flex", flexDirection:"column"}}>
+            <Typography variant="h3" gutterBottom display="inline" fontWeight="600">{"Ubicacion: "}
+                <Typography variant="h3" display="inline">{pack.location}</Typography>
             </Typography>
-            <Typography variant="h4" gutterBottom>
-              Duracion: {pack.duration} dias
+            <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Duracion: "}
+              <Typography variant="h4" display="inline">{pack.duration} dias</Typography>
             </Typography>
-            <Typography variant="h4" gutterBottom>
-              Descripcion: {pack.description}
+            <Typography variant="h4" gutterBottom fontWeight="600">{"Descripcion: "}
+              <Typography variant="h4" whiteSpace="pre-line">{pack.description}</Typography>
             </Typography>
-            <Typography variant="h4" gutterBottom>
-              Cupos: {pack.quotas}
+            <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Cupos: "}
+              <Typography variant="h4" display="inline">{pack.quotas}</Typography>
             </Typography>
-            <Typography variant="h4" gutterBottom>
-              Fecha inicio: {pack.dateInit}
+            <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Fecha inicio: "}
+                <Typography variant="h4" display="inline">{pack.dateInit}</Typography>
             </Typography>
-            <Typography variant="h4" gutterBottom>
-              Fecha fin: {pack.dateEnd}
+            <Typography display="inline" fontWeight="600" variant="h4" gutterBottom>{"Fecha fin: "}
+                <Typography variant="h4" display="inline">{pack.dateEnd}</Typography>
             </Typography>
           </Grid>
-          <Typography variant="h3" sx={{ fontWeight: "700" }}>
+          <Typography gutterBottom variant="h3" sx={{ fontWeight: "700" }}>
             Actividades:{" "}
           </Typography>
           <Slider {...settings2}>
             {pack.activities.map((item, index) => {
               return (
-                <div className="activity" key={index}>
-                  <h3>{item.name}</h3>
-                  <h4>{item.duration} hours</h4>
-                  {item.img.map((e) => {
-                    return <img src={e} alt={item.name} />;
-                  })}
-
+                <Card sx={{maxWidth: "50%", display: "flex", flexDirection: "column", backgroundColor: "lightgray"}} key={index}>
+                  <Typography fontWeight="600" variant="h3">{item.name}</Typography>
+                  <Typography variant="h3">duracion: {item.duration} horas</Typography>
+                  <CardContent>
+                  <img src={item.img[0]} alt={item.name}/>
+                  </CardContent>
+                  <CardActions>
                   <Button
-                    sx={{ marginTop: "2%" }}
+                    sx={{ marginTop: "2%", fontSize: "1.5rem" }}
                     variant="contained"
                     size="small"
                     onClick={() => viewActivity(item.id)}
                   >
                     mas info
                   </Button>
-                </div>
+                  </CardActions>
+                </Card>
               );
             })}
           </Slider>
@@ -152,39 +162,34 @@ export default function PackageDetail() {
             Hotel:
           </Typography>
           {pack.hotel && (
-            <Box
-              sx={{
-                width: "800px",
-                height: "auto",
-                backgroundColor: "lightgrey",
+              <Card sx={{
+                maxWidth: "50%",
+                maxHeight: "50vh",
                 justifyContent: "center",
                 alignItems: "center",
-                marginLeft: "20%",
-              }}
-            >
-              <Card>
+                marginLeft: "25%",
+              }}>
                 <CardMedia
                   component="img"
-                  height="140"
+                  sx={{maxHeight: "25vh"}}
                   image={pack.hotel.img[0]}
                   alt={pack.hotel.name}
                 />
                 <CardContent>
+                  <Typography fontWeight="600" variant="h4" gutterBottom>
+                    Nombre: {pack.hotel.name}
+                  </Typography>
                   <Typography variant="h5" gutterBottom>
-                    {pack.hotel.name}
+                    Estrellas: {pack.hotel.stars}
                   </Typography>
                   <Typography variant="h6">
-                    Stars: {pack.hotel.stars}
-                  </Typography>
-                  <Typography variant="subtitle1">
                     {pack.hotel.description}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
+                  <Button sx={{fontSize:"1.5rem"}} onClick={() => viewHotel(pack.hotel.id)}>mas info</Button>
                 </CardActions>
               </Card>
-            </Box>
           )}
           {pack.restaurants.length ? (
             <Grid marginTop="3%" marginBottom="3%">
@@ -200,13 +205,13 @@ export default function PackageDetail() {
                     }}
                   >
                     <Typography variant="h4" gutterBottom>
-                      {item.name}
+                      Nombre: {item.name}
                     </Typography>
                     <img src={item.img[0]} alt=""></img>
                     <Button
                       variant="text"
                       onClick={() => viewRestaurant(item.id)}
-                      sx={{ marginTop: "2%" }}
+                      sx={{ marginTop: "2%", fontSize: "1.5rem" }}
                     >
                       mas info
                     </Button>
@@ -260,6 +265,7 @@ export default function PackageDetail() {
       </PayPalScriptProvider>
       {/* handlePrecio={(pack) => handlePrecio(pack)} */}
     <CommentBoard/>
+    </Box>
     </Box>
   );
 }

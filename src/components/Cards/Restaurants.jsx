@@ -9,17 +9,29 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addRestoForm } from "../../redux/actions/formActions";
+import { Link } from "react-router-dom";
 
 export default function Actividades(props) {
   const { id, name, location, img, price, description, comments} =
     props.restaurants;
-  
+  const toForm = useSelector((state) => state.form.toForm);
+  const dispatch = useDispatch();
+
+  const handleClick = async (e) => {
+    if (toForm) {
+      dispatch(addRestoForm(props.restaurants));
+      alert("se agrego con exito");
+    } else {
+      alert("no deberias poder ver esto")
+    }
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} href={`/restaurant/byId/${id}`}>
-        <CardMedia component="img" alt="restaurant" height="140" image={img} />
+      <CardActionArea key={id} component={Link} to={`/restaurant/byId/${id}`}>
+        <CardMedia component="img" alt="restaurant" height="140" image={img[0]} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
@@ -32,8 +44,8 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display="flex" justify-content="space-between" align-items="center">
         <CardActions>
-          <Button variant="outlined">
-            Agregar al carrito
+          <Button variant="outlined" disabled={toForm? false : true} onClick={handleClick}>
+            {toForm? "Agregar al paquete" : ""}
           </Button>
         </CardActions>
         <IconButton aria-label="add to favorites">

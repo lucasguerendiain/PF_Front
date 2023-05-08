@@ -33,6 +33,8 @@ export default function RestoModal({open, handleClose, addNewItem, defaultValues
             name='description'
             id='description'
             label="Descripcion"
+            multiline
+            rows={4}
             value={inputs.description} 
             required
             fullWidth
