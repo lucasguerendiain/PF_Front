@@ -12,7 +12,7 @@ export const getAllPacks = () => async (dispatch) => {
 
 export const getPackageByName = (name) => async (dispatch) => {
     try {
-        const response = await axios.get(`http://localhost:3001/package?name=${name}`)
+        const response = await axios.get(`/package?name=${name}`)
         dispatch(getPackageName(response.data))
     } catch (error) {
         dispatch(setError(error.message));
@@ -21,7 +21,7 @@ export const getPackageByName = (name) => async (dispatch) => {
 
 export const getPackageDetailById = (id) => async (dispatch) => {
     try {
-        const  response = await axios.get(`http://localhost:3001/package/${id}`)
+        const  response = await axios.get(`/package/${id}`)
         dispatch(getPackageById(response.data))
     } catch (error){
         dispatch(setError(error.message));
@@ -30,7 +30,7 @@ export const getPackageDetailById = (id) => async (dispatch) => {
 
 export const getFilterPacks = (filters, packages) => async (dispatch) => {
     try {
-        const  response = await axios.get(`http://localhost:3001/package/filter`, {filters, packages} )
+        const  response = await axios.get(`/package/filter`, {filters, packages} )
         dispatch(getFilterPackages(response.data))
     } catch (error){
         dispatch(setError(error.message));
