@@ -359,26 +359,26 @@ export default function CreatePackageForm() {
                     if (resto[i].id) {
                         ids.restaurantID.push(resto[i].id)
                     } else {
-                        const restaurantId = (await axios.post("http://localhost:3001/restaurant", resto[i]));
+                        const restaurantId = (await axios.post("/restaurant", resto[i]));
                         ids.restaurantID.push(restaurantId.data.id);
                     }
                 }
                 if (!ids.hotelId) {
-                    const hotelId = await axios.post("http://localhost:3001/hotel", hotels);
+                    const hotelId = await axios.post("/hotel", hotels);
                     ids.hotelId = hotelId.data.id;
                 }
                 for (let i = 0; i < activities.length; i++) {
                     if (activities[i].id) {
                         ids.activitiesID.push(activities[i].id)
                     } else {
-                        const actviId = await axios.post("http://localhost:3001/activity", activities[i]);
+                        const actviId = await axios.post("/activity", activities[i]);
                         ids.activitiesID.push(actviId.data.id);
                     }
                 }
                 const aux = await axios.get("http://localhost:3001/user/1");
                 setUser(aux.data);
                 if (!user.id) {
-                    const userId = await axios.post("http://localhost:3001/user", user);
+                    const userId = await axios.post("/user", user);
                     ids.userId = userId.data.id;
                 } else ids.userId = user.id;
                 const body = {
@@ -391,7 +391,7 @@ export default function CreatePackageForm() {
                     activitiesId: ids.activitiesID,
                     userId: ids.userId,
                 }
-                axios.post("http://localhost:3001/package", body)
+                axios.post("/package", body)
                 .then(response => {
                     if (response.status === 200) {
                         dispatch(emptyFormCommand());

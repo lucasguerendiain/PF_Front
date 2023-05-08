@@ -12,7 +12,7 @@ import { Box } from "@mui/material";
 //PayPal
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
-import { borrarActivitie } from "../../redux/actions/carritoActions";
+import { borrarActivitie, estadoInicialCarrito } from "../../redux/actions/carritoActions";
 import Calendar from "../Calendar/Calendar";
 
 export default function CustomPackage() {
@@ -34,6 +34,10 @@ export default function CustomPackage() {
             suma += dias * hotel.priceDay;
         }
         return suma;
+    }
+
+    const handleAprove = async () => {
+        dispatch(estadoInicialCarrito())
     }
 
     const handleDelete = async (name) => {
@@ -140,6 +144,7 @@ export default function CustomPackage() {
           }}
           onApprove={(data, actions) => {
             return actions.order.capture().then(function () {
+              handleAprove()
               alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
             });
           }}
