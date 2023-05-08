@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import { useDispatch, useSelector } from "react-redux"
+import LoadingComponent from "../Loading/LoadingComponent";
+import { useDispatch, useSelector } from "react-redux";
 import Paquete from "../Cards/Paquetes";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
@@ -15,14 +16,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 
-
-export default function CardsContainer() {
-  const paquetes = useSelector((state) => state.packages.allPackages);
-  const dispatch = useDispatch()
+export default function PackageCardContainer() {
+  const paquetes = useSelector((state) => state.packages.viewPackages);
+  const dispatch = useDispatch();
+  const lugar = "package"
 
   useEffect(() => {
     dispatch(getAllPacks());
-  }, []);
+  }, [dispatch]);
 
   //estados, estilo y funcion de los selects ⬇️⬇️⬇️⬇️⬇️⬇️
   // const [filtros, setFiltros] = useState([{ estrellas: "" }, { opciones: "" }]);
@@ -30,8 +31,7 @@ export default function CardsContainer() {
   //   opciones: false,
   // });
 
-
-  //estados de precios 
+  //estados de precios
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
 
@@ -45,7 +45,6 @@ export default function CardsContainer() {
   //estados de duracion
   const [minDuration, setMinDuration] = useState();
   const [maxDuration, setMaxDuration] = useState();
-
 
   // const handleFilterDuration = () => {
   //   const filteredPaq = paquetes.filter(
@@ -80,8 +79,9 @@ export default function CardsContainer() {
 
   return (
     <>
-      <SearchBar />
-      <div>{/*
+      <SearchBar ubicacion={lugar}/>
+      <div>
+        {/*
         <label>Precio:
           <input type="number" value={minPrice} placeholder="Minimo" onChange={(event)=>setMinPrice(parseInt(event.target.value))}/>
           <input type="number" value={maxPrice} placeholder="Maximo" onChange={(event)=>setMaxPrice(parseInt(event.target.value)) }/>
@@ -123,9 +123,6 @@ export default function CardsContainer() {
                     </div>
                 )
             })} */}
-
-
-
       </div>
       {/*
       <Button variant="contained" onClick={handleChange}>Aplicar filtros</Button>
@@ -135,20 +132,39 @@ export default function CardsContainer() {
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
+        marginBottom="2em"
       >
-        {paquetes? (
+        {paquetes.length ? (
           paquetes.map((p, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
               <Paquete key={index} paquete={p} />
             </Grid>
           ))
         ) : (
-          <p>No hay paquetes que mostrar</p>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            style={{ height: "100vh" }}
+          >
+            <Grid item>
+              <LoadingComponent />
+            </Grid>
+          </Grid>
         )}
       </Grid>
+      <Grid 
+       container
+       direction="column"
+       justifyContent="center"
+       alignItems="center"
+       margin= "1em"
+      >
       <Link to={"/home"}>
-        <Button variant="contained">Home</Button>
+        <Button variant="contained">Inicio</Button>
       </Link>
+      </Grid>
     </>
   );
 }

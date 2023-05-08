@@ -10,13 +10,21 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { validation } from "./validation";
 import { useState, useEffect } from 'react';
 import BasicCard from './commons/BasicCard';
-import GenericSearchBar from './commons/GenericSearchBar';
 import ActivityModal from './Modals/ActivityModal';
 import HotelModal from './Modals/HotelModal';
-import FindHotelModal from '../CustomPackage/FindHotelModal';
 import axios from "axios";
-import { CardActions } from '@mui/material';
 import { package1, package2, package3, package4 } from './loadPackage';
+import RestoModal from './Modals/RestoModal';
+import { useNavigate } from 'react-router-dom';
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"
+import es from "date-fns/locale/es";
+import { addDays, addYears } from 'date-fns';
+import { useDispatch, useSelector } from 'react-redux';
+import { addActiForm, addHotelForm, addRestoForm, deleteActiForm, deleteHotelForm, deleteRestoForm, emptyFormCommand, setButtonToCart, setButtonToForm } from '../../redux/actions/formActions';
+import { inputSet } from '../../redux/actions/formActions';
+registerLocale("es", es)
+
 
 const theme = createTheme();
 
@@ -27,19 +35,40 @@ const styles = {
     borderShadow: "5px",
     fontSize: "1.3rem"
 }
+const stylesDateInput = {
+display:"flex",
+flexDirection: "row-Reverse",
+alignItems: "center"
+}
+
+
 
 export default function CreatePackageForm() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [openActi, setOpenActi] = useState(false);
     const [openHotel, setOpenHotel] = useState(false);
-    //const [openResto, setOpenResto] = useState(false);
-    const [findHotelOpen, setFindHotelOpen] = useState(false);
-    //const [findRestoOpen, setFinRestoOpen] = useState(false);
+    const [openResto, setOpenResto] = useState(false);
+    const [selectDate, setSelectDate] = useState(new Date())
+    const state = useSelector((state) => state.form);
+    const [user, setUser] = useState({
+        userName: "damian",
+        email: "adna",
+        password: "321456",
+        lastName: "broglia",
+        social: true,
+        socialRed: "feisbuh"
+    });
+
     const [inputs, setInputs] = useState({
         name: "",
         location: "",
         price: "",
         duration: "",
         img: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         quotas: "",
         dateInit: "",
@@ -51,6 +80,9 @@ export default function CreatePackageForm() {
         price: "",
         duration: "",
         img: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         quotas: "",
         dateInit: "",
@@ -58,83 +90,124 @@ export default function CreatePackageForm() {
     });
     const [activities, setActivities] = useState([]);
     const [hotels, setHotels] = useState("");
-    const [resto, setResto] = useState({});
+    const [resto, setResto] = useState([]);
+
+    const changePage = (name) => {
+        dispatch(setButtonToForm());
+        dispatch(inputSet(inputs));
+        switch(name) {
+            case "ACTIVIDAD": 
+                navigate("/activitycards");
+                break;
+            ;
+            case "HOTEL": 
+                navigate("/hotelcards");
+                break;
+            ;
+            case "RESTO": 
+                navigate("/restaurantcards");
+                break;
+            ;
+            default: 
+                alert("algo salio mal");
+            ;
+        }
+    }
 
     const defaultValuesActivity = {
         name: "",
         description: "",
         duration: "",
-        img: "",
+        price: "",
+        img1: "",
+        img2: "",
+        img3: "",
+        img4: "",
         typeAct: ""
     }
     const defaultValuesHotel = {
         name: "",
         location: "",
-        img: "",
+        img1: "",
+        img2: "",
+        img3: "",
+        img4: "",
         description: "",
         stars: "",
         priceDay: ""
     }
 
+    const defaultValuesResto = {
+        name: "",
+        location: "",
+        description: "",
+        img1: "",
+        img2: "",
+        img3: "",
+        img4: "",
+        price: ""
+    }
+
     const handlePreLoad = (number) => {
-        switch(number) {
-            case "uno": {
+        switch (number) {
+            case "uno": 
                 setInputs(package1.package);
                 setHotels(package1.hotel);
                 setActivities(package1.activities);
                 setResto(package1.resto);
+                setUser(package1.user);
                 break;
-            };
-            case "dos": {
+            ;
+            case "dos": 
                 setInputs(package2.package);
                 setHotels(package2.hotel);
                 setActivities(package2.activities);
                 setResto(package2.resto);
+                setUser(package2.user);
                 break;
-            };
-            case "tres": {
+            ;
+            case "tres": 
                 setInputs(package3.package);
                 setHotels(package3.hotel);
                 setActivities(package3.activities);
                 setResto(package3.resto);
+                setUser(package3.user);
                 break;
-            };
-            case "cuatro": {
+            ;
+            case "cuatro": 
                 setInputs(package4.package);
                 setHotels(package4.hotel);
                 setActivities(package4.activities);
                 setResto(package4.resto);
+                setUser(package4.user);
                 break;
-            };
-            default: {
+            ;
+            default: 
                 alert("error");
-            }
         }
     }
 
-    const getHeader = (texto, boton1, boton2, funcionOpen, funcionOpen2 = () => {}) => {
+    const getHeader = (boton1, boton2, funcionOpen, funcionOpen2 = () => { }) => {
         return (
-            <Box sx={{
+            <Box>
+                <Box sx={{
+
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
-                paddingLeft: "10px",
-                paddingRight: "10px",
                 height: "100%",
                 backgroundColor: 'lightcyan',
                 border: "1px solid black",
-                width: "100%"
-            }}>
-                <GenericSearchBar placeholder={texto} onChange={(event) => {console.log(event.target.value)}}/>
-                <Box >
+                justifyContent: "space-between",
+                width: "100%"}}>
+
                     <Button
                         onClick={funcionOpen}
                         variant='contained'
                         size='small'
+                        sx={{ marginRight: "2%" }}
                     >
                         {boton1}
                     </Button>
-                    <br/>
                     <Button
                         onClick={funcionOpen2}
                         variant='contained'
@@ -153,27 +226,42 @@ export default function CreatePackageForm() {
             data
         ]);
         setOpenActi(false);
+        dispatch(addActiForm(data));
     }
 
     const addNewHotel = (data) => {
-        setHotels([
-            data
-        ]);
+        setHotels(data);
         setOpenHotel(false);
-        setFindHotelOpen(false);
+        dispatch(addHotelForm(data));
     }
 
-    const deleteActi = (id) => {
-        setActivities(activities.filter((elem, index) => index !== id));
+    const addNewResto = (data) => {
+        setResto([
+            ...resto,
+            data
+        ]);
+        setOpenResto(false);
+        dispatch(addRestoForm(data));
+    }
+
+    const deleteActi = (name) => {
+        setActivities(activities.filter((elem) => elem.name !== name))
+        dispatch(deleteActiForm(name));
+    }
+
+    const deleteResto = (name) => {
+        setResto(resto.filter((elem) => elem.name !== name));
+        dispatch(deleteRestoForm(name));
     }
 
     const deleteHotel = () => {
         setHotels("");
+        dispatch(deleteHotelForm());
     }
 
     const getContent = (type) => {
-        switch(type) {
-            case "ACTIVITY": {
+        switch (type) {
+            case "ACTIVITY": 
                 return activities.length
                 ? (activities.map((item, index) => {
                     return (
@@ -185,45 +273,70 @@ export default function CreatePackageForm() {
                                 marginBottom: "4px",
                                 marginTop: "4px"}
                             }> Actividad {index}: 
-                            <Typography>{item.name}</Typography>
-                            <Typography>{item.description}</Typography>
-                            <Typography>{item.duration} days</Typography>
-                            <Typography>{item.img}</Typography>
-                            <Typography>{item.typeAct}</Typography>
-                            <Button variant='contained' size='small' onClick={() => deleteActi(index)}>X</Button>
+                            <Typography>Nombre: {item.name}</Typography>
+                            <Typography>Descrip: {item.description}</Typography>
+                            <Typography>Duracion: {item.duration} days</Typography>
+                            <Typography>Imagenes: [{item.img}]</Typography>
+                            <Typography>Tipo: {item.typeAct}</Typography>
+                            <Typography>Precio: {item.price} USD</Typography>
+                            <Button variant='contained' size='small' onClick={() => deleteActi(item.name)}>X</Button>
                         </Box> 
                     )
                 }))
                 : ("no hay actividades cargadas")
-            };
-            case "HOTEL": {
+            ;
+            case "HOTEL": 
                 return hotels
-                ? (<Box 
+                    ? (<Box
+                        sx={{
+                            border: "1px solid black",
+                            backgroundColor: 'cyan',
+                            marginBottom: "4px",
+                            marginTop: "4px"
+                        }
+                        }> Hotel:
+                        <Typography>Nombre : {hotels.name}</Typography>
+                        <Typography>Desc. : {hotels.description}</Typography>
+                        <Typography>Ubicacion : {hotels.location}</Typography>
+                        <Typography>Imagenes : [{hotels.img}]</Typography>
+                        <Typography>Estrellas: {hotels.stars}</Typography>
+                        <Typography>Precio: {hotels.priceDay} USD/dia</Typography>
+                        <Button variant='contained' size='small' onClick={() => deleteHotel()}>X</Button>
+                    </Box>
+                    )
+                    : ("no hay hoteles de momento")
+            ;
+            case "RESTO": 
+                return resto.length
+                ? (resto.map((item, index) => {
+                    return (
+                        <Box 
+                            key={index} 
                             sx={{
                                 border: "1px solid black",
-                                backgroundColor: 'cyan',
+                                backgroundColor: 'lightsalmon',
                                 marginBottom: "4px",
                                 marginTop: "4px"}
-                            }> Hotel: 
-                            <Typography>{hotels.name}</Typography>
-                            <Typography>{hotels.description}</Typography>
-                            <Typography>{hotels.location}</Typography>
-                            <Typography>{hotels.img}</Typography>
-                            <Typography>{hotels.stars} estrellas</Typography>
-                            <Typography>{hotels.priceDay} USD/day</Typography>
-                            <Button variant='contained' size='small' onClick={() => deleteHotel()}>X</Button>
+                            }> Restaurant {index}: 
+                            <Typography>Nombre : {item.name}</Typography>
+                            <Typography>Desc. : {item.description}</Typography>
+                            <Typography>Ubicacion : {item.location}</Typography>
+                            <Typography>Imagenes : [{item.img}]</Typography>
+                            <Typography>Precio? : {item.price} USD</Typography>
+                            <Button variant='contained' size='small' onClick={() => deleteResto(item.name)}>X</Button>
                         </Box> 
                     )
-                : ("no hay hoteles de momento")
-            };
-            default: {
+                }))
+                : ("no hay restaurantes cargados")
+            ;
+            default: 
                 return "fallo algo"
-            };
+            ;
         }
     }
 
     const handleChange = (event) => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
         setInputs({
             ...inputs,
             [name]: value
@@ -231,44 +344,79 @@ export default function CreatePackageForm() {
     }
 
     const handleSubmit = async (event) => {
+        dispatch(setButtonToCart());
         event.preventDefault();
         if (Object.values(errors).length === 0) {
-            const restaurantId = (await axios.post("restaurant",resto));
-            const hotelId = await axios.post("hotel", hotels);
-            const activitiesID = [];
-            for (let i = 0; i < activities.length; i++){
-                const actviId = await axios.post("activity", activities[i]);
-                activitiesID.push(actviId.data.id);
+
+            try {
+                const combinedImages = Array.from([inputs.img, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== "")
+                const ids = {
+                    restaurantID: [],
+                    hotelId: hotels.id || "",
+                    activitiesID: [],
+                    userId: user.id || ""
+                }
+                for (let i = 0; i < resto.length; i++) {
+                    if (resto[i].id) {
+                        ids.restaurantID.push(resto[i].id)
+                    } else {
+                        const restaurantId = (await axios.post("/restaurant", resto[i]));
+                        ids.restaurantID.push(restaurantId.data.id);
+                    }
+                }
+                if (!ids.hotelId) {
+                    const hotelId = await axios.post("/hotel", hotels);
+                    ids.hotelId = hotelId.data.id;
+                }
+                for (let i = 0; i < activities.length; i++) {
+                    if (activities[i].id) {
+                        ids.activitiesID.push(activities[i].id)
+                    } else {
+                        const actviId = await axios.post("/activity", activities[i]);
+                        ids.activitiesID.push(actviId.data.id);
+                    }
+                }
+                const aux = await axios.get("http://localhost:3001/user/1");
+                setUser(aux.data);
+                if (!user.id) {
+                    const userId = await axios.post("/user", user);
+                    ids.userId = userId.data.id;
+                } else ids.userId = user.id;
+                const body = {
+                    ...inputs,
+                    img: combinedImages,
+                    dateInit: selectDate,
+                    dateEnd: addDays(selectDate, inputs.duration),
+                    hotelId: ids.hotelId,
+                    restaurantId: ids.restaurantID,
+                    activitiesId: ids.activitiesID,
+                    userId: ids.userId,
+                }
+                axios.post("/package", body)
+                .then(response => {
+                    if (response.status === 200) {
+                        dispatch(emptyFormCommand());
+                        alert("paquete creado con exito");
+                        navigate(0);
+                    }
+                })
+            } catch(error) {
+                alert(error.response.data.error || error.message);
             }
-            const usuario = {
-                userName: "nada",
-                email: "nada",
-                password: "123456",
-                lastName: "perez",
-                social: true,
-                socialRed: "feisbuh"
-            }
-            const a = new Date(inputs.dateInit);
-            const b = new Date(inputs.dateEnd); 
-            const userId = await axios.post("/user", usuario);
-            const body = {
-                ...inputs,
-                dateInit: a,
-                dateEnd: b,
-                hotelId: hotelId.data.id,
-                restaurantId: [restaurantId.data.id],
-                activitiesId: activitiesID,
-                userId: userId.data.id,
-            }
-            axios.post("/package", body)
-            .then(response => console.log(response.data))
-            .catch(error => console.log(error.data));
+
         }
     };
 
     useEffect(() => {
         setErrors(validation(inputs, activities));
     }, [inputs]);
+
+    useEffect(() => {
+        setInputs(state.inputs);
+        setHotels(state.hotel);
+        setResto(state.restaurants);
+        setActivities(state.activities);
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -290,12 +438,12 @@ export default function CreatePackageForm() {
                 <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField
-                    autoComplete="given-name"
+                    autoComplete="nombre del paquete"
                     name="name"
                     required
                     fullWidth
                     id="name"
-                    label="name"
+                    label="Nombre"
                     autoFocus
                     onChange={handleChange}
                     error={!!errors.name}
@@ -308,9 +456,9 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     id="location"
-                    label="Location"
+                    label="Ubicacion"
                     name="location"
-                    autoComplete="location"
+                    autoComplete="ubicacion"
                     onChange={handleChange}
                     error={!!errors.location}
                     helperText={errors.location}
@@ -322,10 +470,10 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     name="price"
-                    label="Price"
+                    label="Precio"
                     type='number'
                     id="price"
-                    autoComplete="price"
+                    autoComplete="precio"
                     onChange={handleChange}
                     error={!!errors.price}
                     helperText={errors.price}
@@ -337,10 +485,10 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     name="duration"
-                    label="Duration"
+                    label="Duracion"
                     type="number"
                     id="duration"
-                    autoComplete="duration(in days)"
+                    autoComplete="duracion(numero de dias)"
                     onChange={handleChange}
                     error={!!errors.duration}
                     helperText={errors.duration}
@@ -363,12 +511,53 @@ export default function CreatePackageForm() {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
+                    fullWidth
+                    id="img2"
+                    label="Imagen 2"
+                    name="img2"
+                    autoComplete="imagen 2"
+                    onChange={handleChange}
+                    error={!!errors.img2}
+                    helperText={errors.img2}
+                    value={inputs.img2}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    fullWidth
+                    id="img3"
+                    label="Imagen 3"
+                    name="img3"
+                    autoComplete="imagen 3"
+                    onChange={handleChange}
+                    error={!!errors.img3}
+                    helperText={errors.img3}
+                    value={inputs.img3}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                    fullWidth
+                    id="img4"
+                    label="Imagen 4"
+                    name="img4"
+                    autoComplete="imagen 4"
+                    onChange={handleChange}
+                    error={!!errors.img4}
+                    helperText={errors.img4}
+                    value={inputs.img4}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
                     required
                     fullWidth
+                    multiline
+                    rows={6}
                     id="description"
-                    label="Description"
+                    label="Descripcion"
                     name="description"
-                    autoComplete="description"
+                    autoComplete="descripcion"
                     onChange={handleChange}
                     error={!!errors.description}
                     helperText={errors.description}
@@ -380,48 +569,57 @@ export default function CreatePackageForm() {
                     required
                     fullWidth
                     id="quotas"
-                    label="Quotas"
+                    label="Cupos"
                     name="quotas"
-                    autoComplete="quotas"
+                    autoComplete="cupos"
                     onChange={handleChange}
                     error={!!errors.quotas}
                     helperText={errors.quotas}
                     value={inputs.quotas}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="dateInit"
-                    label="Date init"
-                    name="dateInit"
-                    autoComplete="dateInit"
-                    onChange={handleChange}
-                    error={!!errors.dateInit}
-                    helperText={errors.dateInit}
-                    value={inputs.dateInit}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="dateEnd"
-                    label="Date finish"
-                    name="dateEnd"
-                    autoComplete="dateEnd"
-                    onChange={handleChange}
-                    error={!!errors.dateEnd}
-                    helperText={errors.dateEnd}
-                    value={inputs.dateEnd}
-                    />
-                </Grid>
+          <Grid item xs={12} sx={stylesDateInput}>
+                                <DatePicker
+                                    // selected={selectDate}
+                                    placeholderText='Eligir fecha'
+                                    onChange={(date) => { setSelectDate(date) }}
+                                    locale="es"
+                                    minDate={new Date()}
+                                    maxDate={addYears(new Date(), 1)}
+                                />
+                            
+                                <TextField
+                                    required
+                                     fullWidth
+                                    id="dateInit"
+                                    label="Fecha inicio"
+                                    name="dateInit"
+                                    autoComplete="Fecha inicio"
+                                    onChange={handleChange}
+                                    error={!!errors.dateInit}
+                                    helperText={errors.dateInit}
+                                    value={selectDate.toLocaleDateString('es', { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="dateEnd"
+                                    label="Fecha fin"
+                                    name="dateEnd"
+                                    autoComplete="fecha fin"
+                                    onChange={handleChange}
+                                    error={!!errors.dateEnd}
+                                    helperText={errors.dateEnd}
+                                    value={addDays(selectDate, inputs.duration).toLocaleDateString('es', { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                                />
+                            </Grid>
                 </Grid>
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("buscate la actividad", "Add new Activity", "add existing activity", () => setOpenActi(true), () => alert("componente muestra actividades"))} 
+                        header={getHeader("Crear nueva actividad", "Cargar actividad de la BD", () => setOpenActi(true), () => changePage("ACTIVIDAD"))} 
                         content={getContent("ACTIVITY")}/>
                     <ActivityModal 
                         open={openActi} 
@@ -432,18 +630,24 @@ export default function CreatePackageForm() {
                 <br/>
                 <Grid item xs={8} sx={styles}>
                     <BasicCard 
-                        header={getHeader("buscate el hotel", "Add new Hotel", "add existing hotel", () => setOpenHotel(true), () => setFindHotelOpen(true))} 
+                        header={getHeader("Crear nuevo hotel", "Cargar hotel de la BD", () => setOpenHotel(true), () => changePage("HOTEL"))} 
                         content={getContent("HOTEL")}/>
                     <HotelModal 
                         open={openHotel} 
                         handleClose={() => setOpenHotel(false)} 
                         addNewItem={addNewHotel} 
                         defaultValues={defaultValuesHotel}/>
-                    <FindHotelModal
-                        open={findHotelOpen}
-                        handleClose={() => setFindHotelOpen(false)}
-                        handleAdd={addNewHotel}
-                    />
+                </Grid>
+                <br/>
+                <Grid item xs={8} sx={styles}>
+                    <BasicCard 
+                        header={getHeader("Crear nuevo resto", "Cargar resto de la BD", () => setOpenResto(true), () => changePage("RESTO"))} 
+                        content={getContent("RESTO")}/>
+                    <RestoModal 
+                        open={openResto} 
+                        handleClose={() => setOpenResto(false)} 
+                        addNewItem={addNewResto} 
+                        defaultValues={defaultValuesResto}/>
                 </Grid>
                 <Button
                 type="submit"
@@ -459,9 +663,9 @@ export default function CreatePackageForm() {
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("dos")}>2</Button>
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("tres")}>3</Button>
                         <Button size='small' variant='contained' onClick={() => handlePreLoad("cuatro")}>4</Button>
+                    </Box>
                 </Box>
-            </Box>
-        </Container>
+            </Container>
         </ThemeProvider>
     );
 }

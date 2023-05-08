@@ -6,15 +6,16 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
-
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
+import { Link } from "react-router-dom";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
+// import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CardActionArea } from "@mui/material";
+import { useNavigate } from "react-router-dom/dist";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,6 +27,7 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
+
 
 export default function Paquete(props) {
   const {
@@ -48,10 +50,11 @@ export default function Paquete(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const navigate = useNavigate();
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} href={`/package/${id}`}>
+      <CardActionArea key={id} component={Link} to={`/package/${id}`}>
         <CardHeader
           action={
             <Typography>
@@ -69,12 +72,12 @@ export default function Paquete(props) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+      <CardActions onClick={() => navigate(`/package/${id}`)}>
+        <Button variant="outlined">mas info</Button>
+      </CardActions>
+        {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        </IconButton> */}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -88,9 +91,9 @@ export default function Paquete(props) {
         <CardContent>
           <Typography paragraph>Hotel: </Typography>
           <Typography paragraph>{hotel.name}</Typography>
-          <Typography paragraph>Restaurant: </Typography>
-          <Typography paragraph>{restaurants[0].name}</Typography>
-          <Typography paragraph>Activity: </Typography>
+          <Typography paragraph>Restoran: </Typography>
+          <Typography paragraph>{restaurants.length? (restaurants[0].name) : ("")}</Typography>
+          <Typography paragraph>Actividad: </Typography>
           <Typography paragraph>{activities[0].name}</Typography>
         </CardContent>
       </Collapse>

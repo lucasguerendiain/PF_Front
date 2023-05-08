@@ -15,7 +15,7 @@ export default function BasicModal({open, handleClose, title, content, handleSub
     aria-describedby="modal-modal-description"
     >
     <Box sx={ModalStyle.wrapper}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography gutterBottom id="modal-modal-title" variant="h6" component="h2">
             {title}
         </Typography>
         {content}

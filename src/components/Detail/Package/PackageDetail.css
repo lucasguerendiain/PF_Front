@@ -8,8 +8,6 @@
     margin-right: 8%;
     width: 85vw;
     border: 1px solid black;
-    border-radius: 3px;
-    box-shadow: 5px;
 }
 
 .containerDetail Button {
@@ -41,9 +39,9 @@
 .activity {
     max-width: 50%;
     height: auto;
-    display: block;
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
 }
 

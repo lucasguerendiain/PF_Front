@@ -15,23 +15,18 @@ const Navbar = () => {
               </Link>
             </li>
             <li className={style.navItem + " nav-item"}>
-              <Link className={style.navLink + " nav-link"} to="/form">
-                Crear formulario
+              <Link className={style.navLink + " nav-link"} to="/dashboard">
+                Administrador
               </Link>
             </li>
             <li className={style.navItem + " nav-item"}>
-              <Link className={style.navLink + " nav-link"} to="/cards">
-                Ofertas y paquetes
-              </Link>
-            </li>
-            <li className={style.navItem + " nav-item"}>
-              <Link className={style.navLink + " nav-link"} to="/reservas">
-                Reservas
+              <Link className={style.navLink + " nav-link"} to="/packagecards">
+                Paquetes
               </Link>
             </li>
             <li className={style.navItem + " nav-item"}>
               <Link className={style.navLink + " nav-link"} to="/activitycards">
-                Activities
+                Actividades
               </Link>
             </li>
 

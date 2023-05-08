@@ -1,10 +1,19 @@
 import axios from "axios";
-import {getAllPackages, getPackageById, setError, getFilterPackages} from "../reducer/packageSlice";
+import {getAllPackages, getPackageById, setError, getFilterPackages, getPackageName} from "../reducer/packageSlice";
 
 export const getAllPacks = () => async (dispatch) => {
     try {
         axios("/package")
         .then(res=>dispatch(getAllPackages(res.data)))
+    } catch (error) {
+        dispatch(setError(error.message));
+    }
+}
+
+export const getPackageByName = (name) => async (dispatch) => {
+    try {
+        const response = await axios.get(`/package?name=${name}`)
+        dispatch(getPackageName(response.data))
     } catch (error) {
         dispatch(setError(error.message));
     }

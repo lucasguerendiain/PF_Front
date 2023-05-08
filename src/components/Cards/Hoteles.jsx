@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import Card from "@mui/material/Card";
 import { CardActionArea } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
@@ -10,36 +10,36 @@ import Button from "@mui/material/Button";
 // import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { agregarActivitie } from "../../redux/actions/carritoActions";
-import { addActiForm } from "../../redux/actions/formActions"
+import { addHotelForm } from "../../redux/actions/formActions";
+import { agregarHotel } from "../../redux/actions/carritoActions";
 import { Link } from "react-router-dom";
 
 
 export default function Actividades(props) {
-  const { id, name, duration, img, description, typeAct, price } =
-    props.actividad;
-  const dispatch = useDispatch();
+  const { id, name, location, description, img, stars, priceDay } =
+    props.hotel;
   const toForm = useSelector((state) => state.form.toForm);
+  const dispatch = useDispatch();
 
   const handleClick = async (e) => {
     if (toForm) {
-      dispatch(addActiForm(props.actividad));
+      dispatch(addHotelForm(props.hotel));
       alert("se agrego con exito");
     } else {
-      dispatch(agregarActivitie(props.actividad))
-      alert("Se agrego la actividad al carrito.")
+      dispatch(agregarHotel(props.hotel))
+      alert("Se agrego el hotel al carrito.")
     }
   }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} component={Link} to={`/activity/byId/${id}`}>
-        <CardMedia component="img" alt="actividad" height="140" image={img[0]} />
+      <CardActionArea key={id} component={Link} to={`/hotel/byId/${id}`}>
+        <CardMedia component="img" alt="hotel" height="140" image={img[0]} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Typography>{price}</Typography>
+          <Typography>{priceDay}</Typography>
           <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>
@@ -47,7 +47,7 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display="flex" justify-content="space-between" align-items="center">
         <CardActions>
-          <Button variant="outlined" value={name} onClick={ e => handleClick(e)}>
+          <Button variant="outlined" onClick={handleClick}>
             {toForm? "Agregar al paquete" : "Agregar al carrito"}
           </Button>
         </CardActions>

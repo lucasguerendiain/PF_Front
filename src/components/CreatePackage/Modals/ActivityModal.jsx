@@ -2,7 +2,7 @@ import React from "react";
 import BasicModal from "./BasicModal";
 import { useState, useEffect } from "react";
 import { validateActivity } from "./validateActivity";
-import { Grid, MenuItem, TextField } from '@mui/material';
+import { Box, Grid, MenuItem, TextField } from '@mui/material';
 
 export default function ActivityModal({open, handleClose, addNewItem, defaultValues}) {
     const [tipo, setTipo] = useState("");
@@ -13,13 +13,20 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
 
     const getContent = () => {
         return(
-        <Grid container spacing={2} sx={{display: "flex", flexDirection: "column", m: 2}}>
-        <Grid>
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column", 
+            overflowY: "scroll", 
+            maxHeight: "70vh",
+            '.MuiFormControl-root': {
+                marginBottom: "3%"
+            }
+            }}>
         <TextField 
-            placeholder='name' 
+            placeholder='nombre' 
             name='name'
             id='name'
-            label="Name"
+            label="Nombre"
             value={inputs.name} 
             required
             fullWidth
@@ -27,13 +34,13 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
             error={!!errors.name}
             helperText={errors.name}
             />
-        </Grid>
-        <Grid>
         <TextField 
-            placeholder='description' 
+            placeholder='descripcion' 
             name='description'
             id='description'
-            label="Description"
+            label="Descripcion"
+            multiline
+            rows={4}
             value={inputs.description} 
             required
             fullWidth
@@ -41,13 +48,11 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
             error={!!errors.description}
             helperText={errors.description}
             />
-        </Grid>
-        <Grid>
         <TextField 
-            placeholder='duration' 
+            placeholder='duracion' 
             name='duration'
             id='duration'
-            label="Duration"
+            label="Duracion"
             value={inputs.duration}
             type='number' 
             required
@@ -56,28 +61,72 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
             error={!!errors.duration}
             helperText={errors.duration}
             />
-        </Grid>
-        <Grid>
         <TextField 
-            placeholder='img' 
-            name='img'
-            id='img'
-            label="Image"
-            value={inputs.img} 
+            placeholder='precio' 
+            name='price'
+            id='price'
+            label="Precio"
+            value={inputs.price}
+            type='number' 
             required
             fullWidth
             onChange={handleChange}
-            error={!!errors.img}
-            helperText={errors.img}
+            error={!!errors.price}
+            helperText={errors.price}
             />
-        </Grid>
-        <Grid >
+        <TextField 
+            placeholder='img1' 
+            name='img1'
+            id='img1'
+            label="Imagen 1"
+            value={inputs.img1} 
+            required
+            fullWidth
+            onChange={handleChange}
+            error={!!errors.img1}
+            helperText={errors.img1}
+            />
+        <TextField 
+            placeholder='img2' 
+            name='img2'
+            id='img2'
+            label="Imagen 2"
+            value={inputs.img2} 
+            fullWidth
+            onChange={handleChange}
+            error={!!errors.img2}
+            helperText={errors.img2}
+            />
+        <TextField 
+            placeholder='img3' 
+            name='img3'
+            id='img3'
+            label="Imagen 3"
+            value={inputs.img3} 
+            fullWidth
+            onChange={handleChange}
+            error={!!errors.img3}
+            helperText={errors.img3}
+            />
+        <TextField 
+            placeholder='img 4' 
+            name='img4'
+            id='img4'
+            label="Imagen 4"
+            value={inputs.img4} 
+            fullWidth
+            onChange={handleChange}
+            error={!!errors.img4}
+            helperText={errors.img4}
+            />
+        <Grid>
             <TextField
-                label="activity type"
+                label="tipo de actividad"
                 select
                 value={tipo}
                 onChange={handleSelect}
                 fullWidth
+                required
             >
                 <MenuItem value="treking">treking</MenuItem>
                 <MenuItem value="bike">bike</MenuItem>
@@ -86,7 +135,7 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
                 <MenuItem value="show">show</MenuItem>
             </TextField>
         </Grid>
-        </Grid>
+        </Box>
         )
     }
     
@@ -97,8 +146,12 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
         event.preventDefault();
         if (Object.values(errors).length === 0){
             const datosCombinados = {
-                ...inputs,
-                typeAct: tipo
+                name: inputs.name,
+                description: inputs.description,
+                duration: inputs.duration,
+                img: Array.from([inputs.img1, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== ""),
+                typeAct: tipo,
+                price: inputs.price
             }
             addNewItem(datosCombinados);
             setTipo("");
