@@ -3,7 +3,7 @@ import { getAllRestaurants, getRestaurantById, setError } from "../reducer/resta
 
 export const getAllRestaurant = () => async (dispatch) => {
     try {
-        const response = await axios("http://localhost:3001/restaurant");
+        const response = await axios("/restaurant");
         dispatch(getAllRestaurants(response.data));
     } catch (error) {
         dispatch(setError(error.message));
@@ -12,7 +12,7 @@ export const getAllRestaurant = () => async (dispatch) => {
 
 export const getRestaurantDetailById = (id) => async (dispatch) => {
     try {
-        const response = await axios.get(`http://localhost:3001/restaurant/byId/${id}`);
+        const response = await axios.get(`/restaurant/byId/${id}`);
         dispatch(getRestaurantById(response.data));
     } catch (error) {
         dispatch(setError(error.message));
