@@ -1,7 +1,6 @@
 import axios from "axios";
 
-import { getAllActivities, getActivityName, setError, getActivityById } from "../reducer/activitiesSlice";
-
+import { getAllActivities, getActivityName, getActivityById, setError } from "../reducer/activitiesSlice";
 export const getAllActivity = () => async (dispatch) => {
     try {
         const response = await axios("http://localhost:3001/activity");
