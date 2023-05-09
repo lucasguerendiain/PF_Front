@@ -143,7 +143,7 @@ export default function HotelModal({open, handleClose, addNewItem, defaultValues
                 stars: inputs.stars
             }
             addNewItem(datosCombinados);
-        }
+        } else alert("hay errores en el formulario");
     }
 
     const handleChange = (event) => {
