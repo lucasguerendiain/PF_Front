@@ -6,9 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllActivity } from "../../redux/actions/ActivitiesActions";
 import LoadingComponent from "../Loading/LoadingComponent"
 import {Link} from "react-router-dom"
+import FilterActivity from "../Filter/FilterActivity";
 
 export default function ActivityCardontainer() {
   const actividades = useSelector((state) => state.activities.viewActivities)
+  const allActivities = useSelector((state) => state.activities.allActivities)
   const dispatch = useDispatch()
   const lugar = "activity"
 
@@ -19,6 +21,7 @@ export default function ActivityCardontainer() {
   return (
     <>
     <SearchBar ubicacion={lugar}/>
+    <FilterActivity activities={allActivities}/>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
