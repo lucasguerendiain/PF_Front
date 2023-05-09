@@ -14,6 +14,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
 import { borrarActivitie, estadoInicialCarrito } from "../../redux/actions/carritoActions";
 import Calendar from "../Calendar/Calendar";
+import { setButtonToCart } from "../../redux/actions/formActions";
 
 export default function CustomPackage() {
     const navigate = useNavigate();
@@ -41,14 +42,25 @@ export default function CustomPackage() {
     }
 
     const handleDelete = async (name) => {
-        //dispatch action del reducer para sacar del carro
-        // console.log(name);
         dispatch(borrarActivitie(name))
     }
 
     const handleClick = (data) => {
-        console.log(data);
         setDate(data.toLocaleString());
+    }
+
+    const handleNav = (name) => {
+        dispatch(setButtonToCart());
+        switch(name) {
+            case "ACTIVIDAD":
+                navigate("/activitycards");
+                break;
+            case "HOTEL":
+                navigate("/hotelcards");
+                break;
+            default:
+                alert("fallo algo");
+        }
     }
 
     return(
@@ -103,8 +115,8 @@ export default function CustomPackage() {
                         }
                     </CardContent>
                     <CardActions>
-                        <Button size="medium" variant="contained" onClick={() => navigate("/activitycards")}>Añadir Actividad</Button>
-                        <Button size="medium" variant="contained" onClick={() => navigate("/hotelcards")}>Añadir Hotel</Button>
+                        <Button size="medium" variant="contained" onClick={() => handleNav("ACTIVIDAD")}>Añadir Actividad</Button>
+                        <Button size="medium" variant="contained" onClick={() => handleNav("HOTEL")}>Añadir Hotel</Button>
                     </CardActions>
                     {hotel
                         ? (
