@@ -6,11 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllActivity } from "../../redux/actions/ActivitiesActions";
 import LoadingComponent from "../Loading/LoadingComponent"
 import {Link} from "react-router-dom"
+import FilterActivity from "../Filter/FilterActivity";
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 
 export default function ActivityCardontainer() {
   const actividades = useSelector((state) => state.activities.viewActivities);
+   const allActivities = useSelector((state) => state.activities.allActivities)
   const [paginado, setPaginado] = useState([]);
   const [page, setPage] = useState(0);
   const dispatch = useDispatch()
@@ -46,6 +48,7 @@ export default function ActivityCardontainer() {
       marginTop: "2%"
     }}>
     <SearchBar ubicacion={lugar}/>
+    <FilterActivity activities={allActivities}/>
       <Box display="flex" flexDirection="row" marginTop="1%" marginBottom="1%">
         <Button size="large" disableRipple onClick={() => handlePageChange("left")}><ArrowCircleLeftIcon/></Button>
         <Typography variant="h4">Pagina {page +1}</Typography>

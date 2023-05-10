@@ -347,6 +347,7 @@ export default function CreatePackageForm() {
         dispatch(setButtonToCart());
         event.preventDefault();
         if (Object.values(errors).length === 0) {
+
             try {
                 const combinedImages = Array.from([inputs.img, inputs.img2, inputs.img3, inputs.img4]).filter((elem) => elem !== "")
                 const ids = {
@@ -375,7 +376,7 @@ export default function CreatePackageForm() {
                         ids.activitiesID.push(actviId.data.id);
                     }
                 }
-                const aux = await axios.get("http://localhost:3001/user/1");
+                const aux = await axios.get("/user/1");
                 setUser(aux.data);
                 if (!user.id) {
                     const userId = await axios.post("/user", user);
@@ -402,6 +403,7 @@ export default function CreatePackageForm() {
             } catch(error) {
                 alert(error.response.data.error || error.message);
             }
+
         }
     };
 

@@ -6,9 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllHotel} from "../../redux/actions/HotelesActions";
 import LoadingComponent from "../Loading/LoadingComponent"
 import {Link} from "react-router-dom"
+import FilterHotel from "../Filter/FilterHotel";
 
 export default function ActivityCardontainer() {
-  const hoteles = useSelector((state) => state.hoteles.allHoteles)
+  const hoteles = useSelector((state) => state.hoteles.viewHoteles)
+  const allHotels = useSelector((state) => state.hoteles.allHoteles)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function ActivityCardontainer() {
   return (
     <>
     <SearchBar/>
+    <FilterHotel hoteles={allHotels}/>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

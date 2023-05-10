@@ -3,7 +3,7 @@ import {getAllPackages, getPackageById, setError, getFilterPackages, getPackageN
 
 export const getAllPacks = () => async (dispatch) => {
     try {
-        axios("http://localhost:3001/package")
+        axios("/package")
         .then(res=>dispatch(getAllPackages(res.data)))
     } catch (error) {
         dispatch(setError(error.message));
