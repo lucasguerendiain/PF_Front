@@ -129,7 +129,7 @@ export default function RestoModal({open, handleClose, addNewItem, defaultValues
                 price: inputs.price
             }
             addNewItem(datosCombinados);
-        }
+        } else alert("hay errores en el formulario")
     }
 
     const handleChange = (event) => {
