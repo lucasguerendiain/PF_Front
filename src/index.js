@@ -1,10 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from "./redux/store/store";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 import axios from "axios"
 
@@ -13,11 +14,23 @@ axios.defaults.baseURL= "https://pfback-production.up.railway.app"
 
 const root = document.getElementById('root');
 
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+
+
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+      redirect_uri: window.location.origin + process.env.PUBLIC_URL 
+      }}
+    >
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Auth0Provider>  
   </React.StrictMode>
 );
 

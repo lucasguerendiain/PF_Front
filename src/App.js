@@ -17,6 +17,7 @@ import HotelCardContainer from './components/CardsContainer/HotelCardContainer'
 import RestaurantCardContainer from './components/CardsContainer/RestaurantCardContainer';
 import ScrollToTop from './scrollToTop';
 import Dashboard from './components/Dashboard/Dashboard';
+import User from './components/User/User';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path='/hotelcards' element={<HotelCardContainer/>}/>
           <Route path='/restaurantcards' element={<RestaurantCardContainer/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
+          <Route path='/user' element={<User/>}/>
         </Routes>
         <Footer />
       </div>
