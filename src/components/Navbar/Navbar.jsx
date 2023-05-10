@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaShoppingCart } from "react-icons/fa";
 import style from "./Navbar.css";
+
 import logo from "../../assets/Horizons2.png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  
   return (
     <nav className={style.navbar}>
       <div className={style.container}>
@@ -34,6 +37,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className={style.navItem + " nav-item ml-auto"}>
+
               <Link className={style.navLink + " nav-link"} to="/login">
                 <FaUser /> Iniciar sesión
               </Link>
@@ -41,6 +45,8 @@ const Navbar = () => {
             <li className={style.navItem + " nav-item"}>
               <Link className={style.navLink + " nav-link"} to="/carrito">
                 <FaShoppingCart /> Carrito
+              <Link className={style.navLink + " nav-link"}  to="/user">
+                <FaUser /> Usuario {/* Icono de usuario de react-icons */}
               </Link>
             </li>
           </ul>
