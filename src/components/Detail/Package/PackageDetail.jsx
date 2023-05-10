@@ -27,6 +27,7 @@ export default function PackageDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const pack = useSelector((state) => state.packages.detail);
+  const precio = pack.price
   const { id } = useParams();
 
   const settings = {
@@ -232,13 +233,8 @@ export default function PackageDetail() {
             <Typography variant="h3" display="inline">
               {pack.price} USD
             </Typography>
-          </Typography>
-        </Grid>
-      ) : (
-        <LoadingComponent />
-      )}
-
-      <PayPalScriptProvider
+          </Typography> 
+           <PayPalScriptProvider
         options={{
           "client-id":
             "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
@@ -250,20 +246,27 @@ export default function PackageDetail() {
               purchase_units: [
                 {
                   amount: {
-                    value: pack.price,
+                    value: precio,
                   },
                 },
               ],
             });
           }}
-          onApprove={(data, actions) => {
+          onApprove={ async (data, actions) => {
             return actions.order.capture().then(function () {
               alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
             });
           }}
+          onCancel={(data) => {
+            return alert("Pago cancelado.")
+          }}
         />
       </PayPalScriptProvider>
-      {/* handlePrecio={(pack) => handlePrecio(pack)} */}
+        </Grid>
+      
+      ) : (
+        <LoadingComponent />
+      )}
     <CommentBoard/>
     </Box>
   );

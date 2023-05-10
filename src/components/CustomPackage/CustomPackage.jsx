@@ -148,6 +148,9 @@ export default function CustomPackage() {
               alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
             });
           }}
+          onCancel={(data) => {
+            return alert("Pago cancelado.")
+          }}
         />
       </PayPalScriptProvider>
             </Grid>
