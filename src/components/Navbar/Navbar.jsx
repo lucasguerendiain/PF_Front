@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa"; // Importar el icono de usuario de react-icons
 import style from "./Navbar.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  
   return (
     <nav className={style.navbar}>
       <div className={style.container}>
@@ -36,8 +38,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li className={style.navItem + " nav-item ml-auto"}>
-              <Link className={style.navLink + " nav-link"} to="/login">
-                <FaUser /> Iniciar sesión {/* Icono de usuario de react-icons */}
+              <Link className={style.navLink + " nav-link"}  to="/user">
+                <FaUser /> Usuario {/* Icono de usuario de react-icons */}
               </Link>
             </li>
           </ul>
