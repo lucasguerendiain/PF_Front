@@ -20,8 +20,13 @@ export default function FilterHotel(hoteles) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getFilterHotels(hoteles, filter));
+         if (filter.starsMin > filter.starsMax || filter.priceMin > filter.priceMax) {
+            alert("El minimo no puede superar al maximo")
+         }else{
+            dispatch(getFilterHotels(hoteles, filter));
+         }
     }
+    
     const handleOnClick = (e) => {
         dispatch(getAllHotel());
     }

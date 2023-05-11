@@ -20,7 +20,11 @@ export default function FilterRestaurant(restaurant) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getFilterRestaurant(restaurant, filter));
+        if(filter.priceMin > filter.priceMax){
+            alert("El minimo no puede superar al maximo")
+        } else{
+            dispatch(getFilterRestaurant(restaurant, filter));
+        }
     }
     const handleOnClick = (e) => {
         dispatch(getAllRestaurant());

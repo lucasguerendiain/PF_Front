@@ -20,7 +20,12 @@ export default function FilterActivity(activities) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getFilterActivities(activities, filter));
+        if(filter.priceMin > filter.priceMax || filter.durationMin > filter.durationMax ) {
+            alert("El minimo no puede ser mayor al maximo")
+        }else{
+            dispatch(getFilterActivities(activities, filter));
+        }
+        
     }
     const handleOnClick = (e) => {
         dispatch(getAllActivity());
