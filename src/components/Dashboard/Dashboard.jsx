@@ -157,6 +157,16 @@ const defaultValuesResto = {
           Movimientos/reservas
         </Button>
       </Grid>
+      <Grid>
+        <Button
+            variant="contained"
+            color="primary"
+            sx={{ mb: "1.25em", boxShadow: "3px 3px 6px rgba(0, 0, 0, 0.2)" }}
+            onClick={() => navigate("/adminMail")}
+          >
+            Mandar mails
+          </Button>
+      </Grid>
     </Grid>
   );
 }

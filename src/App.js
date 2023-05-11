@@ -18,6 +18,7 @@ import RestaurantCardContainer from './components/CardsContainer/RestaurantCardC
 import ScrollToTop from './scrollToTop';
 import Dashboard from './components/Dashboard/Dashboard';
 import User from './components/User/User';
+import AdminMail from './components/MailSend/AdminMail';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path='/restaurantcards' element={<RestaurantCardContainer/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/user' element={<User/>}/>
+          <Route path='/adminMail' element={<AdminMail/>}/>
         </Routes>
         <Footer />
       </div>
