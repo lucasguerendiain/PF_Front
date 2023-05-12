@@ -155,7 +155,7 @@ export default function ActivityModal({open, handleClose, addNewItem, defaultVal
             }
             addNewItem(datosCombinados);
             setTipo("");
-        }
+        } else alert("hay errores en el formulario");
     }
 
     const handleChange = (event) => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllRestaurants, getRestaurantById, setError } from "../reducer/restaurantsSlice";
+import { getAllRestaurants, getRestaurantById, getFilteredRestaurant, setError } from "../reducer/restaurantsSlice";
 
 export const getAllRestaurant = () => async (dispatch) => {
     try {
@@ -14,6 +14,15 @@ export const getRestaurantDetailById = (id) => async (dispatch) => {
     try {
         const response = await axios.get(`/restaurant/byId/${id}`);
         dispatch(getRestaurantById(response.data));
+    } catch (error) {
+        dispatch(setError(error.message));
+    }
+}
+
+export const getFilterRestaurant = (restaurant, filter) => async (dispatch) => {
+    try {
+        const response = await axios.post("/restaurant/filter", { restaurant, filter });
+        dispatch(getFilteredRestaurant(response.data))
     } catch (error) {
         dispatch(setError(error.message));
     }

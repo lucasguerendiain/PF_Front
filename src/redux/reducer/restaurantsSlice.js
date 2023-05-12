@@ -18,6 +18,9 @@ export const restaurantsSlice = createSlice({
         getRestaurantById: (state, action) => {
             state.detail = action.payload
         },
+        getFilteredRestaurant:(state, action) =>{
+            state.viewRestaurants = action.payload;
+        },
         setError: (state, action) => {
             state.error = action.payload
         }
@@ -25,6 +28,6 @@ export const restaurantsSlice = createSlice({
     }
 })
 
-export const {getAllRestaurants, getRestaurantById, setError} = restaurantsSlice.actions
+export const {getAllRestaurants, getRestaurantById, getFilteredRestaurant, setError} = restaurantsSlice.actions
 
 export default restaurantsSlice.reducer

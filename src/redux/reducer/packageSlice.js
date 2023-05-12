@@ -23,7 +23,7 @@ export const packageSlice = createSlice({
             state.detail = action.payload;
         },
         getFilterPackages: (state, action) => {
-            state.viewPackages = action.payload
+            state.viewPackages = action.payload;
         },
         setError: (state, action) => {
             state.error = action.payload;

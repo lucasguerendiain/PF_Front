@@ -6,9 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllRestaurant} from "../../redux/actions/RestaurantsActions";
 import LoadingComponent from "../Loading/LoadingComponent"
 import {Link} from "react-router-dom"
+import FilterRestaurant from "../Filter/FilterRestaurant";
 
 export default function RestaurantCardContainer() {
-  const restaurants = useSelector((state) => state.restaurants.allRestaurants)
+  const restaurants = useSelector((state) => state.restaurants.viewRestaurants)
+  const allRestaurant = useSelector((state) => state.restaurants.allRestaurants)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function RestaurantCardContainer() {
   return (
     <>
     <SearchBar/>
+    <FilterRestaurant restaurant={allRestaurant}/>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

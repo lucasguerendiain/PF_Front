@@ -4,9 +4,9 @@ import SearchBar from "../SearchBar/SearchBar";
 import LoadingComponent from "../Loading/LoadingComponent";
 import { useDispatch, useSelector } from "react-redux";
 import Paquete from "../Cards/Paquetes";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Button } from "@mui/material";
-import { getAllPacks } from "../../redux/actions/packageActions";
+import { getAllPacks, setFilterPacksByStars } from "../../redux/actions/packageActions";
 //imports para los selects ⬇️⬇️⬇️⬇️⬇️
 import { connect } from "react-redux";
 
@@ -15,119 +15,26 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import FilterPackage from "../Filter/FilterPackage";
+import { getFilterPacks } from "../../redux/actions/packageActions";
 
 export default function PackageCardContainer() {
   const paquetes = useSelector((state) => state.packages.viewPackages);
   const dispatch = useDispatch();
   const lugar = "package"
 
+  const handleFilteredPackages = (data, stars) => {
+    dispatch(getFilterPacks(data, paquetes, stars));
+  }
+
   useEffect(() => {
     dispatch(getAllPacks());
   }, [dispatch]);
 
-  //estados, estilo y funcion de los selects ⬇️⬇️⬇️⬇️⬇️⬇️
-  // const [filtros, setFiltros] = useState([{ estrellas: "" }, { opciones: "" }]);
-  // const [inputs, setInputs] = useState({
-  //   opciones: false,
-  // });
-
-  //estados de precios
-  const [minPrice, setMinPrice] = useState();
-  const [maxPrice, setMaxPrice] = useState();
-
-  // const handleFilterPrice = () => {
-  //   const filteredPaq = paquetes.filter(
-  //     (paq) => paq.price >= minPrice && paq.price <= maxPrice
-  //   );
-  //   setPaquetes(filteredPaq);
-  // };
-
-  //estados de duracion
-  const [minDuration, setMinDuration] = useState();
-  const [maxDuration, setMaxDuration] = useState();
-
-  // const handleFilterDuration = () => {
-  //   const filteredPaq = paquetes.filter(
-  //     (paq) => paq.duration >= minDuration && paq.duration <= maxDuration
-  //   );
-  //   setPaquetes(filteredPaq);
-  // };
-
-  // const handleChange = (event) => {
-  //   console.log('mayor que: ' + event.target.value);
-  //   // const numero = filtros.length - 1;
-  //   // setFiltros([...filtros, { ["opciones" + numero]: "" }]);
-  //   // setInputs({
-  //   //   ...inputs,
-  //   //   [event.target.name]: true,
-  //   //   ["opciones" + numero]: false,
-  //   // });
-  //   handleFilterPrice();
-  //   handleFilterDuration();
-  // };
-
-  // const handleDeleteFilters = () => {
-  //   setPaquetes({
-  //     ...paquetes,
-
-  //   })
-  //   setMaxDuration('');
-  //   setMinDuration('');
-  //   setMaxPrice('');
-  //   setMinPrice('');
-  // }
-
   return (
     <>
       <SearchBar ubicacion={lugar}/>
-      <div>
-        {/*
-        <label>Precio:
-          <input type="number" value={minPrice} placeholder="Minimo" onChange={(event)=>setMinPrice(parseInt(event.target.value))}/>
-          <input type="number" value={maxPrice} placeholder="Maximo" onChange={(event)=>setMaxPrice(parseInt(event.target.value)) }/>
-        </label>
-        <button onClick={handleFilterPrice} variant="contained">Filtrar solo precio</button>
-        
-        <br/>
-        <label>Duracion:
-          <input type="number" value={minDuration} placeholder="Minimo" onChange={(event)=>setMinDuration(parseInt(event.target.value))}/>
-          <input type="number" value={maxDuration} placeholder="Maximo" onChange={(event)=>setMaxDuration(parseInt(event.target.value))}/>
-        </label>
-        <button onClick={handleFilterDuration} variant="contained">Filtrar solo duracion</button>*/}
-        {/* {filtros && filtros.map((item) =>{
-                if (item.hasOwnProperty("estrellas")){
-                    return (
-                        <div>
-                        <select name={Object.keys(item)[0]}>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                        <br/>
-                        </div>
-                    )
-                }
-                else return (
-                    <div>
-                    <select name={Object.keys(item)[0]} onChange={handleChange}>
-                        <option>-----------</option>
-                        <option>precio mayor que</option>
-                        <option>precio menor que</option>
-                        <option>duracion mayor que</option>
-                        <option>duracion menor que</option>
-                    </select>
-                    {inputs[Object.keys(item)[0]]? (<input type="text" placeholder="ejemplo"></input>) : ("")}
-                    <br/>
-                    </div>
-                )
-            })} */}
-      </div>
-      {/*
-      <Button variant="contained" onClick={handleChange}>Aplicar filtros</Button>
-      <Button variant="contained" onClick={handleDeleteFilters}>Borrar filtros</Button>
-      */}
+      <FilterPackage handleSubmit={handleFilteredPackages}/>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -155,11 +62,11 @@ export default function PackageCardContainer() {
         )}
       </Grid>
       <Grid 
-       container
-       direction="column"
-       justifyContent="center"
-       alignItems="center"
-       margin= "1em"
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        margin= "1em"
       >
       <Link to={"/home"}>
         <Button variant="contained">Inicio</Button>

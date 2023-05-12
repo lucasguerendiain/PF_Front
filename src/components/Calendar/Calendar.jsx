@@ -1,6 +1,5 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
@@ -9,7 +8,8 @@ export default function Calendar({handleClick}) {
     const year = [2023, 2024];
     const [currentMonth, setCurrentMonth] = useState(0);
     const [currentYear, setCurrentYear] = useState(0);
-    const [inicio, setInicio] = useState(0);
+    const [inicio, setInicio] = useState("");
+    const [last, setLast] = useState("");
 
     const meses = {
         "Enero": 1,
@@ -43,19 +43,32 @@ export default function Calendar({handleClick}) {
 
     useEffect(() => {
         const dia = new Date(Date.now());
-        const mes = new Date(Date.now());
-        setCurrentMonth(mes.getMonth());
-        setInicio(months[mes.getMonth()] + dia.getDate + 1);
-    }, [])
+        setCurrentMonth(dia.getMonth());
+        setInicio(`${dia.getMonth()}//${dia.getDate()}//${dia.getFullYear()}`);
+    }, []);
+
+    useEffect(() => {
+        setLast(inicio);
+    }, [inicio]);
 
     const devolverFecha = (event) => {
+        setLast(`${currentMonth}//${event.target.name}//${year[currentYear]}`);
         const fecha = new Date(`${meses[months[currentMonth]]}//${event.target.name}//${year[currentYear]}`);
         const fecha2 = fecha;
         const hoy = new Date(Date.now());
         const diff = (fecha2.getTime() - hoy.getTime());
         if (diff > 0) {
             handleClick(fecha);
-        } else alert("no podes sacar pasajes para antes de hoy");
+        } else alert("No manejamos reservas para el pasado");
+    }
+
+    const handleView = (dia) => {
+        const comparator = (`${currentMonth}//${dia}//${year[currentYear]}`);
+        if (comparator === last) {
+            return "contained";
+        } else if (comparator === inicio) {
+            return "outlined";
+        } else return "text";
     }
 
     const renderDays = () => {
@@ -79,7 +92,7 @@ export default function Calendar({handleClick}) {
                                         if (referenciaInicio < firstDay) {
                                             return <Button key={"greyBI" + referenciaInicio} type="button" size="small" disabled>{previousMonthDays-(firstDay-1) + referenciaInicio++}</Button>
                                         } else {
-                                            return <Button key={"boton" + dia} onClick={devolverFecha} name={dia} type="button" size="small">{dia++}</Button>
+                                            return <Button key={"boton" + dia} variant={handleView(dia)} onClick={devolverFecha} name={dia} type="button" size="small">{dia++}</Button>
                                         }
                                     })}
                                 </Box>
@@ -96,7 +109,7 @@ export default function Calendar({handleClick}) {
                             <Box display="flex" flexDirection="row" justifyContent="space-evenly" key={"row"+elem}>
                                 {mapeadorDias.map(() => {
                                     if (dia <= numberDays) {
-                                        return <Button key={"boton" + dia} onClick={devolverFecha} name={dia} type="button" size="small">{dia++}</Button>
+                                        return <Button key={"boton" + dia} variant={handleView(dia)} onClick={devolverFecha} name={dia} type="button" size="small">{dia++}</Button>
                                     } else {
                                         return <Button key={"greyBF" + referenciaFin} type="button" size="small" disabled>{referenciaFin++}</Button>
                                     }
