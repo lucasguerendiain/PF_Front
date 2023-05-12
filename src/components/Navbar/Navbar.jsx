@@ -7,7 +7,7 @@ import logo from "../../assets/Horizons2.png";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
-  
+
   return (
     <nav className={style.navbar}>
       <div className={style.container}>
@@ -45,7 +45,9 @@ const Navbar = () => {
               <Link className={style.navLink + " nav-link"} to="/carrito">
                 <FaShoppingCart /> Carrito
               </Link>
+
               <Link className={style.navLink + " nav-link"}  to="/user">
+
                 <FaUser /> Usuario {/* Icono de usuario de react-icons */}
               </Link>
             </li>
