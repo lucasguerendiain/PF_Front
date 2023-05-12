@@ -30,7 +30,7 @@ export const getPackageDetailById = (id) => async (dispatch) => {
 
 export const getFilterPacks = (filters, packages) => async (dispatch) => {
     try {
-        const  response = await axios.get(`/package/filter`, {filters, packages} )
+        const  response = await axios.post(`/package/filter`, {filters, packages} )
         dispatch(getFilterPackages(response.data))
     } catch (error){
         dispatch(setError(error.message));
