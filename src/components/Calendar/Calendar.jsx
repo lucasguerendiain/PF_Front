@@ -59,7 +59,7 @@ export default function Calendar({handleClick}) {
         const diff = (fecha2.getTime() - hoy.getTime());
         if (diff > 0) {
             handleClick(fecha);
-        } else alert("no podes sacar pasajes para antes de hoy");
+        } else alert("No manejamos reservas para el pasado");
     }
 
     const handleView = (dia) => {
