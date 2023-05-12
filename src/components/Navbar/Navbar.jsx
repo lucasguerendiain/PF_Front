@@ -37,7 +37,6 @@ const Navbar = () => {
               </Link>
             </li>
             <li className={style.navItem + " nav-item ml-auto"}>
-
               <Link className={style.navLink + " nav-link"} to="/login">
                 <FaUser /> Iniciar sesión
               </Link>
@@ -46,7 +45,9 @@ const Navbar = () => {
               <Link className={style.navLink + " nav-link"} to="/carrito">
                 <FaShoppingCart /> Carrito
               </Link>
-              <Link className={style.navLink + " nav-link"} to="/user">
+
+              <Link className={style.navLink + " nav-link"}  to="/user">
+
                 <FaUser /> Usuario {/* Icono de usuario de react-icons */}
               </Link>
             </li>
