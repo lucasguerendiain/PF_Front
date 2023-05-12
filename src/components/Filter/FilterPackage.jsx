@@ -15,7 +15,7 @@ export default function FilterPackage({handleSubmit}) {
         filterByDateInit: "", 
         filterByDateFin: ""
     });
-
+    const [stars, setStars] = useState(0);
     const [errors, setErrors] = useState({
         minPrice: "",
         maxPrice: "",
@@ -24,7 +24,6 @@ export default function FilterPackage({handleSubmit}) {
         filterByDateInit: "", 
         filterByDateFin: "" 
     });
-
     const [open, setOpen] = useState(false);
 
     const handleChange = (event) => {
@@ -75,16 +74,26 @@ export default function FilterPackage({handleSubmit}) {
             maxPrice: "",
             minDuration: "",
             maxDuration: "",
-            filterByDateInit: "", //en formato fecha
-            filterByDateFin: "" //en formato fecha
+            filterByDateInit: "",
+            filterByDateFin: ""
         });
+        setStars(0);
+        setPickDateInit(true);
         setOpen(false);
+    }
+
+    const handleStars = (event) => {
+        setStars(event.target.value);
     }
 
     const handleClick = (event) => {
         event.preventDefault();
         if (Object.values(errors).length === 0) {
-            handleSubmit(filters);
+            if (stars) {
+                handleSubmit(filters, stars);
+            } else {
+                handleSubmit(filters, null);
+            }
         } else alert("hay un error en los filtros");
     }
 
@@ -156,6 +165,26 @@ export default function FilterPackage({handleSubmit}) {
                                 />
                             </Grid>
                             <Grid item>
+                                <FormControl>
+                                    <FormLabel>estrellas del hotel</FormLabel>
+                                    <RadioGroup
+                                        row
+                                        defaultValue="0"
+                                        name="radioButtonStars"
+                                        onChange={handleStars}
+                                        value={stars}
+                                    >
+                                        <FormControlLabel value="0" control={<Radio/>} label="no aplicar"/>
+                                        <FormControlLabel value="1" control={<Radio/>} label="1"/>
+                                        <FormControlLabel value="2" control={<Radio/>} label="2"/>
+                                        <FormControlLabel value="3" control={<Radio/>} label="3"/>
+                                        <FormControlLabel value="4" control={<Radio/>} label="4"/>
+                                        <FormControlLabel value="5" control={<Radio/>} label="5"/>
+
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
+                            <Grid item>
                                 <Grid>
                                     {errors.filterByDateInit
                                         ? (<Typography color="red" variant="h4">{errors.filterByDateInit}</Typography>) 
@@ -171,6 +200,7 @@ export default function FilterPackage({handleSubmit}) {
                                             defaultValue="fecha inicio"
                                             name="radioButtonsGroup"
                                             onChange={handleRadio}
+                                            value={pickDateInit? "fecha inicio" : "fecha fin"}
                                         >
                                             <FormControlLabel value="fecha inicio" control={<Radio/>} label="fecha inicio"/>
                                             <FormControlLabel value="fecha fin" control={<Radio/>} label="fecha fin"/>

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Paquete from "../Cards/Paquetes";
 import { Box, Grid } from "@mui/material";
 import { Button } from "@mui/material";
-import { getAllPacks } from "../../redux/actions/packageActions";
+import { getAllPacks, setFilterPacksByStars } from "../../redux/actions/packageActions";
 //imports para los selects ⬇️⬇️⬇️⬇️⬇️
 import { connect } from "react-redux";
 
@@ -23,8 +23,8 @@ export default function PackageCardContainer() {
   const dispatch = useDispatch();
   const lugar = "package"
 
-  const handleFilteredPackages = (data) => {
-    dispatch(getFilterPacks(data, paquetes));
+  const handleFilteredPackages = (data, stars) => {
+    dispatch(getFilterPacks(data, paquetes, stars));
   }
 
   useEffect(() => {
@@ -62,11 +62,11 @@ export default function PackageCardContainer() {
         )}
       </Grid>
       <Grid 
-       container
-       direction="column"
-       justifyContent="center"
-       alignItems="center"
-       margin= "1em"
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        margin= "1em"
       >
       <Link to={"/home"}>
         <Button variant="contained">Inicio</Button>
