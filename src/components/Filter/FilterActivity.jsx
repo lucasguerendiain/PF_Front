@@ -7,7 +7,7 @@ import { getFilterActivities, getAllActivity } from "../../redux/actions/Activit
 
 export default function FilterActivity(activities) {
 
-    const [filter, setFilter] = useState({ typeAct: undefined, priceMin: undefined, priceMax: undefined, durationMin: undefined, durationMax: undefined });
+    const [filter, setFilter] = useState({ type: undefined, priceMin: undefined, priceMax: undefined, durationMin: undefined, durationMax: undefined });
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -35,14 +35,14 @@ export default function FilterActivity(activities) {
         <Box onSubmit={handleSubmit}>
 
             <TextField
-                label="typeAct"
-                name="typeAct"
+                label="type"
+                name="type"
                 select
-                value={filter.typeAct}
+                value={filter.type}
                 onChange={handleChange}
                 required
             >
-                <MenuItem value="treking">trekingt</MenuItem>
+                <MenuItem value="treking">treking </MenuItem>
                 <MenuItem value="bike">bike</MenuItem>
                 <MenuItem value="travel">travel</MenuItem>
                 <MenuItem value="relax">relax</MenuItem>
