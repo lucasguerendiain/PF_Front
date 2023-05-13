@@ -5,6 +5,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { borrarActivitie, estadoInicialCarrito } from "../../redux/actions/carritoActions";
 import { setButtonToCart } from "../../redux/actions/formActions";
 import "./CustomPackage.css";
+import { addReserva } from "../../redux/actions/reservaActions";
 
 function CustomPackage() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function CustomPackage() {
   const { activities, hotel } = carrito;
 
   const handleApprove = async () => {
+    dispatch(addReserva())
     dispatch(estadoInicialCarrito());
   };
 
@@ -96,8 +98,6 @@ function CustomPackage() {
           onApprove={(data, actions) => {
             return actions.order.capture().then(function () {
               handleApprove();
-             
-
               alert("¡Genial! Su transacción ha sido exitosa");
             });
           }}
