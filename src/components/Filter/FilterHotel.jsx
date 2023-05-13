@@ -7,7 +7,7 @@ import { getFilterHotels, getAllHotel } from "../../redux/actions/HotelesActions
 
 export default function FilterHotel(hoteles) {
 
-    const [filter, setFilter] = useState({ starsMin: undefined, starsMax: undefined, priceMin: undefined, priceMax: undefined });
+    const [filter, setFilter] = useState({ starsMin: undefined, starsMax: undefined, priceMin: undefined, priceMax: undefined, order: undefined });
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -20,21 +20,21 @@ export default function FilterHotel(hoteles) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-         if (filter.starsMin > filter.starsMax || filter.priceMin > filter.priceMax) {
+        if (filter.starsMin > filter.starsMax || filter.priceMin > filter.priceMax) {
             alert("El minimo no puede superar al maximo")
-         }else{
+        } else {
             dispatch(getFilterHotels(hoteles, filter));
-         }
+        }
     }
-    
+
     const handleOnClick = (e) => {
         dispatch(getAllHotel());
     }
-    
-    return (
-        <Box onSubmit={handleSubmit}>
 
-            <TextField
+    return (
+        <Box onSubmit={handleSubmit} sx={{display:"flex", alignItems: "center", justifyContent: "center"}}>
+
+            <TextField sx={{width: "200px", marginInline: "10px"}}
                 label="Minimo de estrellas"
                 name="starsMin"
                 select
@@ -42,30 +42,32 @@ export default function FilterHotel(hoteles) {
                 onChange={handleChange}
                 required
             >
-                <MenuItem value="1">1 start</MenuItem>
-                <MenuItem value="2">2 Starts</MenuItem>
-                <MenuItem value="3">3 Starts</MenuItem>
-                <MenuItem value="4">4 Starts</MenuItem>
-                <MenuItem value="5">5 Starts</MenuItem>
+                <MenuItem value={undefined} >Vaciar</MenuItem>
+                <MenuItem value="1">1 Star</MenuItem>
+                <MenuItem value="2">2 Stars</MenuItem>
+                <MenuItem value="3">3 Stars</MenuItem>
+                <MenuItem value="4">4 Stars</MenuItem>
+                <MenuItem value="5">5 Stars</MenuItem>
             </TextField>
 
 
-            <TextField
-                label="Miaximo de estrellas"
+            <TextField sx={{width: "200px", marginInline: "10px"}}
+                label="Maximo de estrellas"
                 name="starsMax"
                 select
                 value={filter.starsMax}
                 onChange={handleChange}
                 required
             >
-                <MenuItem value="1">1 start</MenuItem>
-                <MenuItem value="2">2 Starts</MenuItem>
-                <MenuItem value="3">3 Starts</MenuItem>
-                <MenuItem value="4">4 Starts</MenuItem>
-                <MenuItem value="5">5 Starts</MenuItem>
+                <MenuItem value={undefined}>Vaciar</MenuItem>
+                <MenuItem value="1">1 Start</MenuItem>
+                <MenuItem value="2">2 Stars</MenuItem>
+                <MenuItem value="3">3 Stars</MenuItem>
+                <MenuItem value="4">4 Stars</MenuItem>
+                <MenuItem value="5">5 Stars</MenuItem>
             </TextField>
 
-            <TextField
+            <TextField sx={{marginInline: "10px"}}
                 name='priceMin'
                 id='priceMin'
                 label="Precio minimo"
@@ -74,8 +76,7 @@ export default function FilterHotel(hoteles) {
                 required
                 onChange={handleChange}
             />
-            <TextField
-                // placeholder='Precio minimo'
+            <TextField sx={{ marginInline: "10px"}}
                 name='priceMax'
                 id='priceMax'
                 label="Precio maximo"
@@ -84,18 +85,31 @@ export default function FilterHotel(hoteles) {
                 required
                 onChange={handleChange}
             />
-            <Button
+            <TextField sx={{width: "200px", marginInline: "10px"}}
+                label="Ordenar por"
+                name="order"
+                select
+                value={filter.order}
+                onChange={handleChange}
+                required
+            >
+                <MenuItem value={undefined}>Vaciar</MenuItem>
+                <MenuItem value="starsMax">Mas Estrellas</MenuItem>
+                <MenuItem value="starsMin">Menos Estrellas</MenuItem>
+                <MenuItem value="priceMax">Mas Caros</MenuItem>
+                <MenuItem value="priceMin">Mas Baratos</MenuItem>
+                <MenuItem value="bestRating">Mejor Puntaje</MenuItem>
+            </TextField>
+            <Button sx={{ marginInline: "10px", mt: 3, mb: 2}}
                 type="submit"
                 variant="contained"
                 onClick={handleSubmit}
-                sx={{ mt: 3, mb: 2 }}
             >
                 Filtrar
             </Button>
-            <Button
+            <Button sx={{ marginInline: "10px", mt: 3, mb: 2}}
                 variant="contained"
                 onClick={handleOnClick}
-                sx={{ mt: 3, mb: 2 }}
             >
                 Todos
             </Button>
