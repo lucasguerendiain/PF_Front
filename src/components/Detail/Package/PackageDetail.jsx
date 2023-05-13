@@ -28,6 +28,7 @@ export default function PackageDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const pack = useSelector((state) => state.packages.detail);
+  const precio = pack.price
   const { id } = useParams();
 
   const settings = {
@@ -253,32 +254,34 @@ export default function PackageDetail() {
         </Button>
         </Box>
       <Box sx={{marginTop: "5%", marginBottom: "3%"}}>
-        <PayPalScriptProvider
-          options={{
-            "client-id":
-              "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
-          }}
-        >
-          <PayPalButtons
-            createOrder={(data, actions) => {
-              return actions.order.create({
-                purchase_units: [
-                  {
-                    amount: {
-                      value: pack.price,
-                    },
+         <PayPalScriptProvider
+        options={{
+          "client-id":
+            "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
+        }}
+      >
+        <PayPalButtons
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: precio,
                   },
-                ],
-              });
-            }}
-            onApprove={(data, actions) => {
-              return actions.order.capture().then(function () {
-                alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
-              });
-            }}
-          />
-        </PayPalScriptProvider>
-        {/* handlePrecio={(pack) => handlePrecio(pack)} */}
+                },
+              ],
+            });
+          }}
+          onApprove={ async (data, actions) => {
+            return actions.order.capture().then(function () {
+              alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
+            });
+          }}
+          onCancel={(data) => {
+            return alert("Pago cancelado.")
+          }}
+        />
+      </PayPalScriptProvider>
       </Box>
     <CommentBoard/>
     </Box>

@@ -101,6 +101,9 @@ function CustomPackage() {
               alert("¡Genial! Su transacción ha sido exitosa");
             });
           }}
+          onCancel={(data) => {
+            return alert("Pago cancelado.")
+          }}
         />
      
 
