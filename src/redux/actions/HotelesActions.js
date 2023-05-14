@@ -23,6 +23,12 @@ export const getFilterHotels = (hoteles, filter) => async (dispatch) => {
         const response = await axios.post("/hotel/filter", { hoteles, filter });
         dispatch(getFilteredHotels(response.data))
     } catch (error) {
-        dispatch(setError(error.message));
+        dispatch(setError(error.response.data.error));
     }
+}
+
+export const clearErrorHotels = () => (dispatch) => {
+
+        dispatch(setError(""))
+        
 }
