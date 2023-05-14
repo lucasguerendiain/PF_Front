@@ -27,8 +27,8 @@ export const getFilterHotels = (hoteles, filter) => async (dispatch) => {
     }
 }
 
-export const clearErrorHotels = () => (dispatch) => {
+export const clearError = () => (dispatch) => {
 
-        dispatch(setError(""))
-        
+    dispatch(setError(""))
+
 }

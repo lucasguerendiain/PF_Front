@@ -24,6 +24,11 @@ export const getFilterRestaurant = (restaurant, filter) => async (dispatch) => {
         const response = await axios.post("/restaurant/filter", { restaurant, filter });
         dispatch(getFilteredRestaurant(response.data))
     } catch (error) {
-        dispatch(setError(error.message));
+        dispatch(setError(error.response.data.error));
     }
+}
+export const clearError = () => (dispatch) => {
+
+    dispatch(setError(""))
+    
 }

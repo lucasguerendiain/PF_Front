@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Box, Grid, MenuItem, TextField, Button } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
-import { getFilterHotels, getAllHotel, clearErrorHotels } from "../../redux/actions/HotelesActions";
+import { getFilterHotels, getAllHotel, clearError } from "../../redux/actions/HotelesActions";
 
 
 export default function FilterHotel(hoteles) {
@@ -34,7 +34,7 @@ export default function FilterHotel(hoteles) {
 
     useEffect(() => {
         return () => {
-            dispatch(clearErrorHotels())
+            dispatch(clearError())
         }
     }, [])
 

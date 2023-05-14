@@ -34,6 +34,12 @@ export const getFilterActivities = (activities, filter) => async (dispatch) => {
         const response = await axios.post("/activity/filter", { activities, filter });
         dispatch(getFilteredActivities(response.data))
     } catch (error) {
-        dispatch(setError(error.message));
+        dispatch(setError(error.response.data.error));
     }
+}
+
+export const clearError = () => (dispatch) => {
+
+    dispatch(setError(""))
+    
 }

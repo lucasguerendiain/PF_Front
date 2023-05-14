@@ -1,13 +1,14 @@
 import React from "react";
-import { useState, } from "react";
+import { useState, useEffect } from "react";
 import { Box, MenuItem, TextField, Button } from '@mui/material';
-import { useDispatch } from "react-redux";
-import { getFilterActivities, getAllActivity } from "../../redux/actions/ActivitiesActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getFilterActivities, getAllActivity, clearError } from "../../redux/actions/ActivitiesActions";
 
 
 export default function FilterActivity(activities) {
 
     const [filter, setFilter] = useState({ type: undefined, priceMin: undefined, priceMax: undefined, durationMin: undefined, durationMax: undefined, order: undefined });
+    const error = useSelector((state) => state.activities.error)
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -25,6 +26,16 @@ export default function FilterActivity(activities) {
 
             dispatch(getFilterActivities(activities, filter));
     }
+
+    useEffect(() => {
+        if (error) alert(error)
+    }, [error])
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearError())
+        }
+    }, [])
     
     const handleOnClick = (e) => {
         dispatch(getAllActivity());
