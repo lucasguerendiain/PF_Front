@@ -1,13 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, TextField, Button, MenuItem } from '@mui/material';
-import { useDispatch } from "react-redux";
-import { getFilterRestaurant, getAllRestaurant } from "../../redux/actions/RestaurantsActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getFilterRestaurant, getAllRestaurant, clearError } from "../../redux/actions/RestaurantsActions";
 
 
 export default function FilterRestaurant(restaurant) {
 
     const [filter, setFilter] = useState({ priceMin: undefined, priceMax: undefined, order: undefined });
+    const error = useSelector((state) => state.restaurants.error)
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -24,6 +25,16 @@ export default function FilterRestaurant(restaurant) {
 
         dispatch(getFilterRestaurant(restaurant, filter));
     }
+
+    useEffect(() => {
+        if (error) alert(error)
+    }, [error])
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearError())
+        }
+    }, [])
 
     const handleOnClick = (e) => {
         dispatch(getAllRestaurant());
