@@ -2,37 +2,34 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    }
-    
-    .custom-package-container h2 {
+}
+
+.custom-package-container h2 {
     font-size: 32px;
     text-align: center;
     margin-bottom: 30px;
-   
-    }
-    
-    .package-summary {
+}
+
+.package-summary {
     background-color: rgb(5, 16, 61);
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 1rem;
     border-bottom: 0.3rem solid rgb(29, 102, 203); /* borde inferior azul oscuro de 5px */
     border-top: 0.3rem solid rgb(29, 102, 203);
-    }
-    
-    .package-summary h3 {
+}
+
+.package-summary h3 {
     font-size: 24px;
     margin-bottom: 10px;
-  
-    
-    }
-    
-    .package-summary p {
+}
+
+.package-summary p {
     font-size: 18px;
     margin-bottom: 10px;
-    }
-    
-    .package-summary button {
+}
+
+.package-summary button {
     font-size: 16px;
     padding: 10px 20px;
     background-color: #041d78;
@@ -40,15 +37,13 @@
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-     
-    
-    }
-    
-    .package-summary button:hover {
+}
+
+.package-summary button:hover {
     background-color: #296be4;
-    }
-    
-    .package-summary .cart {
+}
+
+.package-summary .cart {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,29 +52,29 @@
     border: 2px solid #0026ff;
     border-radius: 5px;
     margin-left: 10px;
-    color:  #0026ff;
+    color: #0026ff;
     font-size: 24px;
-    }
-    
-    .package-content {
+}
+
+.package-content {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    }
-    
-    .activities-container,
-    .hotel-container {
+}
+
+.activities-container,
+.hotel-container {
     flex-basis: 50%;
-    }
-    
-    .activities-container h3,
-    .hotel-container h3 {
+}
+
+.activities-container h3,
+.hotel-container h3 {
     font-size: 24px;
     margin-bottom: 10px;
-    }
-    
-    .activities-container button,
-    .hotel-container button {
+}
+
+.activities-container button,
+.hotel-container button {
     font-size: 16px;
     padding: 10px 20px;
     background-color: #041d78;
@@ -87,37 +82,35 @@
     border-radius: 5px;
     color: #f6f3f3;
     cursor: pointer;
+}
 
-    }
-    
-    .activities-container button:hover,
-    .hotel-container button:hover {
+.activities-container button:hover,
+.hotel-container button:hover {
     background-color: #296be4;
-   
-    }
-    
-    .activities-container ul,
-    .hotel-container ul,
-    .activities-container p {
+}
+
+.activities-container ul,
+.hotel-container ul,
+.activities-container p {
     font-size: 18px;
     margin-bottom: 10px;
     padding-left: 20px;
-    }
-    
-    .activities-container li,
-    .hotel-container li {
+}
+
+.activities-container li,
+.hotel-container li {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
-    }
-    
-    .activities-container li span {
+}
+
+.activities-container li span {
     margin-right: 10px;
-    }
-    
-    .activities-container li button,
-    .hotel-container li button {
+}
+
+.activities-container li button,
+.hotel-container li button {
     font-size: 16px;
     padding: 5px 10px;
     background-color: #cc0000;
@@ -125,39 +118,34 @@
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    }
-    
-    .activities-container li button:hover,
-    .hotel-container li button:hover {
+}
+
+.activities-container li button:hover,
+.hotel-container li button:hover {
     background-color: #990000;
-    }
-    
-    .hotel-container p {
+}
+
+.hotel-container p {
     padding-left: 0;
-    }
-    
-    @media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 768px) {
     .activities-container,
     .hotel-container {
-    flex-basis: 100%;
+        flex-basis: 100%;
     }
-    }
-    .custom-package-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-image: url("../../assets/imagen1.png");
-        background-size: cover;
-        background-position: center;
-      }
-      .custom-package-container  {
-        color: white;
-        font-size: 32px;
-        text-align: center;
-        margin-bottom: 30px;
-        
-      }
-    
-      
-      
-    
+}
+.custom-package-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('../../assets/imagen1.png');
+    background-size: cover;
+    background-position: center;
+}
+.custom-package-container {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 30px;
+}
