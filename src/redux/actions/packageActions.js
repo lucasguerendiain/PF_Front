@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getAllPackages, getPackageById, setError, getFilterPackages, getPackageName} from "../reducer/packageSlice";
+import {getAllPackages, getPackageById, setError, getFilterPackages, getPackageName, getOrderedPackages} from "../reducer/packageSlice";
 
 export const getAllPacks = () => async (dispatch) => {
     try {
@@ -34,5 +34,22 @@ export const getFilterPacks = (filters, packages, stars) => async (dispatch) => 
         dispatch(getFilterPackages(response.data))
     } catch (error){
         dispatch(setError(error.message));
+    }
+}
+
+export const orderPackages = (order, type , packages) => (dispatch) => {
+    if (packages) {
+        var toBeOrdered = [...packages];
+        if (type === "price") {
+            if (order === "descendent") toBeOrdered.sort((a,b) => b.price - a.price);
+            if (order === "ascendent") toBeOrdered.sort((a,b) => a.price - b.price);
+        } else if (type === "duration") {
+            if (order === "descendent") toBeOrdered.sort((a,b) => b.duration - a.duration);
+            if (order === "ascendent") toBeOrdered.sort((a,b) => a.duration - b.duration);
+        } else  {
+            if (order === "descendent") toBeOrdered.sort((a,b) => b.rating - a.rating);
+            if (order === "ascendent") toBeOrdered.sort((a,b) => a.rating - b.rating);
+        }
+        dispatch(getOrderedPackages(toBeOrdered));
     }
 }
