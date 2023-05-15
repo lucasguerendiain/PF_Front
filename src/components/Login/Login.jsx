@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { validation } from "./validation";
+import { validation } from './validation';
 import { useState, useEffect } from 'react';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -19,117 +19,119 @@ import { Link } from 'react-router-dom';
 const theme = createTheme();
 
 export default function Login() {
-    const [inputs, setInputs] = useState({
-        username: "",
-        password: "",
+  const [inputs, setInputs] = useState({
+    username: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState({
+    username: '',
+    password: '',
+  });
+  const [viewPassword, setViewPassword] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
     });
-    const [errors, setErrors] = useState({
-        username: "",
-        password: "",
+  };
+
+  const handleView = () => {
+    setViewPassword(!viewPassword);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log({
+      username: inputs.username,
+      password: inputs.password,
     });
-    const [viewPassword, setViewPassword] = useState(false);
+  };
 
-    const handleChange = (event) => {
-        const {name, value} = event.target;
-        setInputs({
-            ...inputs,
-            [name]: value
-        });
-    }
+  useEffect(() => {
+    setErrors(validation(inputs));
+  }, [inputs]);
 
-    const handleView = () => {
-        setViewPassword(!viewPassword);
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log({
-            username: inputs.username,
-            password: inputs.password,
-        });
-    };
-
-    useEffect(() => {
-        setErrors(validation(inputs));
-    }, [inputs]);
-
-    return (
-        <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-            sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-            >
-            <Typography component="h1" variant="h5">
-                Sign in
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                    autoComplete="given-name"
-                    name="username"
-                    required
-                    fullWidth
-                    id="username"
-                    label="username"
-                    autoFocus
-                    onChange={handleChange}
-                    error={!!errors.username}
-                    helperText={errors.username}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type={viewPassword? "text" : "password"}
-                    id="password"
-                    autoComplete="new-password"
-                    onChange={handleChange}
-                    error={!!errors.password}
-                    helperText={errors.password}
-                    />
-                </Grid>
-                <IconButton
-                variant="contained"
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component='main' maxWidth='xs'>
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography component='h1' variant='h5'>
+            Sign in
+          </Typography>
+          <Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete='given-name'
+                  name='username'
+                  required
+                  fullWidth
+                  id='username'
+                  label='username'
+                  autoFocus
+                  onChange={handleChange}
+                  error={!!errors.username}
+                  helperText={errors.username}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name='password'
+                  label='Password'
+                  type={viewPassword ? 'text' : 'password'}
+                  id='password'
+                  autoComplete='new-password'
+                  onChange={handleChange}
+                  error={!!errors.password}
+                  helperText={errors.password}
+                />
+              </Grid>
+              <IconButton
+                variant='contained'
                 onClick={handleView}
                 sx={{ mt: 2, mb: 1 }}
-                >
-                {viewPassword? <VisibilityOffIcon/> : <VisibilityIcon/>}
-                </IconButton>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                    label="I want to receive inspiration, marketing promotions and updates via email."
-                    />
-                </Grid>
-                </Grid>
-                <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                >
-                Sign in
-                </Button>
-                <Grid container justifyContent="flex-end">
-                <Grid item>
-                    <Link to={"/register"}>
-                        <p>Don'i have an account? Sign up</p>
-                    </Link>
-                </Grid>
-                </Grid>
-            </Box>
-            </Box>
-        </Container>
-        </ThemeProvider>
-    );
+              >
+                {viewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value='allowExtraEmails' color='primary' />
+                  }
+                  label='I want to receive inspiration, marketing promotions and updates via email.'
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign in
+            </Button>
+            <Grid container justifyContent='flex-end'>
+              <Grid item>
+                <Link to={'/register'}>
+                  <p>Don'i have an account? Sign up</p>
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
 }

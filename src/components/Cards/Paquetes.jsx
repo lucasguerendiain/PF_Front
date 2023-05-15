@@ -1,33 +1,41 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { CardActionArea } from "@mui/material";
-import { useNavigate } from "react-router-dom/dist";
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import Grid from '@mui/material/Grid';
+import CardContent from '@mui/material/CardContent';
 
-const ExpandMore = styled((props) => {
+
+
+import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+
+import { CardActionArea, CardActions } from '@mui/material';
+
+
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel';
+
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+
+//for expand-----------------------------
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean;
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
+//----------------------------------------------
 
 export default function Paquete(props) {
   const {
@@ -44,59 +52,113 @@ export default function Paquete(props) {
     restaurants,
     activities,
     hotel,
+    raiting,
   } = props.paquete;
+  console.log(props);
+
+  const transformDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleString().split(',')[0];
+  };
+
+  //For expand---------------------------
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const navigate = useNavigate();
+
+  //-------------------------------
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea key={id} component={Link} to={`/package/${id}`}>
-        <CardHeader
-          action={
-            <Typography>
-              {`$ ${price}`}
-            </Typography>
-          }
-          title={name}
-          subheader={`${duration} dias`}
-        />
-        <CardMedia component="img" height="194" image={img[0]} alt="" />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions disableSpacing>
-      <CardActions onClick={() => navigate(`/package/${id}`)}>
-        <Button variant="outlined">mas info</Button>
-      </CardActions>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Hotel: </Typography>
-          <Typography paragraph>{hotel.name}</Typography>
-          <Typography paragraph>Restoran: </Typography>
-          <Typography paragraph>{restaurants.length? (restaurants[0].name) : ("")}</Typography>
-          <Typography paragraph>Actividad: </Typography>
-          <Typography paragraph>{activities[0].name}</Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+    <Grid container justifyContent='center'>
+      <Grid item xs={12} sm={10} md={10}>
+        <Card>
+          <CardActionArea key={id} component={Link} to={`/package/${id}`}>
+            <CardHeader
+              title={name}
+              subheader={`${transformDate(dateInit)} to ${transformDate(
+                dateEnd,
+              )}`}
+              action={
+                <Typography variant='h6' component='span' color='textSecondary'>
+                  ${price}
+                </Typography>
+              }
+            />
+          </CardActionArea>
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <Carousel>
+                  {img?.map((i) => {
+                    return (
+                      <div>
+                        <img src={i} alt='.' />
+                      </div>
+                    );
+                  })}
+                </Carousel>
+              </Grid>
+
+              <Grid item xs={8}>
+                <Grid>
+                  <CardActions>
+                    <Typography>DESCRIPCION</Typography>
+                    <ExpandMore
+                      expand={expanded}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label='show more'
+                    >
+                      <ExpandMoreIcon />
+                    </ExpandMore>
+                  </CardActions>
+                  <Collapse in={expanded} timeout='auto' unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>{description}</Typography>
+                    </CardContent>
+                  </Collapse>
+                </Grid>
+
+                <Grid>
+                  <Grid container sapcing={3}>
+                    <Grid item xs={4} >
+                      <Typography>Actividades</Typography>
+                      {activities?.map((a) => {
+                        return (
+                          <ul>
+                            <li>{a.name}</li>
+                          </ul>
+                        );
+                      })}
+                    </Grid>
+
+                    <Grid item xs={4}>
+                      <Typography>Restaurants</Typography>
+                      {restaurants?.map((r) => {
+                        return (
+                          <ul>
+                            <li>{r.name}</li>
+                          </ul>
+                        );
+                      })}
+                    </Grid>
+
+                    <Grid item xs={4}>
+                      <Typography>Hotel</Typography>
+                      <ul>
+                        <li>{hotel.name}</li>
+                      </ul>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid></Grid>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
