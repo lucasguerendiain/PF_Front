@@ -141,15 +141,10 @@ export default function PackageCardContainer() {
           </Grid>
         </Grid>
         <CardContent>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            marginBottom='2em'
-          >
+          <Grid container spacing={1}>
             {paquetes.length ? (
               paquetes.map((p, index) => (
-                <Grid item xs={2} sm={4} md={4} key={index}>
+                <Grid item xs={12} key={index}>
                   <Paquete key={index} paquete={p} />
                 </Grid>
               ))
