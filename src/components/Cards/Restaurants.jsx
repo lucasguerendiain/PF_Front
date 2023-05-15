@@ -55,13 +55,13 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display='flex' justify-content='space-between' align-items='center'>
         <CardActions>
-          <Button
+          {toForm
+            ?(<Button
             variant='outlined'
-            disabled={toForm ? false : true}
             onClick={handleClick}
           >
-            {toForm ? 'Agregar al paquete' : ''}
-          </Button>
+            Agregar al paquete
+          </Button>) : ""}
         </CardActions>
         {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
