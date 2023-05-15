@@ -242,7 +242,7 @@ export default function PackageDetail() {
             >
               <CardMedia
                 component='img'
-                sx={{ maxHeight: '35vh'}}
+                sx={{ maxHeight: '35vh' }}
                 image={pack.hotel.img[0]}
                 alt={pack.hotel.name}
               />
@@ -257,7 +257,7 @@ export default function PackageDetail() {
               </CardContent>
               <CardActions>
                 <Button
-                  sx={{ fontSize: '1.5rem'}}
+                  sx={{ fontSize: '1.5rem' }}
                   onClick={() => viewHotel(pack.hotel.id)}
                 >
                   mas info
@@ -371,8 +371,7 @@ export default function PackageDetail() {
         </PayPalScriptProvider>
       </Box>
 
-    <CommentBoard packageId = {pack.id} arrayComments = {pack.comments}/>
-
+      <CommentBoard packageId={pack.id} arrayComments={pack.comments} />
     </Box>
   );
 }
