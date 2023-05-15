@@ -30,16 +30,18 @@ export default function BasicModal({
           {title}
         </Typography>
         {content}
-        {handleSubmit
-        ?(
-        <Grid>
-          <Button variant='contained' onClick={handleSubmit}>
-            confirmar
-          </Button>{' '}
-          <Button variant='contained' onClick={handleClose}>
-            cancelar
-          </Button>
-        </Grid>) : ("")}
+        {handleSubmit ? (
+          <Grid>
+            <Button variant='contained' onClick={handleSubmit}>
+              confirmar
+            </Button>{' '}
+            <Button variant='contained' onClick={handleClose}>
+              cancelar
+            </Button>
+          </Grid>
+        ) : (
+          ''
+        )}
       </Box>
     </Modal>
   );
