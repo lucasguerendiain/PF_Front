@@ -59,7 +59,7 @@ function CustomPackage() {
       <div className='package-summary'>
         <h3>Resumen del paquete</h3>
         <p>Fecha: {date.toLocaleString().split(",")[0]}</p>
-        <button onClick={() => setOpen(true)}>elegir fecha</button>
+        <button onClick={() => setOpen(true)}>Elegir fecha</button>
         <BasicModal
           open={open}
           handleClose={() => setOpen(false)}
