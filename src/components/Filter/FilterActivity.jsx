@@ -7,7 +7,7 @@ import {
   getAllActivity,
   clearError,
 } from '../../redux/actions/ActivitiesActions';
-import Alert from "../Alert/Alert"
+
 
 export default function FilterActivity(activities) {
   const [filter, setFilter] = useState({
