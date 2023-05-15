@@ -12,6 +12,7 @@ import {
   Grid,
   IconButton,
   Tooltip,
+  Typography,
 } from '@mui/material';
 import { Button } from '@mui/material';
 import {
@@ -44,6 +45,7 @@ export default function PackageCardContainer() {
   const [orderPrice, setOrderPrice] = useState('nothing');
   const [orderDuration, setOrderDuration] = useState('nothing');
   const [orderRating, setOrderRating] = useState('nothing');
+  const [timedMsj, setTimedMsj] = useState(false);
 
   const objOrder = {
     nothing: <RemoveIcon />,
@@ -52,6 +54,7 @@ export default function PackageCardContainer() {
   };
 
   const handleFilteredPackages = (data, stars) => {
+    setTimedMsj(false);
     dispatch(getFilterPacks(data, paquetes, stars));
   };
 
@@ -157,7 +160,13 @@ export default function PackageCardContainer() {
                 style={{ height: '100vh' }}
               >
                 <Grid item>
-                  <LoadingComponent />
+                  {setTimeout(() => {
+                    setTimedMsj(true);
+                  }, 10000) && ""}
+                  {timedMsj
+                  ? (<Typography variant='h2' fontWeight="800">No hay paquetes que cumplan estos requisitos</Typography>)
+                  : (<LoadingComponent/>)
+                  }
                 </Grid>
               </Grid>
             )}
