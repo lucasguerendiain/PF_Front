@@ -10,6 +10,7 @@ import {Link} from "react-router-dom"
 export default function RestaurantCardContainer() {
   const restaurants = useSelector((state) => state.restaurants.allRestaurants)
   const dispatch = useDispatch()
+  const lugar = "restaurant"
 
   useEffect(() => {
     dispatch((getAllRestaurant()))
@@ -17,7 +18,7 @@ export default function RestaurantCardContainer() {
 
   return (
     <>
-    <SearchBar/>
+    <SearchBar ubicacion={lugar}/>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

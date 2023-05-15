@@ -10,6 +10,7 @@ import {Link} from "react-router-dom"
 export default function ActivityCardontainer() {
   const hoteles = useSelector((state) => state.hoteles.allHoteles)
   const dispatch = useDispatch()
+  const lugar = "hotel"
 
   useEffect(() => {
     dispatch(getAllHotel())
@@ -17,7 +18,7 @@ export default function ActivityCardontainer() {
 
   return (
     <>
-    <SearchBar/>
+    <SearchBar ubicacion={lugar}/>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
