@@ -20,12 +20,14 @@ nav {
     left: 0;
     right: 0;
     z-index: 999;
+  
 }
 
 .navbar-brand {
     font-size: 2rem;
     color: #9c7f7f;
     font-weight: bold;
+    
 }
 
 .navbar-toggler-icon {
@@ -47,6 +49,8 @@ nav {
     margin-left: 50px;
     padding: 10px 0;
     position: relative;
+
+  
 }
 
 .nav-link:before {
@@ -60,6 +64,8 @@ nav {
     visibility: hidden;
     transform: scaleX(0);
     transition: all 0.3s ease-in-out 0s;
+    
+   
 }
 
 .nav-link:hover:before {
@@ -69,6 +75,7 @@ nav {
 
 .nav-link:hover {
     color: #48a1d5;
+    
 }
 
 .collapse.navbar-collapse {
@@ -82,48 +89,52 @@ nav {
 
 .nav-item:last-child .nav-link {
     padding-right: 0;
+   
+}
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+    
+   
+   
 }
 
-@media (max-width: 768px) {
-    .navbar-nav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin-top: 80px;
-        background-color: #343a40;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translateY(-100%);
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .navbar-nav.show {
-        transform: translateY(0);
-    }
-
-    .nav-link {
-        margin: 10px 0;
-        padding: 5px 0;
-        border-bottom: 1px solid #a72a2a;
-    }
-
-    .nav-item:last-child .nav-link {
-        border-bottom: none;
-    }
-
-    .navbar-toggler {
-        margin: 15px 0;
-    }
-}
-.navbar {
-    border-bottom: 4px solid blue;
+.dropdown-menu {
+    background-color: #020634;
 }
 
-nav,
-ul,
-a,
-li {
-    font-size: 14px;
+.dropdown-item {
+    color: #e1dada;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    position: relative;
+    transition: color 0.3s;
+    display:flex;
+}
+
+.dropdown-item:hover {
+    color: #48a1d5;
+    background-color: #f3f7fa;
+    border-radius: 1rem;
+    position:relative;
+    display:flex;
+}
+
+.dropdown-item:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #e8e0e0;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0
 }
