@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaShoppingCart } from 'react-icons/fa';
 import { useDispatch} from 'react-redux';
@@ -19,7 +19,6 @@ const Navbar = () => {
   const {logout, loginWithRedirect, user, isAuthenticated, isLoading, error } = useAuth0();
   const dispatch = useDispatch();
 
-
   const [data, setData] =useState({
     email : "",
     name: "",
@@ -29,6 +28,16 @@ const Navbar = () => {
     sent: false,
     admin : false,
   });
+  
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const closeDropdown = () => {
+    setShowDropdown(false);
+  };
 
 
   if (isAuthenticated && user.email) {
@@ -75,12 +84,55 @@ const Navbar = () => {
                   Paquetes
                 </Link>
               </li>
-              <li className={style.navItem + ' nav-item'}>
-                <Link className={style.navLink + ' nav-link'} to='/activitycards'>
+              <li
+              className={`${style.navItem} nav-item dropdown ${
+                showDropdown ? 'show' : ''
+              }`}
+              onClick={handleDropdownToggle}
+            >
+              <a
+                className={style.navLink + ' nav-link dropdown-toggle'}
+                href='#'
+                id='navbarDropdown'
+                role='button'
+                data-toggle='dropdown'
+                aria-haspopup='true'
+                aria-expanded={showDropdown ? 'true' : 'false'}
+              >
+                Destinos
+              </a>
+              <div
+                className={`${style.dropdownMenu} dropdown-menu`}
+                aria-labelledby='navbarDropdown'
+              >
+              
+                {showDropdown && (
+                  <>
+                    <Link
+                      className='dropdown-item'
+                      to='/hotelcards'
+                      onClick={closeDropdown}
+                    >
+                      Hoteles
+                    </Link>
+                    <Link
+                  className='dropdown-item'
+                  to='/activitycards'
+                  onClick={closeDropdown}
+                >
                   Actividades
                 </Link>
-              </li>
-              
+                    <Link
+                      className='dropdown-item'
+                      to='/restaurantcards'
+                      onClick={closeDropdown}
+                    >
+                      Restaurantes
+                    </Link>
+                  </>
+                )}
+              </div>
+            </li>
               <li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/carrito'>
                   <FaShoppingCart /> Carrito
@@ -133,11 +185,55 @@ const Navbar = () => {
                   Paquetes
                 </Link>
               </li>
-              <li className={style.navItem + ' nav-item'}>
-                <Link className={style.navLink + ' nav-link'} to='/activitycards'>
+              <li
+              className={`${style.navItem} nav-item dropdown ${
+                showDropdown ? 'show' : ''
+              }`}
+              onClick={handleDropdownToggle}
+            >
+              <a
+                className={style.navLink + ' nav-link dropdown-toggle'}
+                href='#'
+                id='navbarDropdown'
+                role='button'
+                data-toggle='dropdown'
+                aria-haspopup='true'
+                aria-expanded={showDropdown ? 'true' : 'false'}
+              >
+                Destinos
+              </a>
+              <div
+                className={`${style.dropdownMenu} dropdown-menu`}
+                aria-labelledby='navbarDropdown'
+              >
+              
+                {showDropdown && (
+                  <>
+                    <Link
+                      className='dropdown-item'
+                      to='/hotelcards'
+                      onClick={closeDropdown}
+                    >
+                      Hoteles
+                    </Link>
+                    <Link
+                  className='dropdown-item'
+                  to='/activitycards'
+                  onClick={closeDropdown}
+                >
                   Actividades
                 </Link>
-              </li>
+                    <Link
+                      className='dropdown-item'
+                      to='/restaurantcards'
+                      onClick={closeDropdown}
+                    >
+                      Restaurantes
+                    </Link>
+                  </>
+                )}
+              </div>
+            </li>
               <li className={style.navItem + ' nav-item ml-auto'}>
                 <Link className={style.navLink + ' nav-link'} onClick={loginWithRedirect} >
                   <FaUser /> Iniciar sesión

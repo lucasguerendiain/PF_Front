@@ -13,8 +13,9 @@ import {
 import React, { useEffect, useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import axios from 'axios';
 
-export default function CommentBoard() {
+export default function CommentBoard(prop) {
   const [hearts, setHearts] = useState(0);
   const [commentValue, setCommentValue] = useState('');
   const [existingComments, setExistingComments] = useState([]);
@@ -44,11 +45,22 @@ export default function CommentBoard() {
     if (commentValue && hearts && !errors) {
       const nuevoComentario = {
         userName: user.name,
+        userId: 1, // cambiar cuando esté el reducer de user
         date: date,
         comment: commentValue,
-        rating: hearts,
+        rating: hearts.toString(),
       };
-      //aca va el posteo al back
+      if (prop.activityId) nuevoComentario.activityId = prop.activityId;
+      if (prop.hotelId) nuevoComentario.hotelId = prop.hotelId;
+      if (prop.restaurantId) nuevoComentario.restaurantId = prop.restaurantId;
+      if (prop.packageId) nuevoComentario.packageId = prop.packageId;
+
+      axios.post('/comments', nuevoComentario).then((response) => {
+        if (response.data) {
+          alert('Comentario posteado con exito');
+        }
+      });
+
       setExistingComments([...existingComments, nuevoComentario]);
       setHearts(0);
       setCommentValue('');
@@ -201,16 +213,9 @@ export default function CommentBoard() {
               helperText={errors ? 'no mas de 7 saltos de linea' : ''}
             />
           </CardContent>
-          <CardActions>
-            <Button size='medium' variant='contained' onClick={handleSend}>
-              Postear
-            </Button>
-            <Button
-              size='medium'
-              variant='contained'
-              onClick={() => setCommentValue('')}
-            >
-              Cancelar
+          <CardActions sx={{ marginTop: '2%' }}>
+            <Button size='small' variant='contained' disabled>
+              Deletear
             </Button>
           </CardActions>
         </Card>
@@ -222,7 +227,7 @@ export default function CommentBoard() {
             borderTop: '0',
           }}
         >
-          {existingComments.length ? (
+          {prop.arrayComments ? (
             <Box sx={{ fontFamily: 'sans-serif', padding: 0 }}>
               <Typography variant='h2' gutterBottom>
                 Comentarios:
@@ -235,62 +240,61 @@ export default function CommentBoard() {
                   marginTop: '1%',
                 }}
               >
-                {existingComments.map((elem, index) => (
-                  <Card
-                    sx={{
-                      border: '1px solid black',
-                      marginTop: '2%',
-                    }}
-                    key={index}
-                  >
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        margin: '1% 1% 1% 1%',
-                      }}
+                {prop.arrayComments
+                  .concat(existingComments)
+                  .reverse()
+                  .map((elem, index) => (
+                    <Card
+                      sx={{ border: '1px solid black', marginTop: '2%' }}
+                      key={index}
                     >
-                      <Typography
-                        variant='h4'
-                        textAlign='left'
-                        display='inline'
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          margin: '1% 1% 1% 1%',
+                        }}
                       >
-                        {elem.userName}
-                      </Typography>
-                      <Typography
-                        variant='h6'
-                        sx={{ color: 'grey' }}
-                        display='inline'
+                        <Typography
+                          variant='h4'
+                          textAlign='left'
+                          display='inline'
+                        >
+                          {elem.userName}
+                        </Typography>
+                        <Typography
+                          variant='h6'
+                          sx={{ color: 'grey' }}
+                          display='inline'
+                        >
+                          {elem.date.toString().slice(0, 10)}
+                        </Typography>
+                        <Typography variant='subtitle1' display='inline'>
+                          valoracion: {renderHearts(Number(elem.rating))}
+                        </Typography>
+                      </Box>
+                      <CardContent
+                        sx={{
+                          border: '1px dashed grey',
+                          width: '80%',
+                          marginLeft: '3%',
+                        }}
                       >
-                        {elem.date.toDateString()}{' '}
-                        {elem.date.toLocaleTimeString()}
-                      </Typography>
-                      <Typography variant='subtitle1' display='inline'>
-                        valoracion: {renderHearts(elem.rating)}
-                      </Typography>
-                    </Box>
-                    <CardContent
-                      sx={{
-                        border: '1px dashed grey',
-                        width: '80%',
-                        marginLeft: '3%',
-                      }}
-                    >
-                      <Typography
-                        textAlign='left'
-                        variant='h5'
-                        sx={{ whiteSpace: 'pre-line' }}
-                      >
-                        {elem.comment}
-                      </Typography>
-                    </CardContent>
-                    <CardActions sx={{ marginTop: '2%' }}>
-                      <Button size='small' variant='contained' disabled>
-                        Deletear
-                      </Button>
-                    </CardActions>
-                  </Card>
-                ))}
+                        <Typography
+                          textAlign='left'
+                          variant='h5'
+                          sx={{ whiteSpace: 'pre-line' }}
+                        >
+                          {elem.comment}
+                        </Typography>
+                      </CardContent>
+                      <CardActions sx={{ marginTop: '2%' }}>
+                        <Button size='small' variant='contained' disabled>
+                          Deletear
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  ))}
               </Grid>
             </Box>
           ) : (
@@ -301,3 +305,4 @@ export default function CommentBoard() {
     </Box>
   );
 }
+

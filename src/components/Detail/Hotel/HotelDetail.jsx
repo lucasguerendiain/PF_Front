@@ -146,7 +146,7 @@ export default function HotelDetail() {
       ) : (
         <LoadingComponent />
       )}
-      <CommentBoard />
+      <CommentBoard hotelId={hotel.id} arrayComments={hotel.comments} />
     </Grid>
   );
 }

@@ -143,6 +143,7 @@ export default function RestoDetail() {
             ) : (
               ''
             )}
+
             <Button
               variant='contained'
               sx={{ fontSize: '1.6rem' }}
@@ -156,7 +157,11 @@ export default function RestoDetail() {
       ) : (
         <LoadingComponent />
       )}
-      <CommentBoard />
+
+      <CommentBoard
+        restaurantId={restaurant.id}
+        arrayComments={restaurant.comments}
+      />
     </Grid>
   );
 }

@@ -10,9 +10,9 @@ import {
 
 export default function FilterRestaurant(restaurant) {
   const [filter, setFilter] = useState({
-    priceMin: undefined,
-    priceMax: undefined,
-    order: undefined,
+    priceMin: "",
+    priceMax: "",
+    order: "",
   });
   const error = useSelector((state) => state.restaurants.error);
   const dispatch = useDispatch();
@@ -31,10 +31,12 @@ export default function FilterRestaurant(restaurant) {
       filter.priceMin &&
       filter.priceMax &&
       Number(filter.priceMin) > Number(filter.priceMax)
-    )
+    ){
       alert('El precio minimo no puede superar al precio maximo');
-
+    }else{
     dispatch(getFilterRestaurant(restaurant, filter));
+    }
+
   };
 
   useEffect(() => {
@@ -89,7 +91,7 @@ export default function FilterRestaurant(restaurant) {
         onChange={handleChange}
         required
       >
-        <MenuItem value={undefined}>Vaciar</MenuItem>
+        <MenuItem value="">Vaciar</MenuItem>
         <MenuItem value='priceMax'>Mas Caros</MenuItem>
         <MenuItem value='priceMin'>Mas Baratos</MenuItem>
         <MenuItem value='bestRating'>Mejor Puntuados</MenuItem>

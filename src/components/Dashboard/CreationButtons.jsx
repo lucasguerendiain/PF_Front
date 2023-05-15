@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Box, Grid } from "@mui/material";
-import Button from "@mui/material/Button";
-import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
-import HotelIcon from "@mui/icons-material/Hotel";
-import RestaurantIcon from "@mui/icons-material/Restaurant";
-import LandscapeIcon from "@mui/icons-material/Landscape";
-import { useNavigate } from "react-router-dom";
-import ActivityModal from "../CreatePackage/Modals/ActivityModal";
-import axios from "axios";
-import HotelModal from "../CreatePackage/Modals/HotelModal";
-import RestoModal from "../CreatePackage/Modals/RestoModal";
-import styles from "./CreationButtons.module.css";
+import React, { useState } from 'react';
+import { Box, Grid } from '@mui/material';
+import Button from '@mui/material/Button';
+import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
+import HotelIcon from '@mui/icons-material/Hotel';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import LandscapeIcon from '@mui/icons-material/Landscape';
+import { useNavigate } from 'react-router-dom';
+import ActivityModal from '../CreatePackage/Modals/ActivityModal';
+import axios from 'axios';
+import HotelModal from '../CreatePackage/Modals/HotelModal';
+import RestoModal from '../CreatePackage/Modals/RestoModal';
+import styles from './CreationButtons.module.css';
 
 export default function CreationButtons() {
   const navigate = useNavigate();
@@ -19,48 +19,48 @@ export default function CreationButtons() {
   const [openResto, setOpenResto] = useState(false);
 
   const defaultValuesActivity = {
-    name: "",
-    description: "",
-    duration: "",
-    price: "",
-    img1: "",
-    img2: "",
-    img3: "",
-    img4: "",
-    typeAct: "",
+    name: '',
+    description: '',
+    duration: '',
+    price: '',
+    img1: '',
+    img2: '',
+    img3: '',
+    img4: '',
+    typeAct: '',
   };
   const defaultValuesHotel = {
-    name: "",
-    location: "",
-    img1: "",
-    img2: "",
-    img3: "",
-    img4: "",
-    description: "",
-    stars: "",
-    priceDay: "",
+    name: '',
+    location: '',
+    img1: '',
+    img2: '',
+    img3: '',
+    img4: '',
+    description: '',
+    stars: '',
+    priceDay: '',
   };
 
   const defaultValuesResto = {
-    name: "",
-    location: "",
-    description: "",
-    img1: "",
-    img2: "",
-    img3: "",
-    img4: "",
-    price: "",
+    name: '',
+    location: '',
+    description: '',
+    img1: '',
+    img2: '',
+    img3: '',
+    img4: '',
+    price: '',
   };
 
   const goToForm = () => {
-    navigate("/dashboard/form");
+    navigate('/dashboard/form');
   };
 
   const handleSubmitActi = async (data) => {
     try {
-      const response = await axios.post("/activity", data);
+      const response = await axios.post('/activity', data);
       console.log(response.data);
-      alert("actividad creada con exito");
+      alert('actividad creada con exito');
       setOpenActi(false);
     } catch (error) {
       alert(error.response.data.error || error.message);
@@ -69,8 +69,8 @@ export default function CreationButtons() {
 
   const handleSubmitHotel = async (data) => {
     try {
-      const response = await axios.post("/hotel", data);
-      alert("hotel creado con exito");
+      const response = await axios.post('/hotel', data);
+      alert('hotel creado con exito');
       setOpenHotel(false);
     } catch (error) {
       alert(error.response.data.error || error.message);
@@ -79,8 +79,8 @@ export default function CreationButtons() {
 
   const handleSubmitResto = async (data) => {
     try {
-      const response = await axios.post("/restaurant", data);
-      alert("restaurant creado con exito");
+      const response = await axios.post('/restaurant', data);
+      alert('restaurant creado con exito');
       setOpenResto(false);
     } catch (error) {
       alert(error.response.data.error || error.message);
@@ -89,10 +89,10 @@ export default function CreationButtons() {
 
   return (
     <Grid className={styles.container}>
-      <div className="package-summary">
-        <Grid container direction="column" alignItems="center">
+      <div className='package-summary'>
+        <Grid container direction='column' alignItems='center'>
           <Grid item>
-            <LandscapeIcon sx={{ fontSize: 40, color: "white" }} />
+            <LandscapeIcon sx={{ fontSize: 40, color: 'white' }} />
           </Grid>
           <Grid item>
             <Button
@@ -105,10 +105,10 @@ export default function CreationButtons() {
         </Grid>
       </div>
 
-      <div className="package-summary">
-        <Grid container direction="column" alignItems="center">
+      <div className='package-summary'>
+        <Grid container direction='column' alignItems='center'>
           <Grid item>
-            <DirectionsBikeIcon sx={{ fontSize: 40, color: "white" }} />
+            <DirectionsBikeIcon sx={{ fontSize: 40, color: 'white' }} />
           </Grid>
           <Grid item>
             <Box>
@@ -129,10 +129,10 @@ export default function CreationButtons() {
         </Grid>
       </div>
 
-      <div className="package-summary">
-        <Grid container direction="column" alignItems="center">
+      <div className='package-summary'>
+        <Grid container direction='column' alignItems='center'>
           <Grid item>
-            <HotelIcon sx={{ fontSize: 40, color: "white" }} />
+            <HotelIcon sx={{ fontSize: 40, color: 'white' }} />
           </Grid>
           <Grid item>
             <Box>
@@ -153,10 +153,10 @@ export default function CreationButtons() {
         </Grid>
       </div>
 
-      <div className="package-summary">
-        <Grid container direction="column" alignItems="center">
+      <div className='package-summary'>
+        <Grid container direction='column' alignItems='center'>
           <Grid item>
-            <RestaurantIcon sx={{ fontSize: 40, color: "white" }} />
+            <RestaurantIcon sx={{ fontSize: 40, color: 'white' }} />
           </Grid>
           <Grid item>
             <Box>

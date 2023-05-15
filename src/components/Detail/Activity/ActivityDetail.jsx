@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getActivityDetailById } from '../../../redux/actions/ActivitiesActions';
 import LoadingComponent from '../../Loading/LoadingComponent';
 import CommentBoard from '../../CommentBoard/CommentBoard';
+
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { addActiForm } from '../../../redux/actions/formActions';
 import { agregarActivitie } from '../../../redux/actions/carritoActions';
@@ -20,6 +21,7 @@ export default function ActivityDetail() {
   const activity = useSelector((state) => state.activities.detail);
   const toForm = useSelector((state) => state.form.toForm);
   const { id } = useParams();
+  // const [comment, setComment] = useState(activity.comments)
 
   useEffect(() => {
     const getDetail = async () => {
@@ -38,6 +40,10 @@ export default function ActivityDetail() {
   const goBack = () => {
     navigate(-1);
   };
+
+  //   useEffect(() => {
+  //     setComment(activity.comments)
+  // }, [activity])
 
   const handleClick = () => {
     if (toForm) {
@@ -155,7 +161,10 @@ export default function ActivityDetail() {
       ) : (
         <LoadingComponent />
       )}
-      <CommentBoard />
+      <CommentBoard
+        activityId={activity.id}
+        arrayComments={activity.comments}
+      />
     </Grid>
   );
 }

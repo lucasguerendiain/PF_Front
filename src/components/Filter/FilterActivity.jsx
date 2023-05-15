@@ -8,14 +8,15 @@ import {
   clearError,
 } from '../../redux/actions/ActivitiesActions';
 
+
 export default function FilterActivity(activities) {
   const [filter, setFilter] = useState({
-    type: undefined,
-    priceMin: undefined,
-    priceMax: undefined,
-    durationMin: undefined,
-    durationMax: undefined,
-    order: undefined,
+    type: "",
+    priceMin: "",
+    priceMax: "",
+    durationMin: "",
+    durationMax: "",
+    order: "",
   });
   const error = useSelector((state) => state.activities.error);
   const dispatch = useDispatch();
@@ -34,14 +35,18 @@ export default function FilterActivity(activities) {
       filter.priceMin &&
       filter.priceMax &&
       Number(filter.priceMin) > Number(filter.priceMax)
-    )
-      alert('El precio minimo no puede ser mayor al precio maximo');
+    ) {
+      alert("El precio minimo no puede ser mayor que el precio maximo")
+      return
+    }
     if (
       filter.durationMin &&
       filter.durationMax &&
       Number(filter.durationMin) > Number(filter.durationMax)
-    )
+    ) {
       alert('La duracion minima no puede ser mayor a la duracion maxima');
+      return
+    }
 
     dispatch(getFilterActivities(activities, filter));
   };
@@ -78,7 +83,7 @@ export default function FilterActivity(activities) {
         onChange={handleChange}
         required
       >
-        <MenuItem value={undefined}>Vaciar</MenuItem>
+        <MenuItem value="">Vaciar</MenuItem>
         <MenuItem value='treking'>Treking </MenuItem>
         <MenuItem value='bike'>Bike</MenuItem>
         <MenuItem value='travel'>Travel</MenuItem>
@@ -135,7 +140,7 @@ export default function FilterActivity(activities) {
         onChange={handleChange}
         required
       >
-        <MenuItem value={undefined}>Vaciar</MenuItem>
+        <MenuItem value="">Vaciar</MenuItem>
         <MenuItem value='priceMax'>Mas Caras</MenuItem>
         <MenuItem value='priceMin'>Mas Baratas</MenuItem>
         <MenuItem value='durationMax'>Mas Largas</MenuItem>

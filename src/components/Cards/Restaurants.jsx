@@ -8,13 +8,15 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 // import IconButton from "@mui/material/IconButton";
 // import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRestoForm } from '../../redux/actions/formActions';
 import { Link } from 'react-router-dom';
+import { Rating } from '@mui/material';
 
 export default function Actividades(props) {
-  const { id, name, location, img, price, description, comments } =
+  const { id, name, location, img, price, description, comments, rating } =
     props.restaurants;
   const toForm = useSelector((state) => state.form.toForm);
   const dispatch = useDispatch();
@@ -42,6 +44,13 @@ export default function Actividades(props) {
             {name}
           </Typography>
           <Typography>{price}</Typography>
+
+          <Rating
+            name='half-rating-read'
+            value={rating}
+            precision={0.5}
+            readOnly
+          />
           <Typography variant='body2' color='text.secondary'>
             {description}
           </Typography>
@@ -49,13 +58,13 @@ export default function Actividades(props) {
       </CardActionArea>
       <Grid display='flex' justify-content='space-between' align-items='center'>
         <CardActions>
-          <Button
-            variant='outlined'
-            disabled={toForm ? false : true}
-            onClick={handleClick}
-          >
-            {toForm ? 'Agregar al paquete' : ''}
-          </Button>
+          {toForm ? (
+            <Button variant='outlined' onClick={handleClick}>
+              Agregar al paquete
+            </Button>
+          ) : (
+            ''
+          )}
         </CardActions>
         {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />

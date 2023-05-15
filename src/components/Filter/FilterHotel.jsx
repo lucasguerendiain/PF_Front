@@ -10,11 +10,11 @@ import {
 
 export default function FilterHotel(hoteles) {
   const [filter, setFilter] = useState({
-    starsMin: undefined,
-    starsMax: undefined,
-    priceMin: undefined,
-    priceMax: undefined,
-    order: undefined,
+    starsMin: "",
+    starsMax: "",
+    priceMin: "",
+    priceMax: "",
+    order: "",
   });
   const error = useSelector((state) => state.hoteles.error);
   const dispatch = useDispatch();
@@ -33,16 +33,18 @@ export default function FilterHotel(hoteles) {
       filter.starsMin &&
       filter.starsMax &&
       Number(filter.starsMin) > Number(filter.starsMax)
-    )
-      alert(
-        'Las estrellas minimas no pueden ser mayores que las estrellas maximas',
-      );
+    ){
+      alert('Las estrellas minimas no pueden ser mayores que las estrellas maximas');
+      return
+    }
     if (
       filter.priceMin &&
       filter.priceMax &&
       Number(filter.priceMin) > Number(filter.priceMax)
-    )
+    ){
       alert('El precio minimo no puede superar al precio maximo');
+      return
+    }
 
     dispatch(getFilterHotels(hoteles, filter));
   };
@@ -79,7 +81,7 @@ export default function FilterHotel(hoteles) {
         onChange={handleChange}
         required
       >
-        <MenuItem value={undefined}>Vaciar</MenuItem>
+        <MenuItem value="">Vaciar</MenuItem>
         <MenuItem value='1'>1 Star</MenuItem>
         <MenuItem value='2'>2 Stars</MenuItem>
         <MenuItem value='3'>3 Stars</MenuItem>
@@ -96,7 +98,7 @@ export default function FilterHotel(hoteles) {
         onChange={handleChange}
         required
       >
-        <MenuItem value={undefined}>Vaciar</MenuItem>
+        <MenuItem value="">Vaciar</MenuItem>
         <MenuItem value='1'>1 Start</MenuItem>
         <MenuItem value='2'>2 Stars</MenuItem>
         <MenuItem value='3'>3 Stars</MenuItem>
@@ -133,7 +135,7 @@ export default function FilterHotel(hoteles) {
         onChange={handleChange}
         required
       >
-        <MenuItem value={undefined}>Vaciar</MenuItem>
+        <MenuItem value="">Vaciar</MenuItem>
         <MenuItem value='starsMax'>Mas Estrellas</MenuItem>
         <MenuItem value='starsMin'>Menos Estrellas</MenuItem>
         <MenuItem value='priceMax'>Mas Caros</MenuItem>

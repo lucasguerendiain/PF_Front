@@ -52,6 +52,11 @@ export default function PackageDetail() {
     variableWidth: false,
   };
 
+  const transformDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleString().split(",")[0];
+  }
+
   const viewHotel = (id) => {
     navigate(`/hotel/byId/${id}`);
   };
@@ -171,7 +176,7 @@ export default function PackageDetail() {
             >
               {'Fecha inicio: '}
               <Typography variant='h4' display='inline'>
-                {pack.dateInit}
+                {transformDate(pack.dateInit)}
               </Typography>
             </Typography>
             <Typography
@@ -182,7 +187,7 @@ export default function PackageDetail() {
             >
               {'Fecha fin: '}
               <Typography variant='h4' display='inline'>
-                {pack.dateEnd}
+                {transformDate(pack.dateEnd)}
               </Typography>
             </Typography>
           </Grid>
@@ -235,7 +240,6 @@ export default function PackageDetail() {
             <Card
               sx={{
                 maxWidth: '50%',
-                maxHeight: '50vh',
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginLeft: '25%',
@@ -243,7 +247,7 @@ export default function PackageDetail() {
             >
               <CardMedia
                 component='img'
-                sx={{ maxHeight: '25vh' }}
+                sx={{ maxHeight: '35vh' }}
                 image={pack.hotel.img[0]}
                 alt={pack.hotel.name}
               />
@@ -371,7 +375,7 @@ export default function PackageDetail() {
           />
         </PayPalScriptProvider>
       </Box>
-      <CommentBoard />
+    <CommentBoard packageId = {pack.id} arrayComments = {pack.comments}/>
     </Box>
   );
 }

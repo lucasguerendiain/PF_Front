@@ -2,7 +2,7 @@ import { Button, Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-export default function UserFeedback() {
+export default function UserFeedback({handleClose}) {
   const [inputs, setInputs] = useState({
     from: '',
     content: '',
@@ -22,7 +22,7 @@ export default function UserFeedback() {
 
   const validate = (content) => {
     const lineas = content.slice('\n');
-    if (lineas.length > 7) setError({ content: 'no mas de 7 lineas' });
+    if (lineas.length > 15) setError({ content: 'no mas de 15 lineas' });
     else setError({ content: '' });
   };
 
@@ -53,17 +53,13 @@ export default function UserFeedback() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        border: '1px solid black',
-        width: '60vw',
-        marginLeft: '20%',
-        marginTop: '5%',
-        marginBottom: '1%',
+        maxWidth: "60vw"
       }}
     >
       <Typography variant='h2' gutterBottom>
         Contactanos
       </Typography>
-      <Grid item sx={{ width: '50vw' }}>
+      <Grid item sx={{ width: '90%' }}>
         <TextField
           name='from'
           label='Remitente'
@@ -73,7 +69,7 @@ export default function UserFeedback() {
           onChange={handleChange}
         />
       </Grid>
-      <Grid item sx={{ width: '50vw' }}>
+      <Grid item sx={{ width: '90%' }}>
         <TextField
           multiline
           fullWidth
@@ -85,14 +81,26 @@ export default function UserFeedback() {
           onChange={handleChange}
         />
       </Grid>
+      <Grid sx={{display:"flex", flexDirection: "row", marginTop: '1%', marginBottom: '1%' }}>
       <Button
-        sx={{ marginTop: '1%', marginBottom: '1%' }}
+        sx={{marginRight: "1%"}}
         onClick={handleSubmit}
         variant='contained'
         size='medium'
       >
         Mandar
       </Button>
+      {handleClose
+      ? (<Button
+        onClick={handleClose}
+        size='medium'
+        variant='contained'
+        >
+        Cancelar
+      </Button>) 
+      : ""
+      }
+      </Grid>
     </Grid>
   );
 }
