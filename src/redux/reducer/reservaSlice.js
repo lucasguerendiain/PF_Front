@@ -1,22 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   reservas: [],
-  error: "",
+  error: '',
 };
 
 export const reservaSlice = createSlice({
-  name: "reserva",
+  name: 'reserva',
   initialState,
   reducers: {
     postReserva: (state, action) => {
       state.reservas = [...state.reservas, action.payload];
     },
     getAllreserva: (state, action) => {
-        state.reservas = [action.payload]
+      state.reservas = [action.payload];
     },
     getUserReserva: (state, action) => {
-        state.reservas = [action.payload];   
+      state.reservas = [action.payload];
     },
     setError: (state, action) => {
       state.error = action.payload;
@@ -24,6 +24,7 @@ export const reservaSlice = createSlice({
   },
 });
 
-export const { postReserva, setError, getUserReserva, getAllreserva } = reservaSlice.actions;
+export const { postReserva, setError, getUserReserva, getAllreserva } =
+  reservaSlice.actions;
 
 export default reservaSlice.reducer;
