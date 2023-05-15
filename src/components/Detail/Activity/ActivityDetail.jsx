@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -21,6 +21,7 @@ export default function ActivityDetail() {
   const activity = useSelector((state) => state.activities.detail);
   const toForm = useSelector((state) => state.form.toForm);
   const { id } = useParams();
+  // const [comment, setComment] = useState(activity.comments)
 
   useEffect(() => {
     const getDetail = async () => {
@@ -39,6 +40,10 @@ export default function ActivityDetail() {
   const goBack = () => {
     navigate(-1);
   };
+
+//   useEffect(() => {
+//     setComment(activity.comments)
+// }, [activity])
 
   const handleClick = () => {
     if (toForm) {
@@ -72,28 +77,28 @@ export default function ActivityDetail() {
       border: "1px solid black",
       backgroundColor: "beige"
     }}>
-        {Object.keys(activity).length ? (
+      {Object.keys(activity).length ? (
         <Grid>
           <Typography
-              variant="h1" 
-              gutterBottom
-              fontWeight="600"
-              sx={{ marginTop: "1%" }}
-              >
+            variant="h1"
+            gutterBottom
+            fontWeight="600"
+            sx={{ marginTop: "1%" }}
+          >
             {activity.name}
           </Typography>
           <Slider {...setings}>
             {activity.img
               ? activity.img.map((item, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      maxWidth: "70%",
-                    }}
-                  >
-                    <img src={item} alt=""></img>
-                  </Box>
-                ))
+                <Box
+                  key={index}
+                  sx={{
+                    maxWidth: "70%",
+                  }}
+                >
+                  <img src={item} alt=""></img>
+                </Box>
+              ))
               : "cargando"}
           </Slider>
           <Grid marginTop="4%">
@@ -132,10 +137,10 @@ export default function ActivityDetail() {
             <Button
               variant="contained"
               sx={{ fontSize: "1.4rem", marginRight: "3%" }}
-              startIcon={toForm? <AddCircleIcon/> : <AddShoppingCartIcon/>}
+              startIcon={toForm ? <AddCircleIcon /> : <AddShoppingCartIcon />}
               onClick={handleClick}
             >
-              {toForm? "Añadir al paquete" : "Añadir al Carrito"}
+              {toForm ? "Añadir al paquete" : "Añadir al Carrito"}
             </Button>
             <Button
               variant="contained"
@@ -146,9 +151,9 @@ export default function ActivityDetail() {
               volver
             </Button>
           </Box>
-      </Grid>) : <LoadingComponent/>
+        </Grid>) : <LoadingComponent />
       }
-       <CommentBoard/>
+      <CommentBoard activityId={activity.id} arrayComments={activity.comments} />
     </Grid>
   );
 }

@@ -13,10 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addHotelForm } from "../../redux/actions/formActions";
 import { agregarHotel } from "../../redux/actions/carritoActions";
 import { Link } from "react-router-dom";
+import {Rating} from "@mui/material";
 
 
 export default function Actividades(props) {
-  const { id, name, location, description, img, stars, priceDay } =
+  const { id, name, location, description, img, stars, priceDay, rating } =
     props.hotel;
   const toForm = useSelector((state) => state.form.toForm);
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ export default function Actividades(props) {
             {name}
           </Typography>
           <Typography>{priceDay}</Typography>
+          <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
           <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>

@@ -52,7 +52,7 @@ export default function RestoDetail() {
       alert("no deberias estar viendo esto");
     }
   }
-  
+
   return (
     <Grid sx={{
       width: "85vw",
@@ -82,15 +82,15 @@ export default function RestoDetail() {
           <Slider {...setings}>
             {restaurant.img
               ? restaurant.img.map((item, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      maxWidth: "70%",
-                    }}
-                  >
-                    <img src={item} alt=""></img>
-                  </Box>
-                ))
+                <Box
+                  key={index}
+                  sx={{
+                    maxWidth: "70%",
+                  }}
+                >
+                  <img src={item} alt=""></img>
+                </Box>
+              ))
               : "cargando"}
           </Slider>
           <Grid marginTop="4%">
@@ -121,15 +121,15 @@ export default function RestoDetail() {
             }}
           >
             {toForm
-            ? (<Button
-              variant="contained"
-              sx={{ fontSize: "1.4rem", marginRight: "3%" }}
-              startIcon={<AddCircleIcon/>}
-              onClick={handleClick}
-            >
-              Añadir al paquete
-            </Button>) 
-            : ("")}
+              ? (<Button
+                variant="contained"
+                sx={{ fontSize: "1.4rem", marginRight: "3%" }}
+                startIcon={<AddCircleIcon />}
+                onClick={handleClick}
+              >
+                Añadir al paquete
+              </Button>)
+              : ("")}
             <Button
               variant="contained"
               sx={{ fontSize: "1.6rem" }}
@@ -143,7 +143,7 @@ export default function RestoDetail() {
       ) : (
         <LoadingComponent />
       )}
-       <CommentBoard/>
+      <CommentBoard restaurantId={restaurant.id} arrayComments={restaurant.comments} />
     </Grid>
   );
 }
