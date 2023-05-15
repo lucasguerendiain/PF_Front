@@ -391,8 +391,7 @@ export const package3 = {
   resto: [
     {
       name: 'Terra Mare',
-      location:
-        'Adolfo Espinoza esquina con Costanera, Las Grutas 8521 Argentina',
+      location: 'Adolfo Espinoza esquina con Costanera, Las Grutas 8521 Argentina',
       img: [
         'https://media-cdn.tripadvisor.com/media/photo-s/16/dd/2f/d5/la-spiaggia.jpg',
         'https://media-cdn.tripadvisor.com/media/photo-s/16/8f/a2/af/marisqueria-terra-mare.jpg',
