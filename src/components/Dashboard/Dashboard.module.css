@@ -1,0 +1,16 @@
+.container{
+    
+    max-width: 1750px; /* Reducir el ancho del contenido */
+    margin: 0 auto; /* Centrar el contenido en la pantalla */
+    padding-left: px; /* Crear un espacio en blanco a la izquierda */
+    padding-right: 20 0px; /* Crear un espacio en blanco a la derecha */
+}
+
+h1 {
+    margin: 0;
+    text-align: center; 
+    padding: 0 1rem; 
+    margin-bottom: 5rem;
+  }
+
+
