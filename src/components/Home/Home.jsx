@@ -8,7 +8,7 @@ import imagen3 from '../../assets/imagen3.png';
 import imagen4 from '../../assets/imagen4.png';
 import imagen5 from '../../assets/imagen5.png';
 import './Home.css';
-import UserFeedback from '../MailSend/UserFeedback';
+
 
 const Home = () => {
   const settings = {
@@ -72,7 +72,6 @@ const Home = () => {
           </div>
         </Slider>
       </div>
-      <UserFeedback />
     </div>
   );
 };
