@@ -51,9 +51,7 @@ export default function RestoDetail() {
     } else {
       alert('no deberias estar viendo esto');
     }
-
   };
-
 
   return (
     <Grid
@@ -91,18 +89,16 @@ export default function RestoDetail() {
           <Slider {...setings}>
             {restaurant.img
               ? restaurant.img.map((item, index) => (
-
-                <Box
-                  key={index}
-                  sx={{
-                    maxWidth: "70%",
-                  }}
-                >
-                  <img src={item} alt=""></img>
-                </Box>
-              ))
-              : "cargando"}
-
+                  <Box
+                    key={index}
+                    sx={{
+                      maxWidth: '70%',
+                    }}
+                  >
+                    <img src={item} alt=''></img>
+                  </Box>
+                ))
+              : 'cargando'}
           </Slider>
           <Grid marginTop='4%'>
             <Typography
@@ -135,19 +131,18 @@ export default function RestoDetail() {
               padding: '3%',
             }}
           >
-
-            {toForm
-              ? (<Button
-                variant="contained"
-                sx={{ fontSize: "1.4rem", marginRight: "3%" }}
-
+            {toForm ? (
+              <Button
+                variant='contained'
+                sx={{ fontSize: '1.4rem', marginRight: '3%' }}
                 startIcon={<AddCircleIcon />}
                 onClick={handleClick}
               >
                 Añadir al paquete
-
-              </Button>)
-              : ("")}
+              </Button>
+            ) : (
+              ''
+            )}
 
             <Button
               variant='contained'
@@ -163,8 +158,10 @@ export default function RestoDetail() {
         <LoadingComponent />
       )}
 
-      <CommentBoard restaurantId={restaurant.id} arrayComments={restaurant.comments} />
-
+      <CommentBoard
+        restaurantId={restaurant.id}
+        arrayComments={restaurant.comments}
+      />
     </Grid>
   );
 }

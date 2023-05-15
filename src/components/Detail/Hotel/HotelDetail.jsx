@@ -53,9 +53,7 @@ export default function HotelDetail() {
       dispatch(agregarHotel(hotel));
       alert('el hotel se añadio al carrito');
     }
-
   };
-
 
   return (
     <Grid
@@ -79,18 +77,16 @@ export default function HotelDetail() {
           <Slider {...setings}>
             {hotel.img
               ? hotel.img.map((item, index) => (
-
-                <Box
-                  key={index}
-                  sx={{
-                    maxWidth: "70%",
-                  }}
-                >
-                  <img src={item} alt=""></img>
-                </Box>
-              ))
-              : "cargando"}
-
+                  <Box
+                    key={index}
+                    sx={{
+                      maxWidth: '70%',
+                    }}
+                  >
+                    <img src={item} alt=''></img>
+                  </Box>
+                ))
+              : 'cargando'}
           </Slider>
           <Grid marginTop='4%'>
             <Typography
@@ -130,14 +126,12 @@ export default function HotelDetail() {
             }}
           >
             <Button
-
-              variant="contained"
-              sx={{ fontSize: "1.4rem", marginRight: "3%" }}
+              variant='contained'
+              sx={{ fontSize: '1.4rem', marginRight: '3%' }}
               startIcon={toForm ? <AddCircleIcon /> : <AddShoppingCartIcon />}
               onClick={handleClick}
             >
-              {toForm ? "Añadir al paquete" : "Añadir al Carrito"}
-
+              {toForm ? 'Añadir al paquete' : 'Añadir al Carrito'}
             </Button>
             <Button
               variant='contained'
@@ -151,11 +145,8 @@ export default function HotelDetail() {
         </Grid>
       ) : (
         <LoadingComponent />
-
-      )
-      }
+      )}
       <CommentBoard hotelId={hotel.id} arrayComments={hotel.comments} />
-
     </Grid>
   );
 }

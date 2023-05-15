@@ -32,7 +32,7 @@ function CustomPackage() {
 
   const handleDeleteHotel = () => {
     dispatch(borrarHotel());
-  }
+  };
 
   const handleClick = (data) => {
     setDate(data);
@@ -58,16 +58,21 @@ function CustomPackage() {
       <h2>Personaliza tu paquete</h2>
       <div className='package-summary'>
         <h3>Resumen del paquete</h3>
+ botones
         <p>Fecha: {date.toLocaleString().split(",")[0]}</p>
         <button onClick={() => setOpen(true)}>Elegir fecha</button>
+=======
+        <p>Fecha: {date.toLocaleString().split(',')[0]}</p>
+        <button onClick={() => setOpen(true)}>elegir fecha</button>
+ developers
         <BasicModal
           open={open}
           handleClose={() => setOpen(false)}
-          title="elegite la fecha"
-          content={<Calendar handleClick={handleClick}/>}
+          title='elegite la fecha'
+          content={<Calendar handleClick={handleClick} />}
           handleSubmit={false}
         />
-        <br/>
+        <br />
         <button onClick={handleApprove}>Aprobar paquete</button>
       </div>
       <div className='package-content'>
@@ -100,15 +105,13 @@ function CustomPackage() {
             className='add-hotel-button'
             onClick={() => handleNav('HOTEL')}
           >
-            {hotel
-              ? "Cambiar hotel"
-              : "+ Agregar hotel"}
+            {hotel ? 'Cambiar hotel' : '+ Agregar hotel'}
           </button>
           {hotel ? (
             <ul>
+              <li><button onClick={handleDeleteHotel}>X</button></li>
               <li>{hotel.name}</li>
               <li>{hotel.priceDay} por día</li>
-              <li><button onClick={handleDeleteHotel}>X</button></li>
             </ul>
           ) : (
             <p>No se ha agregado ningún hotel</p>
