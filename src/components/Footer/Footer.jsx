@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Footer.css';
+import BasicModal from '../CreatePackage/Modals/BasicModal';
+import UserFeedback from '../MailSend/UserFeedback';
+import { Box } from '@mui/material';
 
 function Footer() {
+  const [open, setOpen] = useState(false);
   return (
     <footer className='footer'>
       <div className='footer-container'>
@@ -9,7 +13,16 @@ function Footer() {
           <a href='#'>Acerca de nosotros</a>
           <a href='#'>Destinos turísticos</a>
           <a href='#'>Reservas y precios</a>
-          <a href='#'>Contacto</a>
+          <a onClick={() => setOpen(true)}>Contacto</a>
+          <Box>
+          <BasicModal
+            open={open}
+            handleClose={() => setOpen(false)}
+            title=""
+            content={<UserFeedback handleClose={() => setOpen(false)}/>}
+            handleSubmit={false}
+          />
+          </Box>
         </div>
         <div className='footer-text'>
           <p>
