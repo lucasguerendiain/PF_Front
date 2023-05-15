@@ -371,7 +371,9 @@ export default function PackageDetail() {
           />
         </PayPalScriptProvider>
       </Box>
-      <CommentBoard />
+
+    <CommentBoard packageId = {pack.id} arrayComments = {pack.comments}/>
+
     </Box>
   );
 }
