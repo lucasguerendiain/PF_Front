@@ -1,22 +1,21 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const User = () => {
-  const {logout, loginWithRedirect, user, isAuthenticated, isLoading, error } = useAuth0();
-  
- 
+  const { logout, loginWithRedirect, user, isAuthenticated, isLoading, error } =
+    useAuth0();
+
   if (isLoading) {
-    console.log( error, user?.name, isAuthenticated,isLoading)
+    console.log(error, user?.name, isAuthenticated, isLoading);
     return <div>Loading...</div>;
-    
   }
   if (error) {
-    console.log( user?.name, isAuthenticated,isLoading)
+    console.log(user?.name, isAuthenticated, isLoading);
     return <div>Oops... {error.message}</div>;
   }
 
   if (isAuthenticated) {
-    console.log( user, isAuthenticated,isLoading)
+    console.log(user, isAuthenticated, isLoading);
     return (
       <div>
         Hello {user?.name}{' '}
@@ -26,12 +25,12 @@ const User = () => {
       </div>
     );
   } else {
-    console.log( error, user?.name, isAuthenticated,isLoading)
-    return( 
+    console.log(error, user?.name, isAuthenticated, isLoading);
+    return (
       <div>
         <button onClick={loginWithRedirect}>Log in</button>
       </div>
-    )
+    );
   }
 };
 

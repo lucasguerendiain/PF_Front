@@ -1,31 +1,33 @@
-import React, { useEffect, } from "react";
-import Restaurants from "../Cards/Restaurants";
-import { Grid, Button} from "@mui/material";
-import SearchBar from "../SearchBar/SearchBar";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllRestaurant} from "../../redux/actions/RestaurantsActions";
-import LoadingComponent from "../Loading/LoadingComponent"
-import {Link} from "react-router-dom"
-import FilterRestaurant from "../Filter/FilterRestaurant";
+import React, { useEffect } from 'react';
+import Restaurants from '../Cards/Restaurants';
+import { Grid, Button } from '@mui/material';
+import SearchBar from '../SearchBar/SearchBar';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllRestaurant } from '../../redux/actions/RestaurantsActions';
+import LoadingComponent from '../Loading/LoadingComponent';
+import { Link } from 'react-router-dom';
+import FilterRestaurant from '../Filter/FilterRestaurant';
 
 export default function RestaurantCardContainer() {
-  const restaurants = useSelector((state) => state.restaurants.viewRestaurants)
-  const allRestaurant = useSelector((state) => state.restaurants.allRestaurants)
-  const dispatch = useDispatch()
+  const restaurants = useSelector((state) => state.restaurants.viewRestaurants);
+  const allRestaurant = useSelector(
+    (state) => state.restaurants.allRestaurants,
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch((getAllRestaurant()))
+    dispatch(getAllRestaurant());
   }, [dispatch]);
 
   return (
     <>
-    <SearchBar/>
-    <FilterRestaurant restaurant={allRestaurant}/>
+      <SearchBar />
+      <FilterRestaurant restaurant={allRestaurant} />
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
-        marginBottom="2em"
+        marginBottom='2em'
       >
         {restaurants.length ? (
           restaurants.map((p, index) => (
@@ -36,10 +38,10 @@ export default function RestaurantCardContainer() {
         ) : (
           <Grid
             container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            style={{ height: "100vh" }}
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
+            style={{ height: '100vh' }}
           >
             <Grid item>
               <LoadingComponent />
@@ -47,18 +49,17 @@ export default function RestaurantCardContainer() {
           </Grid>
         )}
       </Grid>
-      <Grid 
-       container
-       direction="column"
-       justifyContent="center"
-       alignItems="center"
-       margin= "1em"
+      <Grid
+        container
+        direction='column'
+        justifyContent='center'
+        alignItems='center'
+        margin='1em'
       >
-      <Link to={"/home"}>
-        <Button variant="contained">Inicio</Button>
-      </Link>
+        <Link to={'/home'}>
+          <Button variant='contained'>Inicio</Button>
+        </Link>
       </Grid>
     </>
   );
-
 }
