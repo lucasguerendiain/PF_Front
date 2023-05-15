@@ -90,12 +90,6 @@ export default function CommentBoard(prop) {
         )
     }
 
-
-  const renderHearts = (heartNumber) => {
-    const heartinfo = Array(heartNumber)
-      .fill(true)
-      .concat(Array(5).fill(false))
-      .slice(0, 5);
     return (
 
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
