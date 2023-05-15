@@ -52,6 +52,11 @@ export default function PackageDetail() {
     variableWidth: false,
   };
 
+  const transformDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleString().split(",")[0];
+  }
+
   const viewHotel = (id) => {
     navigate(`/hotel/byId/${id}`);
   };
@@ -171,7 +176,7 @@ export default function PackageDetail() {
             >
               {'Fecha inicio: '}
               <Typography variant='h4' display='inline'>
-                {pack.dateInit}
+                {transformDate(pack.dateInit)}
               </Typography>
             </Typography>
             <Typography
@@ -182,7 +187,7 @@ export default function PackageDetail() {
             >
               {'Fecha fin: '}
               <Typography variant='h4' display='inline'>
-                {pack.dateEnd}
+                {transformDate(pack.dateEnd)}
               </Typography>
             </Typography>
           </Grid>
@@ -370,7 +375,6 @@ export default function PackageDetail() {
           />
         </PayPalScriptProvider>
       </Box>
-
     <CommentBoard packageId = {pack.id} arrayComments = {pack.comments}/>
 
     </Box>

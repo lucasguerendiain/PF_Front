@@ -106,9 +106,9 @@ function CustomPackage() {
           </button>
           {hotel ? (
             <ul>
+              <li><button onClick={handleDeleteHotel}>X</button></li>
               <li>{hotel.name}</li>
               <li>{hotel.priceDay} por día</li>
-              <li><button onClick={handleDeleteHotel}>X</button></li>
             </ul>
           ) : (
             <p>No se ha agregado ningún hotel</p>

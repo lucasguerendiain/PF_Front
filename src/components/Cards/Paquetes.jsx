@@ -33,7 +33,10 @@ export default function Paquete(props) {
   } = props.paquete;
   console.log(props);
 
-  const navigate = useNavigate();
+  const transformDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleString().split(",")[0];
+  }
 
   return (
     <Grid container justifyContent='center'>
@@ -42,7 +45,7 @@ export default function Paquete(props) {
           <CardActionArea key={id} component={Link} to={`/package/${id}`}>
             <CardHeader
               title={name}
-              subheader={`${dateInit} to ${dateEnd}`}
+              subheader={`${transformDate(dateInit)} to ${transformDate(dateEnd)}`}
               action={
                 <Typography variant='h6' component='span' color='textSecondary'>
                   ${price}
