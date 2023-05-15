@@ -298,7 +298,7 @@ export const package3 = {
     price: 1900,
     duration: 3,
     img: 'https://viajoconvos.com.ar/wp-content/uploads/2020/12/Las-Grutas.jpg',
-    img2: 'https://patagonia.net/wp-content/uploads/2017/12/playas-las-grutas-785x360-770x360.jpg',
+    img2: '',
     img3: 'https://www.lasuperdigital.com.ar/wp-content/uploads/2021/12/VERANO-CORDILLERA-001.jpg',
     img4: '',
     description: `El turismo en Río Negro, te espera para vivenciar todo tipo de experiencias entre cordillera y mar. 

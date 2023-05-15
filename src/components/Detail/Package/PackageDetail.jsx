@@ -235,7 +235,6 @@ export default function PackageDetail() {
             <Card
               sx={{
                 maxWidth: '50%',
-                maxHeight: '50vh',
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginLeft: '25%',
@@ -243,7 +242,7 @@ export default function PackageDetail() {
             >
               <CardMedia
                 component='img'
-                sx={{ maxHeight: '25vh' }}
+                sx={{ maxHeight: '35vh'}}
                 image={pack.hotel.img[0]}
                 alt={pack.hotel.name}
               />
@@ -258,7 +257,7 @@ export default function PackageDetail() {
               </CardContent>
               <CardActions>
                 <Button
-                  sx={{ fontSize: '1.5rem' }}
+                  sx={{ fontSize: '1.5rem'}}
                   onClick={() => viewHotel(pack.hotel.id)}
                 >
                   mas info

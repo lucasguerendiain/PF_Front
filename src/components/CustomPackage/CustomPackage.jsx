@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import {
   borrarActivitie,
+  borrarHotel,
   estadoInicialCarrito,
 } from '../../redux/actions/carritoActions';
 import { setButtonToCart } from '../../redux/actions/formActions';
 import './CustomPackage.css';
 import { addReserva } from '../../redux/actions/reservaActions';
+import Calendar from '../Calendar/Calendar';
+import BasicModal from '../CreatePackage/Modals/BasicModal';
 
 function CustomPackage() {
   const navigate = useNavigate();
@@ -16,6 +19,7 @@ function CustomPackage() {
   const [date, setDate] = useState('');
   const carrito = useSelector((state) => state.carrito);
   const { activities, hotel } = carrito;
+  const [open, setOpen] = useState(false);
 
   const handleApprove = async () => {
     dispatch(addReserva());
@@ -26,8 +30,13 @@ function CustomPackage() {
     dispatch(borrarActivitie(name));
   };
 
+  const handleDeleteHotel = () => {
+    dispatch(borrarHotel());
+  }
+
   const handleClick = (data) => {
-    setDate(data.toLocaleString());
+    setDate(data);
+    setOpen(false);
   };
 
   const handleNav = (name) => {
@@ -49,7 +58,16 @@ function CustomPackage() {
       <h2>Personaliza tu paquete</h2>
       <div className='package-summary'>
         <h3>Resumen del paquete</h3>
-        <p>Fecha: {date}</p>
+        <p>Fecha: {date.toLocaleString().split(",")[0]}</p>
+        <button onClick={() => setOpen(true)}>elegir fecha</button>
+        <BasicModal
+          open={open}
+          handleClose={() => setOpen(false)}
+          title="elegite la fecha"
+          content={<Calendar handleClick={handleClick}/>}
+          handleSubmit={false}
+        />
+        <br/>
         <button onClick={handleApprove}>Aprobar paquete</button>
       </div>
       <div className='package-content'>
@@ -82,12 +100,15 @@ function CustomPackage() {
             className='add-hotel-button'
             onClick={() => handleNav('HOTEL')}
           >
-            + Agregar hotel
+            {hotel
+              ? "Cambiar hotel"
+              : "+ Agregar hotel"}
           </button>
           {hotel ? (
             <ul>
               <li>{hotel.name}</li>
               <li>{hotel.priceDay} por día</li>
+              <li><button onClick={handleDeleteHotel}>X</button></li>
             </ul>
           ) : (
             <p>No se ha agregado ningún hotel</p>

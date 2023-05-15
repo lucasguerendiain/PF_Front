@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { ModalStyle } from './styles';
+import { Grid } from '@mui/material';
 
 export default function BasicModal({
   open,
@@ -29,12 +30,16 @@ export default function BasicModal({
           {title}
         </Typography>
         {content}
-        <Button variant='contained' onClick={handleSubmit}>
-          submit
-        </Button>{' '}
-        <Button variant='contained' onClick={handleClose}>
-          cancel
-        </Button>
+        {handleSubmit
+        ?(
+        <Grid>
+          <Button variant='contained' onClick={handleSubmit}>
+            confirmar
+          </Button>{' '}
+          <Button variant='contained' onClick={handleClose}>
+            cancelar
+          </Button>
+        </Grid>) : ("")}
       </Box>
     </Modal>
   );
