@@ -1,14 +1,14 @@
 import {
-  Box,
-  Button,
-  ButtonGroup,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Grid,
-  TextField,
-  Typography,
+    Box,
+    Button,
+    ButtonGroup,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    Grid,
+    TextField,
+    Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -23,10 +23,10 @@ export default function CommentBoard(prop) {
     const [errors, setErrors] = useState(false);
 
 
-  const user = {
-    name: 'Lucas',
-  };
-  const date = new Date();
+    const user = {
+        name: 'Lucas',
+    };
+    const date = new Date();
 
 
     const handleChange = (id) => {
@@ -35,11 +35,11 @@ export default function CommentBoard(prop) {
     }
 
 
-  const handleComment = (event) => {
-    //ahora mismo el usuario puede poner todos los saltos de linea que quiera
-    //no se me ocurre como frenarlo
-    setCommentValue(event.target.value);
-  };
+    const handleComment = (event) => {
+        //ahora mismo el usuario puede poner todos los saltos de linea que quiera
+        //no se me ocurre como frenarlo
+        setCommentValue(event.target.value);
+    };
 
 
 
@@ -127,9 +127,8 @@ export default function CommentBoard(prop) {
 
                     </CardContent>
                     <CardActions sx={{ marginTop: '2%' }}>
-                      <Button size='small' variant='contained' disabled>
-                        Deletear
-                      </Button>
+                        <Button size="medium" variant="contained" onClick={handleSend}>Postear</Button>
+                        <Button size="medium" variant="contained" onClick={() => setCommentValue("")}>Cancelar</Button>
                     </CardActions>
 
                 </Card>
