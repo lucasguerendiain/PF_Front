@@ -305,3 +305,4 @@ export default function CommentBoard(prop) {
     </Box>
   );
 }
+
