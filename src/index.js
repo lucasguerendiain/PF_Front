@@ -18,7 +18,7 @@ const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 ReactDOM.createRoot(root).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <Auth0Provider
       domain={domain}
       clientId={clientId}
@@ -30,7 +30,7 @@ ReactDOM.createRoot(root).render(
         <App />
       </Provider>
     </Auth0Provider>
-  </React.StrictMode>,
+  //</React.StrictMode>,
 );
 
 reportWebVitals();

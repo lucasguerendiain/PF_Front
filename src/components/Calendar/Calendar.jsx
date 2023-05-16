@@ -18,11 +18,19 @@ export default function Calendar({ handleClick }) {
     'Noviembre',
     'Diciembre',
   ];
-  const year = [2023, 2024];
+  const [year, setYear] = useState([2023]);
   const [currentMonth, setCurrentMonth] = useState(0);
   const [currentYear, setCurrentYear] = useState(0);
   const [inicio, setInicio] = useState('');
   const [last, setLast] = useState('');
+
+  const calculateLeapYear = () => {
+    const targetYear = year[currentYear];
+    if (targetYear % 400 === 0) return true;
+    if (targetYear % 100 === 0) return false;
+    if (targetYear % 4 === 0) return true;
+    return false;
+  }
 
   const meses = {
     Enero: 1,
@@ -41,7 +49,7 @@ export default function Calendar({ handleClick }) {
 
   const daysPerMonth = {
     Enero: 31,
-    Febrero: year[currentYear] === 2024 ? 29 : 28, //2024 tiene 29 dias
+    Febrero: calculateLeapYear() ? 29 : 28, //2024 tiene 29 dias
     Marzo: 31,
     Abril: 30,
     Mayo: 31,
@@ -58,6 +66,7 @@ export default function Calendar({ handleClick }) {
     const dia = new Date(Date.now());
     setCurrentMonth(dia.getMonth());
     setInicio(`${dia.getMonth()}//${dia.getDate()}//${dia.getFullYear()}`);
+    setYear([dia.getFullYear(), dia.getFullYear() + 1]);
   }, []);
 
   useEffect(() => {

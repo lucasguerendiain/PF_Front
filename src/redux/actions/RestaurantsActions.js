@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   getAllRestaurants,
   getRestaurantById,
+  getRestaurantName,
   getFilteredRestaurant,
   setError,
 } from '../reducer/restaurantsSlice';
@@ -14,6 +15,15 @@ export const getAllRestaurant = () => async (dispatch) => {
     dispatch(setError(error.message));
   }
 };
+
+export const getRestaurantByName = (name) => async (dispatch) => {
+    try {
+        const response = await axios.get(`/hotel?name=${name}`)
+        dispatch(getRestaurantName(response.data))
+    } catch (error) {
+        dispatch(setError(error.message));
+    }
+}
 
 export const getRestaurantDetailById = (id) => async (dispatch) => {
   try {

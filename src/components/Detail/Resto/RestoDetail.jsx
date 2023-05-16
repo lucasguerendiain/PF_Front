@@ -53,10 +53,8 @@ export default function RestoDetail() {
     } else {
       alert('no deberias estar viendo esto');
     }
-
   };
 
-  
 
   return (
     <Grid
@@ -84,6 +82,7 @@ export default function RestoDetail() {
             {restaurant.img
               ? restaurant.img.map((item, index) => (
 
+
                 <Box
                   key={index}
                 >
@@ -91,6 +90,7 @@ export default function RestoDetail() {
                 </Box>
               ))
               : "cargando"}
+
 
           </Slider>
 
@@ -129,19 +129,18 @@ export default function RestoDetail() {
               padding: '3%',
             }}
           >
-
-            {toForm
-              ? (<Button
-                variant="contained"
-                sx={{ fontSize: "1.4rem", marginRight: "3%" }}
-
+            {toForm ? (
+              <Button
+                variant='contained'
+                sx={{ fontSize: '1.4rem', marginRight: '3%' }}
                 startIcon={<AddCircleIcon />}
                 onClick={handleClick}
               >
                 Añadir al paquete
-
-              </Button>)
-              : ("")}
+              </Button>
+            ) : (
+              ''
+            )}
 
             <Button
               variant='contained'
@@ -157,8 +156,10 @@ export default function RestoDetail() {
         <LoadingComponent />
       )}
 
-      <CommentBoard restaurantId={restaurant.id} arrayComments={restaurant.comments} />
-
+      <CommentBoard
+        restaurantId={restaurant.id}
+        arrayComments={restaurant.comments}
+      />
     </Grid>
   );
 }

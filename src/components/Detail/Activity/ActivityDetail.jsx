@@ -1,16 +1,15 @@
-
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { useDispatch, useSelector } from "react-redux";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useNavigate, useParams } from "react-router-dom";
-import { getActivityDetailById } from "../../../redux/actions/ActivitiesActions";
-import LoadingComponent from "../../Loading/LoadingComponent";
-import CommentBoard from "../../CommentBoard/CommentBoard";
+import { Box, Button, Grid, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useDispatch, useSelector } from 'react-redux';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getActivityDetailById } from '../../../redux/actions/ActivitiesActions';
+import LoadingComponent from '../../Loading/LoadingComponent';
+import CommentBoard from '../../CommentBoard/CommentBoard';
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { addActiForm } from '../../../redux/actions/formActions';
@@ -82,6 +81,7 @@ export default function ActivityDetail() {
             gutterBottom
             fontWeight="400"
             className={styles.name}
+
           >
             {activity.name}
           </Typography>
@@ -89,6 +89,7 @@ export default function ActivityDetail() {
           <Slider {...setings}>
             {activity.img
               ? activity.img.map((item, index) => (
+
 
                 <Box
                   key={index}
@@ -98,6 +99,7 @@ export default function ActivityDetail() {
                 </Box>
               ))
               : "cargando"}
+
           </Slider>
 
           <Box className={styles.containerProp}>
@@ -140,14 +142,12 @@ export default function ActivityDetail() {
             }}
           >
             <Button
-
-              variant="contained"
-              sx={{ fontSize: "1.4rem", marginRight: "3%" }}
+              variant='contained'
+              sx={{ fontSize: '1.4rem', marginRight: '3%' }}
               startIcon={toForm ? <AddCircleIcon /> : <AddShoppingCartIcon />}
               onClick={handleClick}
             >
-              {toForm ? "Añadir al paquete" : "Añadir al Carrito"}
-
+              {toForm ? 'Añadir al paquete' : 'Añadir al Carrito'}
             </Button>
             <Button
               variant='contained'
@@ -159,10 +159,15 @@ export default function ActivityDetail() {
             </Button>
           </Box>
 
-        </Grid>) : <LoadingComponent />
-      }
-      <CommentBoard activityId={activity.id} arrayComments={activity.comments} />
+        </Grid>
+      ) : (
+        <LoadingComponent />
+      )}
+      <CommentBoard
+        activityId={activity.id}
+        arrayComments={activity.comments}
+      />
+    </Grid>
 
-    </Grid >
   );
 }

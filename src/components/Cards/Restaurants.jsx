@@ -9,15 +9,14 @@ import Button from '@mui/material/Button';
 // import IconButton from "@mui/material/IconButton";
 // import FavoriteIcon from "@mui/icons-material/Favorite";
 
-import Typography from "@mui/material/Typography";
-import { useDispatch, useSelector } from "react-redux";
-import { addRestoForm } from "../../redux/actions/formActions";
-import { Link } from "react-router-dom";
-import {Rating} from "@mui/material";
+import Typography from '@mui/material/Typography';
+import { useDispatch, useSelector } from 'react-redux';
+import { addRestoForm } from '../../redux/actions/formActions';
+import { Link } from 'react-router-dom';
+import { Rating } from '@mui/material';
 
 export default function Actividades(props) {
-  const { id, name, location, img, price, description, comments, rating} =
-
+  const { id, name, location, img, price, description, comments, rating } =
     props.restaurants;
   const toForm = useSelector((state) => state.form.toForm);
   const dispatch = useDispatch();
@@ -30,6 +29,15 @@ export default function Actividades(props) {
       alert('no deberias poder ver esto');
     }
   };
+
+  const cutDescription = (description) => {
+    var nuevaDesc = description;
+    if (description.length > 250) {
+      nuevaDesc = nuevaDesc.slice(0,250);
+      nuevaDesc += "...";
+    }
+    return nuevaDesc
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -46,22 +54,26 @@ export default function Actividades(props) {
           </Typography>
           <Typography>{price}</Typography>
 
-          <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
-          <Typography variant="body2" color="text.secondary">
-
-            {description}
+          <Rating
+            name='half-rating-read'
+            value={rating}
+            precision={0.5}
+            readOnly
+          />
+          <Typography variant='body2' color='text.secondary'>
+            {cutDescription(description)}
           </Typography>
         </CardContent>
       </CardActionArea>
       <Grid display='flex' justify-content='space-between' align-items='center'>
         <CardActions>
-          {toForm
-            ?(<Button
-            variant='outlined'
-            onClick={handleClick}
-          >
-            Agregar al paquete
-          </Button>) : ""}
+          {toForm ? (
+            <Button variant='outlined' onClick={handleClick}>
+              Agregar al paquete
+            </Button>
+          ) : (
+            ''
+          )}
         </CardActions>
         {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />

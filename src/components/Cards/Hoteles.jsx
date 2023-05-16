@@ -9,13 +9,12 @@ import Button from '@mui/material/Button';
 // import IconButton from "@mui/material/IconButton";
 // import FavoriteIcon from "@mui/icons-material/Favorite";
 
-import Typography from "@mui/material/Typography";
-import { useDispatch, useSelector } from "react-redux";
-import { addHotelForm } from "../../redux/actions/formActions";
-import { agregarHotel } from "../../redux/actions/carritoActions";
-import { Link } from "react-router-dom";
-import {Rating} from "@mui/material";
-
+import Typography from '@mui/material/Typography';
+import { useDispatch, useSelector } from 'react-redux';
+import { addHotelForm } from '../../redux/actions/formActions';
+import { agregarHotel } from '../../redux/actions/carritoActions';
+import { Link } from 'react-router-dom';
+import { Rating } from '@mui/material';
 
 export default function Actividades(props) {
   const { id, name, location, description, img, stars, priceDay, rating } =
@@ -34,6 +33,15 @@ export default function Actividades(props) {
     }
   };
 
+  const cutDescription = (description) => {
+    var nuevaDesc = description;
+    if (description.length > 250) {
+      nuevaDesc = nuevaDesc.slice(0,250);
+      nuevaDesc += "...";
+    }
+    return nuevaDesc
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea key={id} component={Link} to={`/hotel/byId/${id}`}>
@@ -44,10 +52,14 @@ export default function Actividades(props) {
           </Typography>
           <Typography>{priceDay}</Typography>
 
-          <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
-          <Typography variant="body2" color="text.secondary">
-
-            {description}
+          <Rating
+            name='half-rating-read'
+            value={rating}
+            precision={0.5}
+            readOnly
+          />
+          <Typography variant='body2' color='text.secondary'>
+            {cutDescription(description)}
           </Typography>
         </CardContent>
       </CardActionArea>

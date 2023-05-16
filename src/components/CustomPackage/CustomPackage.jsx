@@ -12,6 +12,7 @@ import './CustomPackage.css';
 import { addReserva } from '../../redux/actions/reservaActions';
 import Calendar from '../Calendar/Calendar';
 import BasicModal from '../CreatePackage/Modals/BasicModal';
+import axios from "axios";
 
 function CustomPackage() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ function CustomPackage() {
   const carrito = useSelector((state) => state.carrito);
   const { activities, hotel } = carrito;
   const [open, setOpen] = useState(false);
+  const user = useSelector((state) => state.users.user);
 
   const handleApprove = async () => {
     dispatch(addReserva());
@@ -32,7 +34,7 @@ function CustomPackage() {
 
   const handleDeleteHotel = () => {
     dispatch(borrarHotel());
-  }
+  };
 
   const handleClick = (data) => {
     setDate(data);
@@ -53,21 +55,56 @@ function CustomPackage() {
     }
   };
 
+  const calcularValue = (actividades, hotel) => {
+    const precioActi = actividades.reduce((acumulator, currentValue) => acumulator + currentValue.price, 0);
+    const precioHotel = (hotel.priceDay * Math.ceil(activities.length / 2));
+    return precioActi + precioHotel;
+  }
+
+  const handleSubmit = async () => {
+    const duracion = Math.ceil(activities.length / 2);
+    const activitiesId = activities.map((elem) => {return elem.id});
+    const pack = {
+      name: "custom package",
+      location: "custom",
+      price: calcularValue(activities, hotel),
+      duration: duracion,
+      img : [],
+      description: "custom",
+      quotas: 2,
+      dateInit: date || new Date ("12/3/2023"),
+      dateEnd: new Date("12/5/2023"),
+      activitiesId: activitiesId,
+      hotelId: hotel.id,
+      restaurantId: "",
+      userId: user.id
+    }
+    const response = await axios.post("/package", pack);
+    const datosAMandar = {
+      paid: true,
+      numOfTravels: 1,
+      userId: user.id,
+      packageId: response.data.id,
+    }
+    await axios.post("/reservation", datosAMandar);
+    dispatch(estadoInicialCarrito());
+  }
+
   return (
     <div className='custom-package-container'>
       <h2>Personaliza tu paquete</h2>
       <div className='package-summary'>
         <h3>Resumen del paquete</h3>
-        <p>Fecha: {date.toLocaleString().split(",")[0]}</p>
+        <p>Fecha: {date.toLocaleString().split(',')[0]}</p>
         <button onClick={() => setOpen(true)}>elegir fecha</button>
         <BasicModal
           open={open}
           handleClose={() => setOpen(false)}
-          title="elegite la fecha"
-          content={<Calendar handleClick={handleClick}/>}
+          title='elegite la fecha'
+          content={<Calendar handleClick={handleClick} />}
           handleSubmit={false}
         />
-        <br/>
+        <br />
         <button onClick={handleApprove}>Aprobar paquete</button>
       </div>
       <div className='package-content'>
@@ -100,15 +137,13 @@ function CustomPackage() {
             className='add-hotel-button'
             onClick={() => handleNav('HOTEL')}
           >
-            {hotel
-              ? "Cambiar hotel"
-              : "+ Agregar hotel"}
+            {hotel ? 'Cambiar hotel' : '+ Agregar hotel'}
           </button>
           {hotel ? (
             <ul>
+              <li><button onClick={handleDeleteHotel}>X</button></li>
               <li>{hotel.name}</li>
               <li>{hotel.priceDay} por día</li>
-              <li><button onClick={handleDeleteHotel}>X</button></li>
             </ul>
           ) : (
             <p>No se ha agregado ningún hotel</p>
@@ -128,7 +163,7 @@ function CustomPackage() {
               purchase_units: [
                 {
                   amount: {
-                    value: (activities, hotel),
+                    value: calcularValue(activities, hotel),
                   },
                 },
               ],
@@ -136,7 +171,7 @@ function CustomPackage() {
           }}
           onApprove={(data, actions) => {
             return actions.order.capture().then(function () {
-              handleApprove();
+              handleSubmit();
               alert('¡Genial! Su transacción ha sido exitosa');
             });
           }}

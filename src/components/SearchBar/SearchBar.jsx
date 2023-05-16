@@ -5,6 +5,8 @@ import './SearchBar.css';
 import { useDispatch } from 'react-redux';
 import { getPackageByName } from '../../redux/actions/packageActions';
 import { getActivityByName } from '../../redux/actions/ActivitiesActions';
+import { getHotelByName } from '../../redux/actions/HotelesActions';
+import { getRestaurantByName } from '../../redux/actions/RestaurantsActions';
 
 const SearchBar = (dondeEstoy) => {
   const { ubicacion } = dondeEstoy;
@@ -12,28 +14,23 @@ const SearchBar = (dondeEstoy) => {
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
-    if (ubicacion === 'activity') {
-      e.preventDefault();
-      setSearchTerm(e.target.value);
-      dispatch(getActivityByName(e.target.value));
-    } else {
-      e.preventDefault();
-      setSearchTerm(e.target.value);
-      dispatch(getPackageByName(e.target.value));
+    e.preventDefault();
+    setSearchTerm(e.target.value)
+    switch(ubicacion){
+      case "activity":  
+      dispatch(getActivityByName(e.target.value))
+      break;
+      case "package": 
+      dispatch(getPackageByName(e.target.value))
+      break;
+      case "hotel": 
+      dispatch(getHotelByName(e.target.value))
+      break;
+      case "restaurant": 
+      dispatch(getRestaurantByName(e.target.value))
+      break;
+      default: e.preventDefault();
     }
-  };
-
-  const handleSubmit = (e) => {
-    if (ubicacion === 'activity') {
-      e.preventDefault();
-      dispatch(getActivityByName(searchTerm));
-      setSearchTerm('');
-    } else {
-      e.preventDefault();
-      dispatch(getPackageByName(searchTerm));
-      setSearchTerm('');
-    }
-  };
 
   return (
     <form onSubmit={handleSearch} className='search-box'>
@@ -47,12 +44,12 @@ const SearchBar = (dondeEstoy) => {
       <button
         type='submit'
         className='search-bar-button'
-        onClick={(e) => handleSubmit(e)}
       >
         <FontAwesomeIcon icon={faSearch} size='2x' />
       </button>
     </form>
   );
 };
+}
 
 export default SearchBar;

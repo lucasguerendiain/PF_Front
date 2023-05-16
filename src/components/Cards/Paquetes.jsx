@@ -4,16 +4,38 @@ import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import CardContent from '@mui/material/CardContent';
 
-import Button from '@mui/material/Button';
+
 
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
-import { CardActionArea } from '@mui/material';
-import { useNavigate } from 'react-router-dom/dist';
+import { CardActionArea, CardActions } from '@mui/material';
+
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+
+//for expand-----------------------------
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean;
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+//----------------------------------------------
 
 export default function Paquete(props) {
   const {
@@ -30,10 +52,23 @@ export default function Paquete(props) {
     restaurants,
     activities,
     hotel,
+    raiting,
   } = props.paquete;
   console.log(props);
 
-  const navigate = useNavigate();
+  const transformDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleString().split(',')[0];
+  };
+
+  //For expand---------------------------
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  //-------------------------------
 
   return (
     <Grid container justifyContent='center'>
@@ -42,7 +77,9 @@ export default function Paquete(props) {
           <CardActionArea key={id} component={Link} to={`/package/${id}`}>
             <CardHeader
               title={name}
-              subheader={`${dateInit} to ${dateEnd}`}
+              subheader={`${transformDate(dateInit)} to ${transformDate(
+                dateEnd,
+              )}`}
               action={
                 <Typography variant='h6' component='span' color='textSecondary'>
                   ${price}
@@ -66,41 +103,57 @@ export default function Paquete(props) {
 
               <Grid item xs={8}>
                 <Grid>
-                  <Typography variant='body2' color='text.secondary'>
-                    {description}
-                  </Typography>
+                  <CardActions>
+                    <Typography>DESCRIPCION</Typography>
+                    <ExpandMore
+                      expand={expanded}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label='show more'
+                    >
+                      <ExpandMoreIcon />
+                    </ExpandMore>
+                  </CardActions>
+                  <Collapse in={expanded} timeout='auto' unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>{description}</Typography>
+                    </CardContent>
+                  </Collapse>
                 </Grid>
 
-                <Grid container sapcing={3}>
-                  <Grid item xs={4}>
-                    <Typography>Actividades</Typography>
-                    {activities?.map((a) => {
-                      return (
-                        <ul>
-                          <li>{a.name}</li>
-                        </ul>
-                      );
-                    })}
-                  </Grid>
+                <Grid>
+                  <Grid container sapcing={3}>
+                    <Grid item xs={4} >
+                      <Typography>Actividades</Typography>
+                      {activities?.map((a) => {
+                        return (
+                          <ul>
+                            <li>{a.name}</li>
+                          </ul>
+                        );
+                      })}
+                    </Grid>
 
-                  <Grid item xs={4}>
-                    <Typography>Restaurants</Typography>
-                    {restaurants?.map((r) => {
-                      return (
-                        <ul>
-                          <li>{r.name}</li>
-                        </ul>
-                      );
-                    })}
-                  </Grid>
+                    <Grid item xs={4}>
+                      <Typography>Restaurants</Typography>
+                      {restaurants?.map((r) => {
+                        return (
+                          <ul>
+                            <li>{r.name}</li>
+                          </ul>
+                        );
+                      })}
+                    </Grid>
 
-                  <Grid item xs={4}>
-                    <Typography>Hotel</Typography>
-                    <ul>
-                      <li>{hotel.name}</li>
-                    </ul>
+                    <Grid item xs={4}>
+                      <Typography>Hotel</Typography>
+                      <ul>
+                        <li>{hotel.name}</li>
+                      </ul>
+                    </Grid>
                   </Grid>
                 </Grid>
+                <Grid></Grid>
               </Grid>
             </Grid>
           </CardContent>
