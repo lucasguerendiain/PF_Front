@@ -58,14 +58,7 @@ export default function CreatePackageForm() {
   const [openResto, setOpenResto] = useState(false);
   const [selectDate, setSelectDate] = useState(new Date());
   const state = useSelector((state) => state.form);
-  const [user, setUser] = useState({
-    userName: 'damian',
-    email: 'adna',
-    password: '321456',
-    lastName: 'broglia',
-    social: true,
-    socialRed: 'feisbuh',
-  });
+  const user = useSelector((state) => state.users.user);
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -158,28 +151,24 @@ export default function CreatePackageForm() {
         setHotels(package1.hotel);
         setActivities(package1.activities);
         setResto(package1.resto);
-        setUser(package1.user);
         break;
       case 'dos':
         setInputs(package2.package);
         setHotels(package2.hotel);
         setActivities(package2.activities);
         setResto(package2.resto);
-        setUser(package2.user);
         break;
       case 'tres':
         setInputs(package3.package);
         setHotels(package3.hotel);
         setActivities(package3.activities);
         setResto(package3.resto);
-        setUser(package3.user);
         break;
       case 'cuatro':
         setInputs(package4.package);
         setHotels(package4.hotel);
         setActivities(package4.activities);
         setResto(package4.resto);
-        setUser(package4.user);
         break;
       default:
         alert('error');
@@ -370,7 +359,7 @@ export default function CreatePackageForm() {
           restaurantID: [],
           hotelId: hotels.id || '',
           activitiesID: [],
-          userId: user.id || '',
+          userId: user.id,
         };
         for (let i = 0; i < resto.length; i++) {
           if (resto[i].id) {
@@ -392,12 +381,6 @@ export default function CreatePackageForm() {
             ids.activitiesID.push(actviId.data.id);
           }
         }
-        const aux = await axios.get('/user/1');
-        setUser(aux.data);
-        if (!user.id) {
-          const userId = await axios.post('/user', user);
-          ids.userId = userId.data.id;
-        } else ids.userId = user.id;
         const body = {
           ...inputs,
           img: combinedImages,
@@ -412,7 +395,7 @@ export default function CreatePackageForm() {
           if (response.status === 200) {
             dispatch(emptyFormCommand());
             alert('paquete creado con exito');
-            navigate(0);
+            navigate(-1);
           }
         });
       } catch (error) {

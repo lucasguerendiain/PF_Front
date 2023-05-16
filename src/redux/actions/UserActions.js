@@ -18,3 +18,12 @@ export const addUser = (payload) => async (dispatch) => {
         console.log(error.message);
     }
 }
+
+export const setSpam = (id, notification) => async (dispatch) => {
+    try {
+        const response = await axios.put(`/user/spam`, {id, notification});
+        if (response.data) dispatch(postUser(response.data));
+    } catch (error) {
+        console.log(error.message);
+    }
+}

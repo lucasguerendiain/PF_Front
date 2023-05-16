@@ -32,18 +32,6 @@ const SearchBar = (dondeEstoy) => {
       default: e.preventDefault();
     }
 
-  const handleSubmit = (e) => {
-    if (ubicacion === 'activity') {
-      e.preventDefault();
-      dispatch(getActivityByName(searchTerm));
-      setSearchTerm('');
-    } else {
-      e.preventDefault();
-      dispatch(getPackageByName(searchTerm));
-      setSearchTerm('');
-    }
-  };
-
   return (
     <form onSubmit={handleSearch} className='search-box'>
       <input
@@ -56,12 +44,12 @@ const SearchBar = (dondeEstoy) => {
       <button
         type='submit'
         className='search-bar-button'
-        onClick={(e) => handleSubmit(e)}
       >
         <FontAwesomeIcon icon={faSearch} size='2x' />
       </button>
     </form>
   );
 };
+}
 
 export default SearchBar;
