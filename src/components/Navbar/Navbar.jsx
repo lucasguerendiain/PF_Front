@@ -47,15 +47,15 @@ const Navbar = () => {
       setData({
         email : user.email,
         name: user.given_name,
-        lastName:user.family_name,
+        lastName: user.family_name,
         picture :user.picture,
         validator: user.sub,
-        sent : true,  
+        sent : true,
+        notification: false,  
       })
     }
     if(data.sent){
       dispatch(addUser(data))
-      console.log( data, user)
     }
 
     return (
