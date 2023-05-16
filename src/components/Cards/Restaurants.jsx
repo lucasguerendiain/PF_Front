@@ -30,6 +30,15 @@ export default function Actividades(props) {
     }
   };
 
+  const cutDescription = (description) => {
+    var nuevaDesc = description;
+    if (description.length > 250) {
+      nuevaDesc = nuevaDesc.slice(0,250);
+      nuevaDesc += "...";
+    }
+    return nuevaDesc
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea key={id} component={Link} to={`/restaurant/byId/${id}`}>
@@ -52,7 +61,7 @@ export default function Actividades(props) {
             readOnly
           />
           <Typography variant='body2' color='text.secondary'>
-            {description}
+            {cutDescription(description)}
           </Typography>
         </CardContent>
       </CardActionArea>

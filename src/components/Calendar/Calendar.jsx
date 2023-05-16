@@ -18,7 +18,7 @@ export default function Calendar({ handleClick }) {
     'Noviembre',
     'Diciembre',
   ];
-  const year = [2023, 2024];
+  const [year, setYear] = useState([2023]);
   const [currentMonth, setCurrentMonth] = useState(0);
   const [currentYear, setCurrentYear] = useState(0);
   const [inicio, setInicio] = useState('');
@@ -58,6 +58,7 @@ export default function Calendar({ handleClick }) {
     const dia = new Date(Date.now());
     setCurrentMonth(dia.getMonth());
     setInicio(`${dia.getMonth()}//${dia.getDate()}//${dia.getFullYear()}`);
+    setYear([dia.getFullYear(), dia.getFullYear() + 1]);
   }, []);
 
   useEffect(() => {
