@@ -124,15 +124,7 @@ export const package1 = {
       price: '600',
       description: 'Churrasqueria, parrila',
     },
-  ],
-  user: {
-    userName: 'lucas',
-    email: 'nada',
-    password: '123456',
-    lastName: 'Guere',
-    social: true,
-    socialRed: 'feisbuh',
-  },
+  ]
 };
 
 export const package2 = {
@@ -282,15 +274,7 @@ export const package2 = {
         Apto para vegetarianos, Opciones veganas, Opciones sin gluten.
         Telefono: +54 2972 42-7888`,
     },
-  ],
-  user: {
-    userName: 'elias',
-    email: 'anda',
-    password: '654321',
-    lastName: 'gomez',
-    social: true,
-    socialRed: 'feisbuh',
-  },
+  ]
 };
 
 export const package3 = {
@@ -407,15 +391,7 @@ export const package3 = {
             CARACTERÍSTICAS:
             Comida para llevar, Asiento, Servicio de mesa`,
     },
-  ],
-  user: {
-    userName: 'marcos',
-    email: 'dnaa',
-    password: '123654',
-    lastName: 'mugica',
-    social: true,
-    socialRed: 'feisbuh',
-  },
+  ]
 };
 
 export const package4 = {
@@ -632,13 +608,5 @@ export const package4 = {
         Telefono: 0351 626-9542
         `,
     },
-  ],
-  user: {
-    userName: 'damian',
-    email: 'adna',
-    password: '321456',
-    lastName: 'broglia',
-    social: true,
-    socialRed: 'feisbuh',
-  },
+  ]
 };
