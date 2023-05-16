@@ -15,6 +15,8 @@ import CommentBoard from "../../CommentBoard/CommentBoard";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { addActiForm } from '../../../redux/actions/formActions';
 import { agregarActivitie } from '../../../redux/actions/carritoActions';
+import { Rating } from "@mui/material"
+import styles from "../Detail.module.css"
 
 export default function ActivityDetail() {
   const navigate = useNavigate();
@@ -42,9 +44,6 @@ export default function ActivityDetail() {
     navigate(-1);
   };
 
-//   useEffect(() => {
-//     setComment(activity.comments)
-// }, [activity])
 
   const handleClick = () => {
     if (toForm) {
@@ -56,14 +55,13 @@ export default function ActivityDetail() {
     }
   };
 
+
+
   const setings = {
     dots: true,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: false,
-    variableWidth: false,
-    adaptativeHeigth: false,
   };
 
   return (
@@ -76,64 +74,62 @@ export default function ActivityDetail() {
       marginTop: "2%",
       marginLeft: "8%",
       marginRight: "8%",
-      border: "1px solid black",
-      backgroundColor: "beige"
     }}>
       {Object.keys(activity).length ? (
         <Grid>
           <Typography
-            variant="h1"
+            variant="h2"
             gutterBottom
-            fontWeight="600"
-            sx={{ marginTop: "1%" }}
-
+            fontWeight="400"
+            className={styles.name}
           >
             {activity.name}
           </Typography>
+
           <Slider {...setings}>
             {activity.img
               ? activity.img.map((item, index) => (
 
                 <Box
                   key={index}
-                  sx={{
-                    maxWidth: "70%",
-                  }}
+
                 >
-                  <img src={item} alt=""></img>
+                  <img className={styles.image} src={item} alt=""></img>
                 </Box>
               ))
               : "cargando"}
-
           </Slider>
-          <Grid marginTop='4%'>
-            <Typography
-              variant='h3'
-              sx={{ fontWeight: '600', whiteSpace: 'pre-line' }}
-              gutterBottom
-            >
-              {' '}
-              Descripcion:
-              <Typography variant='h4' sx={{ display: 'block' }}>
-                {activity.description}
-              </Typography>
-            </Typography>
-            <Typography variant='h3' sx={{ fontWeight: '700' }} gutterBottom>
-              {' '}
-              Duracion:
+
+          <Box className={styles.containerProp}>
+
+            <Box className={styles.containerRating}>
+              <Typography variant='h5'>Duración:</Typography>
               <Typography variant='h4'>{activity.duration} horas</Typography>
-            </Typography>
-            <Typography variant='h3' sx={{ fontWeight: '700' }} gutterBottom>
-              {' '}
-              Tipo de actividad:
+            </Box>
+
+            <Box className={styles.containerRating}>
+              <Typography variant='h5'>Tipo:</Typography>
               <Typography variant='h4'>{activity.typeAct}</Typography>
-            </Typography>
-            <Typography variant='h3' sx={{ fontWeight: '700' }} gutterBottom>
-              {' '}
-              Precio:
+            </Box>
+
+            <Box className={styles.containerRating}>
+              <Typography variant='h5'>Precio:</Typography>
               <Typography variant='h4'>{activity.price} USD</Typography>
-            </Typography>
-          </Grid>
+            </Box>
+
+            <Box className={styles.containerRating}>
+              <Typography variant='h5'>Rating</Typography>
+              {activity.rating ?
+                <Rating name="half-rating-read" value={activity.rating} precision={0.5} readOnly size="large" className={styles.rating} /> :
+                <Typography variant='h4'>S/Puntaje</Typography>
+              }
+            </Box>
+          </Box>
+
+          <Typography variant='h4' sx={{marginTop:"25px"}}>
+            {activity.description}
+          </Typography>
+
           <Box
             sx={{
               display: 'flex',
@@ -167,6 +163,6 @@ export default function ActivityDetail() {
       }
       <CommentBoard activityId={activity.id} arrayComments={activity.comments} />
 
-    </Grid>
+    </Grid >
   );
 }

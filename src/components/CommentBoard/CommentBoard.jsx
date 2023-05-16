@@ -14,6 +14,11 @@ import React, { useEffect, useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios"
+// import { getHotelDetailById } from '../../redux/actions/HotelesActions';
+// import { getActivityDetailById } from "../../redux/actions/ActivitiesActions";
+// import { getPackageDetailById } from '../../redux/actions/packageActions';
+// import { getRestaurantDetailById } from '../../redux/actions/RestaurantsActions';
+// import { useDispatch } from "react-redux";
 
 
 export default function CommentBoard(prop) {
@@ -21,6 +26,7 @@ export default function CommentBoard(prop) {
     const [commentValue, setCommentValue] = useState("");
     const [existingComments, setExistingComments] = useState([]);
     const [errors, setErrors] = useState(false);
+  
 
 
     const user = {
@@ -57,10 +63,18 @@ export default function CommentBoard(prop) {
                 comment: commentValue,
                 rating: hearts.toString()
             }
-            if (prop.activityId) nuevoComentario.activityId = prop.activityId
-            if (prop.hotelId) nuevoComentario.hotelId = prop.hotelId
-            if (prop.restaurantId) nuevoComentario.restaurantId = prop.restaurantId
-            if (prop.packageId) nuevoComentario.packageId = prop.packageId
+            if (prop.activityId) {
+                nuevoComentario.activityId = prop.activityId
+            }
+            if (prop.hotelId) {
+                nuevoComentario.hotelId = prop.hotelId
+            }
+            if (prop.restaurantId) {
+                nuevoComentario.restaurantId = prop.restaurantId
+            }
+            if (prop.packageId) {
+                nuevoComentario.packageId = prop.packageId
+            }
 
             axios.post("/comments", nuevoComentario)
                 .then(response => {
@@ -68,6 +82,20 @@ export default function CommentBoard(prop) {
                         alert("Comentario posteado con exito")
                     }
                 })
+
+            // if (comentario.activityId) {
+            //     dispatch(getActivityDetailById(comentario.activityId))
+            // }
+            // if (comentario.hotelId) {
+            //     dispatch(getHotelDetailById(comentario.hotelId))
+            // }
+            // if (comentario.restaurantId) {
+            //     dispatch(getRestaurantDetailById(comentario.restaurantId))
+            // }
+            // if (comentario.packageId) {
+            //     dispatch(getPackageDetailById(comentario.packageId))
+            // }
+
 
             setExistingComments([
                 ...existingComments,
