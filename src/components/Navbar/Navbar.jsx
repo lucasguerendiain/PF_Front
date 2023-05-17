@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaShoppingCart } from 'react-icons/fa';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { addUser } from "../../redux/actions/UserActions";
 import style from './Navbar.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import logo from '../../assets/Horizons2.png';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
   
@@ -18,8 +19,9 @@ import logo from '../../assets/Horizons2.png';
 const Navbar = () => {
   const {logout, loginWithRedirect, user, isAuthenticated, isLoading, error } = useAuth0();
   const dispatch = useDispatch();
+  const admin = process.env.REACT_APP_ADMIN_USERS;
 
-  const [data, setData] =useState({
+  const [data, setData] = useState({
     email : "",
     name: "",
     lastName:"",
@@ -77,11 +79,12 @@ const Navbar = () => {
                   Inicio
                 </Link>
               </li>
-              {/* <li className={style.navItem + ' nav-item'}>
+              {admin.slice(",").includes(user.email)
+              ? (<li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/dashboard'>
                   Administrador
                 </Link>
-              </li> */}
+            </li>) : ("")}
               <li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/packagecards'>
                   Paquetes
@@ -147,7 +150,7 @@ const Navbar = () => {
               </li>
               <li className={style.navItem + ' nav-item ml-auto'}>
                 <Link className={style.navLink + ' nav-link'} onClick={() => logout({ returnTo: window.location.origin })}>
-                  <FaUser /> Cerrar sesión
+                  Cerrar sesión <LogoutIcon/>
                 </Link>
               </li>
             </ul>
@@ -181,11 +184,12 @@ const Navbar = () => {
                   Inicio
                 </Link>
               </li>
-              {/* <li className={style.navItem + ' nav-item'}>
+              {/*
+                <li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/dashboard'>
                   Administrador
                 </Link>
-              </li> */}
+              </li>) */}
               <li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/packagecards'>
                   Paquetes
@@ -245,7 +249,7 @@ const Navbar = () => {
                   <FaUser /> Iniciar sesión
                 </Link>
               </li>
-               {/*<li className={style.navItem + ' nav-item'}>
+                {/*<li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/carrito'>
                   <FaShoppingCart /> Carrito
                 </Link>

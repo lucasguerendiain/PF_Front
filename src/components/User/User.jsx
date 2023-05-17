@@ -4,11 +4,11 @@ import './User.css';
 import { Link } from "react-router-dom";
 
 const User = () => {
-  const {user, isAuthenticated,} = useAuth0();
+  const {user, isAuthenticated} = useAuth0();
   const admin = process.env.REACT_APP_ADMIN_USERS;
   
   if (isAuthenticated && user.picture) {
-    if(user.email === admin){
+    if(admin.slice(",").includes(user.email)){
       return (
         <div className='container0'>
           <div className='container1'>
