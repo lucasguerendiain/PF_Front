@@ -6,79 +6,64 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-// import IconButton from "@mui/material/IconButton";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-
 import Typography from '@mui/material/Typography';
 import { Rating } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { agregarActivitie } from '../../redux/actions/carritoActions';
 import { addActiForm } from '../../redux/actions/formActions';
 import { Link } from 'react-router-dom';
+import './Actividades.css'; // Importar el archivo CSS
 
 export default function Actividades(props) {
-  const { id, name, duration, img, description, typeAct, price, rating } =
-    props.actividad;
+  const { id, name, duration, img, description, typeAct, price, rating } = props.actividad;
   const dispatch = useDispatch();
   const toForm = useSelector((state) => state.form.toForm);
 
   const handleClick = async (e) => {
     if (toForm) {
       dispatch(addActiForm(props.actividad));
-      alert('se agrego con exito');
+      alert('Se agregó con éxito');
     } else {
       dispatch(agregarActivitie(props.actividad));
-      alert('Se agrego la actividad al carrito.');
+      alert('Se agregó la actividad al carrito.');
     }
   };
 
   const cutDescription = (description) => {
     var nuevaDesc = description;
     if (description.length > 250) {
-      nuevaDesc = nuevaDesc.slice(0,250);
+      nuevaDesc = nuevaDesc.slice(0, 250);
       nuevaDesc += "...";
     }
-    return nuevaDesc
+    return nuevaDesc;
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card className="actividad-card">
       <CardActionArea key={id} component={Link} to={`/activity/byId/${id}`}>
-        <CardMedia
-          component='img'
-          alt='actividad'
-          height='140'
-          image={img[0]}
-        />
+        <CardMedia component="img" alt="actividad" height="140" image={img[0]} />
         <CardContent>
-          <Typography gutterBottom variant='h5' component='div'>
+          <Typography gutterBottom variant="h5" component="div" className="actividad-name">
             {name}
           </Typography>
-          <Rating
-            name='half-rating-read'
-            value={rating}
-            precision={0.5}
-            readOnly
-          />
-          <Typography>{price}</Typography>
-          <Typography variant='body2' color='text.secondary'>
+          <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
+          <Typography className="price">{price}</Typography>
+          <Typography variant="body2" color="text.secondary" className="description">
             {cutDescription(description)}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Grid display='flex' justify-content='space-between' align-items='center'>
+      <Grid
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        className="actividad-card-footer"
+      >
         <CardActions>
-          <Button
-            variant='outlined'
-            value={name}
-            onClick={(e) => handleClick(e)}
-          >
+          <Button variant="outlined" onClick={handleClick} className="add-button">
             {toForm ? 'Agregar al paquete' : 'Agregar al carrito'}
           </Button>
         </CardActions>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
       </Grid>
     </Card>
   );
