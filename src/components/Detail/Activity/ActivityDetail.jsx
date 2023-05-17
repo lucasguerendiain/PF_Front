@@ -23,6 +23,7 @@ export default function ActivityDetail() {
   const activity = useSelector((state) => state.activities.detail);
   const toForm = useSelector((state) => state.form.toForm);
   const { id } = useParams();
+  const user =  useSelector((state) => state.users.user);
   // const [comment, setComment] = useState(activity.comments)
 
   useEffect(() => {
@@ -141,14 +142,15 @@ export default function ActivityDetail() {
               padding: '3%',
             }}
           >
-            <Button
+            {Object.values(user).length?
+            (<Button
               variant='contained'
               sx={{ fontSize: '1.4rem', marginRight: '3%' }}
               startIcon={toForm ? <AddCircleIcon /> : <AddShoppingCartIcon />}
               onClick={handleClick}
             >
               {toForm ? 'Añadir al paquete' : 'Añadir al Carrito'}
-            </Button>
+            </Button>) : ("")}
             <Button
               variant='contained'
               sx={{ fontSize: '1.4rem' }}

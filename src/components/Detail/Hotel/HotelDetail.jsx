@@ -21,7 +21,7 @@ export default function HotelDetail() {
   const dispatch = useDispatch();
   const hotel = useSelector((state) => state.hoteles.detail);
   const toForm = useSelector((state) => state.form.toForm);
-
+  const user =  useSelector((state) => state.users.user);
 
   const { id } = useParams();
   const setings = {
@@ -136,14 +136,15 @@ export default function HotelDetail() {
               padding: '3%',
             }}
           >
-            <Button
+            {Object.values(user).length?
+            (<Button
               variant='contained'
               sx={{ fontSize: '1.4rem', marginRight: '3%' }}
               startIcon={toForm ? <AddCircleIcon /> : <AddShoppingCartIcon />}
               onClick={handleClick}
             >
               {toForm ? 'Añadir al paquete' : 'Añadir al Carrito'}
-            </Button>
+            </Button>) : ("")}
             <Button
               variant='contained'
               sx={{ fontSize: '1.6rem' }}
