@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from 'react-router-dom/dist';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,13 +23,15 @@ import './PackageDetail.css';
 //PayPal
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import CommentBoard from '../../CommentBoard/CommentBoard';
+import axios from "axios";
 
 export default function PackageDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const pack = useSelector((state) => state.packages.detail);
-  const precio = pack.price;
   const { id } = useParams();
+  const user = useSelector((state) => state.users.user);
+  const [valid, setValid] = useState(false);
 
   const settings = {
     dots: true,
@@ -73,6 +75,17 @@ export default function PackageDetail() {
     navigate(-1);
   };
 
+  const handleSubmit = async () => {
+    const datosAMandar = {
+      paid: true,
+      numOfTravels: 1,
+      userId: user.id,
+      packageId: pack.id
+    }
+    await axios.post("/reservation", datosAMandar);
+    setValid(false);
+  }
+
   useEffect(() => {
     const getDetail = async () => {
       try {
@@ -86,6 +99,17 @@ export default function PackageDetail() {
     };
     id && getDetail();
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (valid) {
+      alert(
+        '¡Excelente! Tu transacción ha sido realizada con éxito.',
+      );
+      setTimeout(()=> {
+        handleSubmit();
+      }, 1000);
+    }
+  }, [valid])
 
   return (
     <Box
@@ -345,28 +369,27 @@ export default function PackageDetail() {
       </Box>
       <Box sx={{ marginTop: '5%', marginBottom: '3%' }}>
         <PayPalScriptProvider
-          options={{
-            'client-id':
-              'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
-          }}
+        options={{
+          'client-id':
+            'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
+        }}
         >
           <PayPalButtons
+          forceReRender={[pack]}
             createOrder={(data, actions) => {
               return actions.order.create({
                 purchase_units: [
                   {
                     amount: {
-                      value: precio,
+                      value: pack.price,
                     },
                   },
                 ],
               });
             }}
-            onApprove={async (data, actions) => {
+            onApprove={(data, actions) => {
               return actions.order.capture().then(function () {
-                alert(
-                  '¡Excelente! Tu transacción ha sido realizada con éxito.',
-                );
+                setValid(true);
               });
             }}
             onCancel={(data) => {
