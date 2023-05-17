@@ -74,11 +74,11 @@ const Navbar = () => {
                   Inicio
                 </Link>
               </li>
-              <li className={style.navItem + ' nav-item'}>
+              {/* <li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/dashboard'>
                   Administrador
                 </Link>
-              </li>
+              </li> */}
               <li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/packagecards'>
                   Paquetes
@@ -264,3 +264,4 @@ const Navbar = () => {
 };
 
 export default Navbar; 
+

@@ -1,0 +1,47 @@
+.imgRedonda {
+    width:55px;
+    height:55px;
+    border-radius:160px;
+    margin-right: 2%;
+    margin-left: 30px;
+    border:3px  solid rgb(29, 102, 203);
+}
+
+.container0 {
+    display: flex; /* or inline-flex */
+    flex-direction: column;
+    
+    align-items: center;
+}  
+
+.container1 {
+    display: flex; /* or inline-flex */
+    background-color: rgb(204, 205, 207);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-left: 10px;
+    border-radius:10px;
+    max-width: 55%;
+    min-width: 55%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.container2 {
+    display: flex; /* or inline-flex */
+    flex-direction: column;
+    background-color: rgb(204, 205, 207);
+    border-radius:10px;
+    padding-left: 10px;
+    margin-bottom: 25px;
+    max-width: 55%;
+    min-width: 55%;
+    min-height: 40px;
+    justify-content:center;
+    align-items: flex-start;
+}
+
+h3{
+    align-self: flex-start;
+    margin-left: 300px;
+}
