@@ -9,7 +9,7 @@ export default function Reservations(){
     console.log(reserva)
 
     useEffect(()=>{
-        dispatch(getAllreservas());
+        dispatch(getAllreservas());;
     },[dispatch])
 
     return(
