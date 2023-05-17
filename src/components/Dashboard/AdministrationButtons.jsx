@@ -17,7 +17,9 @@ export default function AdministrationButtons() {
               <EventAvailableIcon sx={{ fontSize: 40, color: 'white' }} />
             </Grid>
             <Grid item>
-              <Button className={`${styles.btn} ${styles.primary}`}>
+              <Button className={`${styles.btn} ${styles.primary}`}
+              onClick={() => navigate('/adminReservas')}
+              >
                 Movimientos/reservas
               </Button>
             </Grid>

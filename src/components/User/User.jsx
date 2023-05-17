@@ -30,7 +30,7 @@ const User = () => {
           </div>
         </div>  
       );
-    }else{
+    } else {
     return (
       <div className='container0'>
         <div className='container1'>

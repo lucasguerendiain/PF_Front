@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  reservas: [],
+  allReservas: [],
+  userReservas: [],
   error: '',
 };
 
@@ -13,10 +14,10 @@ export const reservaSlice = createSlice({
       state.reservas = [...state.reservas, action.payload];
     },
     getAllreserva: (state, action) => {
-      state.reservas = [action.payload];
+      state.allReservas = action.payload;
     },
     getUserReserva: (state, action) => {
-      state.reservas = [action.payload];
+      state.userReservas = action.payload;
     },
     setError: (state, action) => {
       state.error = action.payload;
