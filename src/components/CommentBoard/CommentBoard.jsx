@@ -108,91 +108,95 @@ export default function CommentBoard(prop) {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    border: '1px solid grey',
                 }}
             >
-                <Card
-                    sx={{
-                        // border: '1px solid black',
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: '1%',
-                        backgroundColor: "white",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}
-                >
-                    <CardHeader
-                        title={
-                            <Box
+                {user.id ? 
+                                <Card
                                 sx={{
-                                    display: 'flex',
-                                    width: '66vw',
-                                    justifyContent: 'space-between',
-                                    // margin: '1.5% 1% 0% 1%',
-                                    backgroundColor: "green",
-                                    backgroundColor: "rgb(4 15 57)",
-                                    color: "white",
+                                    // border: '1px solid black',
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    marginTop: '1%',
+                                    backgroundColor: "white",
                                     alignItems: "center",
-                                    height: "66px",
-                                    borderBottomStyle: "solid",
-                                    borderBottomWidth: "10px",
-                                    borderBottomColor: "rgb(29 102 203)",
-                                    paddingTop: "24px",
-                                    paddingInline: "20px"
+                                    justifyContent: "center"
                                 }}
                             >
-                                <Typography
-                                    variant='h4'
-                                    display='inline'
-                                    sx={{ marginRight: '1%', marginLeft: '1%' }}
-                                >
-                                    {user.email}
+                                <CardHeader
+                                    title={
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                width: '66vw',
+                                                justifyContent: 'space-between',
+                                                // margin: '1.5% 1% 0% 1%',
+                                                backgroundColor: "green",
+                                                backgroundColor: "rgb(4 15 57)",
+                                                color: "white",
+                                                alignItems: "center",
+                                                height: "66px",
+                                                borderBottomStyle: "solid",
+                                                borderBottomWidth: "10px",
+                                                borderBottomColor: "rgb(29 102 203)",
+                                                paddingTop: "24px",
+                                                paddingInline: "20px"
+                                            }}
+                                        >
+                                            <Typography
+                                                variant='h4'
+                                                display='inline'
+                                                sx={{ marginRight: '1%', marginLeft: '1%' }}
+                                            >
+                                                {user.email}
+                                            </Typography>
+                                            <Typography variant='h5' display='inline'>
+                                                {date.toLocaleDateString('es', {
+                                                    weekday: 'long',
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                })}
+                                            </Typography>
+                                        </Box>
+                                    }
+                                />
+            
+            
+                                <TextField sx={{
+                                    width: "1300px"
+                                }}
+                                    multiline
+                                    rows={6}
+                                    onChange={handleComment}
+                                    value={commentValue}
+                                    placeholder='deja tu comentario...'
+                                    error={errors}
+                                    helperText={errors ? 'no mas de 7 saltos de linea' : ''}
+                                />
+                                <Typography sx={{
+                                    fontSize: "24px",
+                                    alignItems: "center",
+                                    borderTop: "10px"
+                                }}
+                                    display='flex'
+                                    variant='subtitle1'>
+                                    valoracion:
+                                    <Rating
+                                        name="simple-controlled"
+                                        value={value}
+                                        onChange={handleChange}
+                                        size="large"
+                                    />
                                 </Typography>
-                                <Typography variant='h5' display='inline'>
-                                    {date.toLocaleDateString('es', {
-                                        weekday: 'long',
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric',
-                                    })}
-                                </Typography>
-                            </Box>
-                        }
-                    />
+                                <CardActions sx={{ marginTop: '15px' }}>
+                                    <Button size="medium" variant="contained" onClick={handleSend}>Postear</Button>
+                                    <Button size="medium" variant="contained" onClick={() => setCommentValue("")}>Cancelar</Button>
+                                </CardActions>
+                            </Card>:
+                             <Typography sx={{fontSize:"25px"}}> Logueate para dejar tu comentario!</Typography>
+            }
 
 
-                    <TextField sx={{
-                        width: "1300px"
-                    }}
-                        multiline
-                        rows={6}
-                        onChange={handleComment}
-                        value={commentValue}
-                        placeholder='deja tu comentario...'
-                        error={errors}
-                        helperText={errors ? 'no mas de 7 saltos de linea' : ''}
-                    />
-                    <Typography sx={{
-                        fontSize: "24px",
-                        alignItems: "center",
-                        borderTop: "10px"
-                    }}
-                        display='flex'
-                        variant='subtitle1'>
-                        valoracion:
-                        <Rating
-                            name="simple-controlled"
-                            value={value}
-                            onChange={handleChange}
-                            size="large"
-                        />
-                    </Typography>
-                    <CardActions sx={{ marginTop: '15px' }}>
-                        <Button size="medium" variant="contained" onClick={handleSend}>Postear</Button>
-                        <Button size="medium" variant="contained" onClick={() => setCommentValue("")}>Cancelar</Button>
-                    </CardActions>
-                </Card>
                 <CardContent
                     sx={{
                         backgroundColor: 'white',
@@ -286,9 +290,9 @@ export default function CommentBoard(prop) {
                                     ))}
                             </Grid>
                         </Box>
-                    ) : (
-                        'no hay comentarios, deja el primero!'
-                    )}
+                    ) : 
+                    <Typography sx={{fontSize:"25px"}}> No hay comentarios, deja el primero!</Typography>
+                    }
                 </CardContent>
             </Card>
         </Box>
