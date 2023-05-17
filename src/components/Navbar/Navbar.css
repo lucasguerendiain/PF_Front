@@ -11,6 +11,14 @@ nav {
     cursor: pointer;
 }
 
+.navLogo{
+    position: absolute;
+    top:20px;
+    left:1220px;
+    width: 100px;
+}
+
+
 .navbar {
     background-color: #e6ecf1;
     height: 80px;

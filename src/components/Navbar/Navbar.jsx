@@ -61,8 +61,11 @@ const Navbar = () => {
     return (
       <nav className={style.navbar}>
         <div className={style.container}>
-          <Link to='/' className={style.navLogo}>
-            <img src={logo} alt='Logo' style={{ width: '75px' }} />
+          <Link to='/' >
+            <img src={logo} alt='Logo' className={style.navLogo} style={{
+              width : "400px",
+              marginLeft: "400px"
+              }}/>
           </Link>
           <div
             className={style.collapse + ' collapse navbar-collapse'}
@@ -162,8 +165,8 @@ const Navbar = () => {
     return (
       <nav className={style.navbar}>
         <div className={style.container}>
-          <Link to='/' className={style.navLogo}>
-            <img src={logo} alt='Logo' style={{ width: '75px' }} />
+          <Link to='/' >
+            <img src={logo} className={style.navLogo} alt='Logo' style={{ width: '750px' }} />
           </Link>
           <div
             className={style.collapse + ' collapse navbar-collapse'}
