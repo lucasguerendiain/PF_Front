@@ -2,6 +2,7 @@ import axios from "axios";
 import { postUser } from "../reducer/userSlice";
 
 //eliasmotog3@gmail.com
+//dnbdt86@gmail.com
 
 export const addUser = (payload) => async (dispatch) => {
     try {
