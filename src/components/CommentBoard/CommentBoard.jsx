@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 import axios from 'axios';
 
 export default function CommentBoard(prop) {
@@ -20,6 +21,7 @@ export default function CommentBoard(prop) {
   const [commentValue, setCommentValue] = useState('');
   const [existingComments, setExistingComments] = useState([]);
   const [errors, setErrors] = useState(false);
+
 
   const user = {
     name: 'Lucas',
@@ -66,6 +68,7 @@ export default function CommentBoard(prop) {
       setCommentValue('');
     } else alert('falta el comentario o la calificacion');
   };
+
 
   const renderHearts = (heartNumber) => {
     const heartinfo = Array(heartNumber)
