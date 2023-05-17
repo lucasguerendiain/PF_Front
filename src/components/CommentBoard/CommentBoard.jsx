@@ -11,6 +11,7 @@ import {
     Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
 import Rating from '@mui/material/Rating';
 import { registerLocale } from 'react-datepicker';
@@ -36,11 +37,13 @@ export default function CommentBoard(prop) {
         setValue(e.target.value)
     };
 
+
     const handleComment = (event) => {
         //ahora mismo el usuario puede poner todos los saltos de linea que quiera
         //no se me ocurre como frenarlo
         setCommentValue(event.target.value);
     };
+
 
     useEffect(() => {
         setErrors(commentValue.split('\n').length > 7 ? true : false);
@@ -87,6 +90,7 @@ export default function CommentBoard(prop) {
         }
 
     }
+
 
     return (
         <Box
