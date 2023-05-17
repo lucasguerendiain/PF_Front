@@ -6,17 +6,15 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-// import IconButton from "@mui/material/IconButton";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { addHotelForm } from '../../redux/actions/formActions';
 import { agregarHotel } from '../../redux/actions/carritoActions';
 import { Link } from 'react-router-dom';
 import { Rating } from '@mui/material';
+import './Hoteles.css'; // Importar el archivo CSS
 
-export default function Actividades(props) {
+export default function Hoteles(props) {
   const { id, name, location, description, img, stars, priceDay, rating } =
     props.hotel;
 
@@ -36,14 +34,14 @@ export default function Actividades(props) {
   const cutDescription = (description) => {
     var nuevaDesc = description;
     if (description.length > 250) {
-      nuevaDesc = nuevaDesc.slice(0,250);
-      nuevaDesc += "...";
+      nuevaDesc = nuevaDesc.slice(0, 250);
+      nuevaDesc += '...';
     }
-    return nuevaDesc
-  }
+    return nuevaDesc;
+  };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card className="hotel-card"> {/* Agregar la clase CSS al componente Card */}
       <CardActionArea key={id} component={Link} to={`/hotel/byId/${id}`}>
         <CardMedia component='img' alt='hotel' height='140' image={img[0]} />
         <CardContent>
@@ -63,15 +61,17 @@ export default function Actividades(props) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Grid display='flex' justify-content='space-between' align-items='center'>
+      <Grid
+        container
+        justifyContent='space-between'
+        alignItems='center'
+        className="hotel-card-footer" // Agregar la clase CSS al componente Grid
+      >
         <CardActions>
           <Button variant='outlined' onClick={handleClick}>
             {toForm ? 'Agregar al paquete' : 'Agregar al carrito'}
           </Button>
         </CardActions>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
       </Grid>
     </Card>
   );

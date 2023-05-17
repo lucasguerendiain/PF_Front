@@ -1,0 +1,71 @@
+.restaurants-card {
+  background-color: rgb(4, 15, 57);
+  color: white;
+  border-bottom: 5px solid rgb(29, 102, 203); /* borde inferior azul oscuro de 5px */
+  border-top: 5px solid rgb(29, 102, 203);
+  display: flex;
+  justify-content: center;
+  border-radius: 0;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+}
+
+.restaurants-card:hover {
+  transform: scale(1.05);
+}
+
+.restaurants-card .MuiCardActionArea-root:hover .MuiCardMedia-img {
+  transform: scale(1.1);
+}
+
+.restaurants-card .MuiCardActionArea-root:hover .MuiCardContent-root {
+  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgb(106, 160, 252);
+}
+
+.restaurants-card .MuiTypography-h5,
+.restaurants-card .MuiTypography-body2 {
+  margin-bottom: 8px;
+}
+
+.restaurants-card .MuiRating-root {
+  margin-bottom: 8px;
+}
+
+.restaurants-card .MuiButton-root:hover {
+  background-color: rgb(31, 89, 215);
+  color: blue;
+}
+
+.restaurants-card .MuiButton-root:hover svg {
+  fill: rgb(23, 23, 130);
+}
+
+.restaurants-card .MuiCardActions-root {
+  justify-content: flex-end;
+}
+
+.restaurants-card .MuiCardActions-root .MuiButton-root {
+  margin-left: 8px;
+}
+
+.restaurants-card .MuiCardActions-root .MuiSvgIcon-root {
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+.restaurants-card .MuiCardActions-root .MuiSvgIcon-root:hover {
+  color: rgb(139, 139, 223);
+}
+
+.MuiSvgIcon-root {
+  background-color: rgb(106, 160, 252);
+  border-radius: 10px;
+}
+
+.MuiTypography-body2 {
+  background-color: rgb(106, 160, 252);
+  padding-top: 5px;
+  border-radius: 10px;
+}

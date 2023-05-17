@@ -1,0 +1,65 @@
+.hotel-card {
+    background-color: rgb(4, 15, 57);
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    margin-bottom: 16px;
+    padding:40px;
+  }
+  
+  .hotel-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .hotel-card .MuiCardActionArea-root:hover .MuiCardMedia-img {
+    transform: scale(1.1);
+  }
+  
+  .hotel-card .MuiCardActionArea-root:hover .MuiCardContent-root {
+    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgb(106, 160, 252);
+  }
+  
+  .hotel-card .MuiTypography-h5,
+  .hotel-card .MuiTypography-body2 {
+    margin-bottom: 8px;
+  }
+  
+  .hotel-card .MuiRating-root {
+    margin-bottom: 8px;
+  }
+  
+  .hotel-card .MuiButton-root {
+    margin-left: 8px;
+}
+
+.hotel-card .MuiButton-root:hover {
+background-color: rgb(31, 89, 215);
+color: blue;
+}
+
+.hotel-card .MuiButton-root:hover svg {
+fill: rgb(23, 23, 130);
+}
+
+.hotel-card-footer {
+display: flex;
+justify-content: flex-end;
+padding: 8px;
+}
+
+.MuiSvgIcon-root {
+background-color: rgb(106, 160, 252);
+border-radius: 10px;
+}
+
+.MuiTypography-body2 {
+background-color: rgb(106, 160, 252);
+padding-top: 5px;
+border-radius: 10px;
+}  
+  
+  
+  
+  

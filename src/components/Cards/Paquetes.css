@@ -1,0 +1,18 @@
+.card-grande {
+    background-color: rgb(4, 15, 57); /* fondo azul */
+    color: white;
+  }
+  
+  .card-grande:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-grande .textarea {
+    margin-top: 16px;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    width: 100%;
+    resize: vertical;
+  }
