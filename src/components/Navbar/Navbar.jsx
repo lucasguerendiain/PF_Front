@@ -6,6 +6,7 @@ import { addUser } from "../../redux/actions/UserActions";
 import style from './Navbar.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import logo from '../../assets/Horizons2.png';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
   
@@ -147,7 +148,7 @@ const Navbar = () => {
               </li>
               <li className={style.navItem + ' nav-item ml-auto'}>
                 <Link className={style.navLink + ' nav-link'} onClick={() => logout({ returnTo: window.location.origin })}>
-                  <FaUser /> Cerrar sesión
+                  Cerrar sesión <LogoutIcon/>
                 </Link>
               </li>
             </ul>
@@ -242,7 +243,7 @@ const Navbar = () => {
                   <FaUser /> Iniciar sesión
                 </Link>
               </li>
-               {/*<li className={style.navItem + ' nav-item'}>
+                {/*<li className={style.navItem + ' nav-item'}>
                 <Link className={style.navLink + ' nav-link'} to='/carrito'>
                   <FaShoppingCart /> Carrito
                 </Link>
