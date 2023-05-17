@@ -17,7 +17,7 @@ import './Hoteles.css'; // Importar el archivo CSS
 export default function Hoteles(props) {
   const { id, name, location, description, img, stars, priceDay, rating } =
     props.hotel;
-
+  const user = useSelector((state) => state.users.user);
   const toForm = useSelector((state) => state.form.toForm);
   const dispatch = useDispatch();
 
@@ -68,9 +68,11 @@ export default function Hoteles(props) {
         className="hotel-card-footer" // Agregar la clase CSS al componente Grid
       >
         <CardActions>
+          {Object.values(user).length?
+          (
           <Button variant='outlined' onClick={handleClick}>
             {toForm ? 'Agregar al paquete' : 'Agregar al carrito'}
-          </Button>
+          </Button>) : ("")}
         </CardActions>
       </Grid>
     </Card>

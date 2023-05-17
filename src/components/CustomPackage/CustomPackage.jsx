@@ -14,6 +14,7 @@ import { addReserva } from '../../redux/actions/reservaActions';
 import Calendar from '../Calendar/Calendar';
 import BasicModal from '../CreatePackage/Modals/BasicModal';
 import axios from "axios";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
 function CustomPackage() {
   const navigate = useNavigate();
@@ -97,7 +98,16 @@ function CustomPackage() {
       userId: user.id,
       packageId: response.data.id
     }
-    await axios.post("/reservation", datosAMandar);
+    const confirm = await axios.post("/reservation", datosAMandar);
+    if (confirm.status === 200) {
+      setVendida(false);
+      const body = {
+        userEmail: user.email,
+        dateInit: dateInit.toLocaleString(),
+        price: calcularValue(activities, hotel)
+      }
+      const mail = await axios.post("/mails/confirmation", body);
+    }
     setVendida(false);
     dispatch(estadoInicialCarrito());
   }
@@ -204,4 +214,4 @@ function CustomPackage() {
   );
 }
 
-export default CustomPackage;
+export default withAuthenticationRequired(CustomPackage);
