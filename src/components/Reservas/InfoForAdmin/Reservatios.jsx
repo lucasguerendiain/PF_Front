@@ -15,21 +15,30 @@ export default function Reservations(){
         dispatch(getAllreservas());;
     },[dispatch])
 
+    const transformDate = (date) => {
+        const newDate = new Date(date);
+        return newDate.toLocaleString().split(",")[0];
+      }
+
+
     return(
         <Box sx={{ padding: '16px' }}>
         {reserva ? (
           reserva.map((r) => (
-            <Box key={r.id} s  
+            <Box key={r.id} 
             sx={{
                 marginBottom: "16px",
-                border: "1px solid black",
-                borderRadius: "4px",
+                border: "4px solid rgb(29, 102, 203);",
+                borderRadius: "8px",
                 padding: "16px",
+                backgroundColor: "rgb(4, 15, 57)",
+                color: "white" ,
               }}
               >
               <Typography variant="h5">Reserva</Typography>
-              <Typography variant="h6">Nombre del paquete: {r.package.name}</Typography>
-              <Typography variant="h6">Usuario: {r.user.email}</Typography>
+              <Typography variant="h6"><span style={{ textDecoration: "underline" }}>Usuario:</span> {r.user.email}</Typography>
+              <Typography variant="h6"><span style={{ textDecoration: "underline" }}>Nombre del paquete:</span> {r.package.name}</Typography>
+              <Typography variant="h6"><span style={{ textDecoration: "underline" }}>Fecha de inicio:</span> {transformDate(r.package.dateInit)}</Typography>
             </Box>
           ))
         ) : (
@@ -38,3 +47,6 @@ export default function Reservations(){
       </Box> 
     )
 }
+
+
+
