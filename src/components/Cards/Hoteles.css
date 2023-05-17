@@ -49,10 +49,7 @@ justify-content: flex-end;
 padding: 8px;
 }
 
-.MuiSvgIcon-root {
-background-color: rgb(227, 235, 250);
-border-radius: 10px;
-}
+
 
 .MuiTypography-body2 {
 background-color: rgb(241, 246, 254);
