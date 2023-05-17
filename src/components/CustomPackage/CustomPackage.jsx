@@ -64,8 +64,10 @@ function CustomPackage() {
 
   const calcularValue = (actividades, hotel) => {
     const precioActi = actividades.reduce((acumulator, currentValue) => acumulator + currentValue.price, 0);
-    const precioHotel = (hotel.priceDay * Math.ceil(activities.length / 2));
-    return precioActi + precioHotel;
+    if (hotel) {
+      const precioHotel = (hotel.priceDay * Math.ceil(activities.length / 2));
+      return precioActi + precioHotel;
+    } else return precioActi;
   }
 
   const handleSubmit = async () => {
@@ -89,7 +91,6 @@ function CustomPackage() {
       userId: user.id
     }
     const response = await axios.post("/package", pack);
-    console.log(response);
     const datosAMandar = {
       paid: true,
       numOfTravels: 1,

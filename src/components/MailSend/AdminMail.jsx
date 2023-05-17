@@ -49,21 +49,24 @@ export default function AdminMail() {
     }
   };
 
-  const handlePetition = (name) => {
+  const handlePetition = async (name) => {
     if (name === "spam") {
-      const response = axios.get("/user/notification");
-      console.log(response);
-      setInputs({
-        ...inputs,
-        to: response.data
-      });
+      const response = await axios.get("/user/notification");
+      if (response.data.length) {
+        setInputs({
+          ...inputs,
+          to: response.data.join(",")
+        });
+      } else alert("nadie quiere nuestro spam :("); 
     } else {
-      const response = axios.get("/reservation/forThisWeek");
-      console.log(response.data);
-      setInputs({
+      const response = await axios.get("/reservation/forThisWeek");
+      if (response.data.length) {
+        console.log(response.data);
+        setInputs({
         ...inputs,
-        to: response.data
+        to: response.data.join(",")
       });
+      } else alert("no hay reservas para esta semana");
     }
   }
 
