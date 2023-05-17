@@ -1,4 +1,3 @@
-import axios from "axios";
 import ReservasCardContainer from "../CardsContainer/ReservasCardContainer";
 
 function Reservas() {

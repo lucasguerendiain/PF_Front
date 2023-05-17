@@ -19,6 +19,7 @@ import User from './components/User/User';
 import AdminMail from './components/MailSend/AdminMail';
 import PrivateRoutes from './PrivateRoutes';
 import NotFound from './components/NotFound/NotFound';
+import InfoForAdmin from './components/Reservas/InfoForAdmin/InfoForAdmin';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path='/dashboard/form' element={<CreatePackageForm />} exact/>
             <Route path='/dashboard' element={<Dashboard />} exact/>
             <Route path='/adminMail' element={<AdminMail />} exact/>
+            <Route path='/adminReservas' element={<InfoForAdmin/>}/>
           </Route>
           <Route path='/' element={<Navigate to='/home' />} />
           <Route path='/home' element={<Home />} exact/>

@@ -5,7 +5,8 @@ import hotelesReducer from '../reducer/hotelesSlice';
 import restaurantsReducer from '../reducer/restaurantsSlice';
 import carritoReducer from '../reducer/carritoSlice';
 import formReducer from '../reducer/formSlice';
-import usersReducer from '../reducer/userSlice'
+import usersReducer from '../reducer/userSlice';
+import reservaReducer from '../reducer/reservaSlice'
 export const store = configureStore({
   reducer: {
     packages: packagesReducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
     restaurants: restaurantsReducer,
     carrito: carritoReducer,
     form: formReducer,
-    users: usersReducer
+    users: usersReducer,
+    reserva: reservaReducer
   },
 });
