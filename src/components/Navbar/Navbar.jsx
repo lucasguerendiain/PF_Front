@@ -166,7 +166,10 @@ const Navbar = () => {
       <nav className={style.navbar}>
         <div className={style.container}>
           <Link to='/' >
-            <img src={logo} className={style.navLogo} alt='Logo' style={{ width: '750px' }} />
+          <img src={logo} alt='Logo' className={style.navLogo} style={{
+              width : "400px",
+              marginLeft: "180px"
+              }}/>
           </Link>
           <div
             className={style.collapse + ' collapse navbar-collapse'}
