@@ -18,7 +18,7 @@
   
   .hotel-card .MuiCardActionArea-root:hover .MuiCardContent-root {
     background-color: rgba(0, 0, 0, 0.6);
-    background-color: rgb(106, 160, 252);
+    background-color: rgb(193, 200, 213);
   }
   
   .hotel-card .MuiTypography-h5,
@@ -49,13 +49,10 @@ justify-content: flex-end;
 padding: 8px;
 }
 
-.MuiSvgIcon-root {
-background-color: rgb(106, 160, 252);
-border-radius: 10px;
-}
+
 
 .MuiTypography-body2 {
-background-color: rgb(106, 160, 252);
+background-color: rgb(241, 246, 254);
 padding-top: 5px;
 border-radius: 10px;
 }  

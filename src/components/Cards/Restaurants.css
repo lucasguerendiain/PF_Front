@@ -35,11 +35,11 @@
 
 .restaurants-card .MuiButton-root:hover {
   background-color: rgb(31, 89, 215);
-  color: blue;
+  color: rgb(197, 197, 218);
 }
 
 .restaurants-card .MuiButton-root:hover svg {
-  fill: rgb(23, 23, 130);
+  fill: rgb(204, 204, 225);
 }
 
 .restaurants-card .MuiCardActions-root {
