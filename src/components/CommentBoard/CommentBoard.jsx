@@ -16,6 +16,7 @@ import Rating from '@mui/material/Rating';
 import { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 registerLocale('es', es);
 
 
@@ -26,6 +27,7 @@ export default function CommentBoard(prop) {
     const [existingComments, setExistingComments] = useState([]);
     const [errors, setErrors] = useState(false);
     const user = useSelector((state) => state.users.user)
+    const navigate = useNavigate()
 
 
     const date = new Date();
@@ -43,10 +45,6 @@ export default function CommentBoard(prop) {
     useEffect(() => {
         setErrors(commentValue.split('\n').length > 7 ? true : false);
     }, [commentValue]);
-
-
-
-
 
     const handleSend = () => {
         if (commentValue && value && !errors) {
@@ -71,8 +69,24 @@ export default function CommentBoard(prop) {
             setExistingComments([...existingComments, nuevoComentario]);
             setValue(0)
             setCommentValue('');
+            navigate(0)
         } else alert('falta el comentario o la calificacion');
     };
+
+    const handleOnClick = async (e) => {
+        try {
+            const { value } = e.target
+            console.log(value);
+            const commentDeleted = await axios.delete(`/comments/${user.id}/${value}`)
+            if (commentDeleted) {
+                alert("Comentario eliminado")
+                navigate(0)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     return (
         <Box
@@ -252,7 +266,14 @@ export default function CommentBoard(prop) {
                                             </CardContent>
 
                                             {elem.userId === user.id ?
-                                                <Button sx={{marginLeft:"1000px"}} size='small' variant='contained' >
+                                                <Button sx={{
+                                                    marginLeft: "1000px"
+                                                }}
+                                                    size='small'
+                                                    variant='contained'
+                                                    value={elem.id}
+                                                    onClick={(e) => handleOnClick(e)}
+                                                >
                                                     Borrar Comentario
                                                 </Button> :
                                                 null
