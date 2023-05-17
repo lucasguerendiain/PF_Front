@@ -64,7 +64,7 @@ const Navbar = () => {
           <Link to='/' >
             <img src={logo} alt='Logo' className={style.navLogo} style={{
               width : "400px",
-              marginLeft: "400px"
+              marginLeft: "330px"
               }}/>
           </Link>
           <div

@@ -11,14 +11,6 @@ nav {
     cursor: pointer;
 }
 
-.navLogo{
-    position: absolute;
-    top:20px;
-    left:1220px;
-    width: 100px;
-}
-
-
 .navbar {
     background-color: #e6ecf1;
     height: 80px;
@@ -43,19 +35,20 @@ nav {
     height: 3px;
     background-color: #842d2d;
     display: block;
-    margin: 8px 0;
+    /* margin: 8px 0; */
 }
 
 .navbar-nav {
     margin-left: auto;
+    
 }
 
 .nav-link {
     color: #e1dada;
     font-size: 1.2rem;
     text-transform: uppercase;
-    margin-left: 50px;
-    padding: 10px 0;
+   margin-inline: 25px;
+    /* padding: 10px 0; */
     position: relative;
 
   
@@ -87,7 +80,8 @@ nav {
 }
 
 .collapse.navbar-collapse {
-    justify-content: flex-end;
+    display: flex;
+    /* justify-content: flex-end; */
 }
 
 .nav-item {
