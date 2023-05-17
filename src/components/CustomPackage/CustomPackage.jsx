@@ -183,7 +183,7 @@ function CustomPackage() {
         </div>
       </div>
       <div>
-      {(activities.length && Object.values(dates).length)?
+      {(activities.length && dates.init)?
       (<PayPalScriptProvider
         options={{
           'client-id':
