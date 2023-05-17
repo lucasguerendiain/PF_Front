@@ -1,6 +1,6 @@
 .name {
     position: absolute;
-    top: 225px;
+    top: 270px;
     z-index: +1;
     /* font-size: 80px; */
     background-color: rgba(4, 15, 57, .7);
@@ -42,7 +42,7 @@
 
 .containerProp {
     position: absolute;
-    top: 400px;
+    top: 450px;
     left: 1558px;
 }
 

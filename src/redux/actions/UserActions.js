@@ -2,11 +2,11 @@ import axios from "axios";
 import { postUser } from "../reducer/userSlice";
 
 //eliasmotog3@gmail.com
-//dnbdt86@gmail.com
+
 
 export const addUser = (payload) => async (dispatch) => {
     try {
-        if (payload.email === "lucasguere@hotmail.com") {
+        if (payload.email === "dnbdt86@gmail.com") {
             payload.isAdmin = true;
             const response = await axios.post("/user", payload);
             dispatch(postUser(response.data));
