@@ -1,13 +1,15 @@
 .card-grande {
     background-color: rgb(4, 15, 57); /* fondo azul */
     color: white;
+    border-bottom: 5px solid rgb(29, 102, 203); /* borde inferior azul oscuro de 5px */
+    border-top: 5px solid rgb(29, 102, 203);
   }
   
   .card-grande:hover {
     transform: scale(1.05);
   }
   
-  .card-grande .textarea {
+  .card-grande p {
     margin-top: 16px;
     padding: 8px;
     border: none;
