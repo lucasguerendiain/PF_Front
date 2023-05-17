@@ -18,15 +18,8 @@ function Footer() {
     navigate(name);
   }
 
-  const handleSpam = async() => {
-    if (user) {
-      dispatch(setSpam(user.id, user.notification));
-      if (user.notification) {
-        alert("ya te vamo' a cruza' por las calle a voh'");
-      } else alert("gracias por dejarnos llenarte el correo de spam");
-    } else {
-      alert("no estas logueado");
-    }
+  const handleSpam = () => {
+    dispatch(setSpam(user.id, user.notification));
   }
 
   return (
@@ -56,7 +49,11 @@ function Footer() {
             Suscríbete a nuestro boletín y recibe ofertas exclusivas para
             viajar.
           </p>
-          <button onClick={handleSpam}>UwU</button>
+          {Object.values(user).length?
+          (
+            <button onClick={handleSpam}>{user.notification? ("desuscribirse") : ("suscribirse")}</button>
+          ) : ("*solo para usuarios registrados*")
+          }
         </div>
       </div>
     </footer>
