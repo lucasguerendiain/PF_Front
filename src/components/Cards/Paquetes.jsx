@@ -15,21 +15,6 @@ import { styled } from '@mui/material/styles';
 import './Paquetes.css';
 import imagen3 from '../../assets/imagen6.png';
 import { Rating } from '@mui/material';
-// For expand
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 //----------------------------------------------
 
