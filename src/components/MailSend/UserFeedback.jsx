@@ -40,6 +40,7 @@ export default function UserFeedback({handleClose}) {
       const response = await axios.post('/mails', mensaje);
       if (response.status === 200) {
         alert('gracias por comunicarte con nosotros');
+        handleClose();
       }
     } else console.log(error.content);
   };

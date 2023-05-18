@@ -2,13 +2,14 @@ import React from 'react';
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import './User.css';
 import { Link } from "react-router-dom";
+import ReservasCardContainer from '../CardsContainer/ReservasCardContainer';
 
 const User = () => {
-  const {user, isAuthenticated,} = useAuth0();
+  const {user, isAuthenticated} = useAuth0();
   const admin = process.env.REACT_APP_ADMIN_USERS;
   
   if (isAuthenticated && user.picture) {
-    if(user.email === admin){
+    if(admin.slice(",").includes(user.email)){
       return (
         <div className='container0'>
           <div className='container1'>
@@ -46,7 +47,7 @@ const User = () => {
         </div>
           <h3>Paquetes Reservados:</h3>
         <div className='container2'>
-          <p>Aplicar la logica</p>
+          <ReservasCardContainer/>
         </div>
       </div>
       );

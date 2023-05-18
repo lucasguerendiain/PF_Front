@@ -18,6 +18,7 @@ export default function Actividades(props) {
   const { id, name, duration, img, description, typeAct, price, rating } = props.actividad;
   const dispatch = useDispatch();
   const toForm = useSelector((state) => state.form.toForm);
+  const user = useSelector((state) => state.users.user);
 
   const handleClick = async (e) => {
     if (toForm) {
@@ -60,9 +61,10 @@ export default function Actividades(props) {
         className="actividad-card-footer"
       >
         <CardActions>
-          <Button variant="outlined" onClick={handleClick} className="add-button">
+          {Object.values(user).length?
+          (<Button variant="outlined" onClick={handleClick} className="add-button">
             {toForm ? 'Agregar al paquete' : 'Agregar al carrito'}
-          </Button>
+          </Button>) : ("")}
         </CardActions>
       </Grid>
     </Card>

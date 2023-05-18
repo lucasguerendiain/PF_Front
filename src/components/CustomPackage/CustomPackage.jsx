@@ -14,6 +14,8 @@ import { addReserva } from '../../redux/actions/reservaActions';
 import Calendar from '../Calendar/Calendar';
 import BasicModal from '../CreatePackage/Modals/BasicModal';
 import axios from "axios";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { Box, Typography } from '@mui/material';
 
 function CustomPackage() {
   const navigate = useNavigate();
@@ -97,7 +99,16 @@ function CustomPackage() {
       userId: user.id,
       packageId: response.data.id
     }
-    await axios.post("/reservation", datosAMandar);
+    const confirm = await axios.post("/reservation", datosAMandar);
+    if (confirm.status === 200) {
+      setVendida(false);
+      const body = {
+        userEmail: user.email,
+        dateInit: dateInit.toLocaleString(),
+        price: calcularValue(activities, hotel)
+      }
+      const mail = await axios.post("/mails/confirmation", body);
+    }
     setVendida(false);
     dispatch(estadoInicialCarrito());
   }
@@ -171,7 +182,9 @@ function CustomPackage() {
           )}
         </div>
       </div>
-      <PayPalScriptProvider
+      <div>
+      {(activities.length && dates.init)?
+      (<PayPalScriptProvider
         options={{
           'client-id':
             'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
@@ -199,9 +212,10 @@ function CustomPackage() {
             return alert('Pago cancelado.');
           }}
         />
-      </PayPalScriptProvider>
+      </PayPalScriptProvider>) : (<Typography variant='h3' fontWeight="600">se necesita una fecha de inicio y al menos una actividad para poder comprar</Typography>)}
+      </div>
     </div>
   );
 }
 
-export default CustomPackage;
+export default withAuthenticationRequired(CustomPackage);

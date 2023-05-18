@@ -26,7 +26,7 @@ export const getAllreservas = () => async (dispatch) => {
 
 export const getReservaByUserId = (userId) => async (dispatch) => {
   try {
-    const response = await axios.get(`/reservation/${userId}`);
+    const response = await axios.get(`/reservation/ByUserId/${userId}`);
     dispatch(getUserReserva(response.data));
   } catch (error) {
     dispatch(setError(error.message));
