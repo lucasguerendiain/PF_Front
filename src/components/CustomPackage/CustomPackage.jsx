@@ -1,142 +1,203 @@
-import React, { useState } from "react";
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
-//PayPal
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useDispatch, useSelector } from "react-redux";
-import { borrarActivitie, estadoInicialCarrito } from "../../redux/actions/carritoActions";
-import Calendar from "../Calendar/Calendar";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import {
+  borrarActivitie,
+  borrarHotel,
+  dateSet,
+  estadoInicialCarrito,
+} from '../../redux/actions/carritoActions';
+import { setButtonToCart } from '../../redux/actions/formActions';
+import './CustomPackage.css';
+import { addReserva } from '../../redux/actions/reservaActions';
+import Calendar from '../Calendar/Calendar';
+import BasicModal from '../CreatePackage/Modals/BasicModal';
+import axios from "axios";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { Box, Typography } from '@mui/material';
 
-export default function CustomPackage() {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [date, setDate] = useState("");
-    //esto tiene que pedir el carro del reducer;
-    //el carro del reducer tiene que agregar objetos a medidda que le dan al boton "agregar al carro"
-    //las cards del carro tienen que tenre la opcion de removerse
-    //el carro tiene que calcular el precio total del viaje y los dias
-    //tenemos que hacer que el componenete organize las actividades por dia
-  const carrito = useSelector((state) => state.carrito)
-  const { activities, hotel } = carrito
+function CustomPackage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [date, setDate] = useState('');
+  const carrito = useSelector((state) => state.carrito);
+  const { activities, hotel, dates } = carrito;
+  const [open, setOpen] = useState(false);
+  const user = useSelector((state) => state.users.user);
+  const [vendida, setVendida] = useState(false);
 
-    const calcularPrecio = (activities, hotel = "") => {
-        let suma = activities.reduce((acumulator, currentValue) => acumulator + currentValue.price, 0);
-        if (hotel) {
-            const dias = Math.ceil(activities.length / 2);
-            suma += dias * hotel.priceDay;
-        }
-        return suma;
+  const handleApprove = async () => {
+    if (date && activities) {
+      const duracion = Math.ceil(activities.length / 2);
+      var fecha2 = new Date();
+      fecha2.setDate(date.getDate() + duracion);
+      dispatch(dateSet({init: date.getTime(), end: fecha2.getTime()}));
+      alert("hecho");
+    } else alert("falta fecha y/o actividades");
+  };
+
+  const handleDelete = async (name) => {
+    dispatch(borrarActivitie(name));
+  };
+
+  const handleDeleteHotel = () => {
+    dispatch(borrarHotel());
+  };
+
+  const handleClick = (data) => {
+    setDate(data);
+    setOpen(false);
+  };
+
+  const handleNav = (name) => {
+    dispatch(setButtonToCart());
+    switch (name) {
+      case 'ACTIVIDAD':
+        navigate('/activitycards');
+        break;
+      case 'HOTEL':
+        navigate('/hotelcards');
+        break;
+      default:
+        alert('Algo salió mal.');
     }
+  };
 
-    const handleAprove = async () => {
-        dispatch(estadoInicialCarrito())
+  const calcularValue = (actividades, hotel) => {
+    const precioActi = actividades.reduce((acumulator, currentValue) => acumulator + currentValue.price, 0);
+    if (hotel) {
+      const precioHotel = (hotel.priceDay * Math.ceil(activities.length / 2));
+      return precioActi + precioHotel;
+    } else return precioActi;
+  }
+
+  const handleSubmit = async () => {
+    const duracion = Math.ceil(activities.length / 2);
+    const activitiesId = activities.map((elem) => {return elem.id});
+    const dateInit = new Date(dates.init);
+    const dateEnd = new Date(dates.end);
+    const pack = {
+      name: "custom package",
+      location: "custom",
+      price: calcularValue(activities, hotel),
+      duration: duracion,
+      img : [],
+      description: "custom",
+      quotas: 2,
+      dateInit: dateInit,
+      dateEnd: dateEnd,
+      activitiesId: activitiesId,
+      hotelId: hotel.id,
+      restaurantId: "",
+      userId: user.id
     }
-
-    const handleDelete = async (name) => {
-        //dispatch action del reducer para sacar del carro
-        // console.log(name);
-        dispatch(borrarActivitie(name))
+    const response = await axios.post("/package", pack);
+    const datosAMandar = {
+      paid: true,
+      numOfTravels: 1,
+      userId: user.id,
+      packageId: response.data.id
     }
-
-    const handleClick = (data) => {
-        console.log(data);
-        setDate(data.toLocaleString());
+    const confirm = await axios.post("/reservation", datosAMandar);
+    if (confirm.status === 200) {
+      setVendida(false);
+      const body = {
+        userEmail: user.email,
+        dateInit: dateInit.toLocaleString(),
+        price: calcularValue(activities, hotel)
+      }
+      const mail = await axios.post("/mails/confirmation", body);
     }
+    setVendida(false);
+    dispatch(estadoInicialCarrito());
+  }
 
-    return(
-        <Container sx={{ py: 4, backgroundColor: "lightgray"}} maxWidth="xl">
-        <Grid container spacing={4}>
-            <Grid item xs={8} sx={{marginLeft:"320px"}}>
-                <Card sx={{
-                    border: "1px solid black",
-                    backgroundColor: "lightgreen",
-                }}>
-                    <Typography variant="h1">Carrito:</Typography>
-                    <CardContent>
-                        {activities.length
-                            ? (activities.map((item) => {
-                                return(
-                                    <Grid item key={item.name} xs={12} sm={6} md={4} margin={1}>
-                                        <Card   sx={{
-                                            height: "100%",
-                                            display: "flex", 
-                                            flexDirection: "column",
-                                            border: "1px solid gray",
-                                            borderRadius: "1px 3px 5px"
-                                        }}
-                                        >
-                                            <CardMedia
-                                                component="img"
-                                                sx={{
-                                                    height: "20vh"
-                                                }}
-                                                image={item.img[0]}
-                                                alt={item.name}
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="h2">
-                                                    {item.name}
-                                                </Typography>
-                                                <Typography>
-                                                    Precio: {item.price} USD
-                                                    <br/>
-                                                    duracion: {item.duration} horas
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions>
-                                                <Button size="small" variant="contained" onClick={() => handleDelete(item.name)}>eliminar</Button>
-                                                <Button size="small" variant="contained" onClick={() => navigate(`/activity/byId/${item.id}`)}>mas info</Button>
-                                            </CardActions>
-                                        </Card>
-                                    </Grid>
-                                );
-                            }))
-                            : ("Carrito vacio")
-                        }
-                    </CardContent>
-                    <CardActions>
-                        <Button size="medium" variant="contained" onClick={() => navigate("/activitycards")}>Añadir Actividad</Button>
-                        <Button size="medium" variant="contained" onClick={() => navigate("/hotelcards")}>Añadir Hotel</Button>
-                    </CardActions>
-                    {hotel
-                        ? (
-                        <Card>{hotel.name}
-                            <CardContent>
-                                <Typography>precio: {hotel.priceDay} USD/noche</Typography>
-                                <Typography>ubicacion: {hotel.location}</Typography>
-                                <Typography>estrellas: {hotel.stars}</Typography>
-                                <img src={hotel.img} alt={hotel.name} width="45px" />
-                            </CardContent>
-                        </Card>) 
-                    : ("")}
-                </Card>
-                <Box sx={{backgroundColor: "lightgrey", marginTop: "2%", marginBottom: "2%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                    <Calendar handleClick={handleClick}/>
-                    <Typography marginTop="1%" variant="h4" gutterBottom>fecha de inicio: {date}</Typography>
-                    {activities.length? <Typography gutterBottom variant="h4">precio total: {calcularPrecio(activities, hotel)} USD</Typography> : ""}
-                    {activities.length? <Typography gutterBottom variant="h4">duracion del viaje: {Math.ceil(activities.length / 2)} dias</Typography> : ""}
-                </Box>
-                <PayPalScriptProvider
+  useEffect(() => {
+    if (vendida) {
+      alert('¡Genial! Su transacción ha sido exitosa');
+      setTimeout(() => {
+        handleSubmit();
+      }, 1000);
+    }
+  }, [vendida]);
+
+  return (
+    <div className='custom-package-container'>
+      <h2>Personaliza tu paquete</h2>
+      <div className='package-summary'>
+        <h4>Resumen del paquete</h4>
+        <p>Fecha: {date.toLocaleString().split(',')[0]}</p>
+        <button onClick={() => setOpen(true)}>Elegir fecha</button>
+        <BasicModal
+          open={open}
+          handleClose={() => setOpen(false)}
+          title='elegite la fecha'
+          content={<Calendar handleClick={handleClick} />}
+          handleSubmit={false}
+        />
+        <br />
+        <button onClick={handleApprove}>Aprobar fecha</button>
+      </div>
+      <div className='package-content'>
+        <div className='activities-container'>
+          <h3>Actividades</h3>
+          <button
+            className='add-activity-button'
+            onClick={() => handleNav('ACTIVIDAD')}
+          >
+            + Agregar actividad
+          </button>
+          <ul>
+            {activities.map((activity) => (
+              <li key={activity.id}>
+                <span>{activity.name}</span>
+                <button
+                  className='delete-activity-button'
+                  onClick={() => handleDelete(activity.name)}
+                >
+                  X
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className='hotel-container'>
+          <h3>Hotel</h3>
+          <button
+            className='add-hotel-button'
+            onClick={() => handleNav('HOTEL')}
+          >
+            {hotel ? 'Cambiar hotel' : '+ Agregar hotel'}
+          </button>
+          {hotel ? (
+            <ul>
+              <li><button onClick={handleDeleteHotel}>X</button></li>
+              <li>{hotel.name}</li>
+              <li>{hotel.priceDay} por día</li>
+            </ul>
+          ) : (
+            <p>No se ha agregado ningún hotel</p>
+          )}
+        </div>
+      </div>
+      <div>
+      {(activities.length && dates.init)?
+      (<PayPalScriptProvider
         options={{
-          "client-id":
-            "AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km",
+          'client-id':
+            'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
         }}
       >
         <PayPalButtons
+          className='paypal-button'
           createOrder={(data, actions) => {
             return actions.order.create({
               purchase_units: [
                 {
                   amount: {
-                    value: calcularPrecio(activities, hotel),
+                    value: calcularValue(activities, hotel),
                   },
                 },
               ],
@@ -144,14 +205,17 @@ export default function CustomPackage() {
           }}
           onApprove={(data, actions) => {
             return actions.order.capture().then(function () {
-              handleAprove()
-              alert("¡Excelente! Tu transacción ha sido realizada con éxito.");
+              setVendida(true);
             });
           }}
+          onCancel={(data) => {
+            return alert('Pago cancelado.');
+          }}
         />
-      </PayPalScriptProvider>
-            </Grid>
-        </Grid>
-        </Container>
-    );
+      </PayPalScriptProvider>) : (<Typography variant='h3' fontWeight="600">se necesita una fecha de inicio y al menos una actividad para poder comprar</Typography>)}
+      </div>
+    </div>
+  );
 }
+
+export default withAuthenticationRequired(CustomPackage);

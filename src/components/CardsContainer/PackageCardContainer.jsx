@@ -1,170 +1,189 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import SearchBar from "../SearchBar/SearchBar";
-import LoadingComponent from "../Loading/LoadingComponent";
-import { useDispatch, useSelector } from "react-redux";
-import Paquete from "../Cards/Paquetes";
-import { Grid } from "@mui/material";
-import { Button } from "@mui/material";
-import { getAllPacks } from "../../redux/actions/packageActions";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import SearchBar from '../SearchBar/SearchBar';
+import LoadingComponent from '../Loading/LoadingComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import Paquete from '../Cards/Paquetes';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import { Button } from '@mui/material';
+import {
+  getAllPacks,
+  orderPackages,
+  setFilterPacksByStars,
+} from '../../redux/actions/packageActions';
+//icons
+import AvTimerIcon from '@mui/icons-material/AvTimer';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import GradeIcon from '@mui/icons-material/Grade';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import RemoveIcon from '@mui/icons-material/Remove';
 //imports para los selects ⬇️⬇️⬇️⬇️⬇️
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import FilterPackage from '../Filter/FilterPackage';
+import { getFilterPacks } from '../../redux/actions/packageActions';
 
 export default function PackageCardContainer() {
   const paquetes = useSelector((state) => state.packages.viewPackages);
   const dispatch = useDispatch();
-  const lugar = "package"
+  const lugar = 'package';
+  const [orderPrice, setOrderPrice] = useState('nothing');
+  const [orderDuration, setOrderDuration] = useState('nothing');
+  const [orderRating, setOrderRating] = useState('nothing');
+  const [timedMsj, setTimedMsj] = useState(false);
+
+  const objOrder = {
+    nothing: <RemoveIcon />,
+    descendent: <ArrowDropDownIcon />,
+    ascendent: <ArrowDropUpIcon />,
+  };
+
+  const handleFilteredPackages = (data, stars) => {
+    setTimedMsj(false);
+    dispatch(getFilterPacks(data, paquetes, stars));
+  };
 
   useEffect(() => {
     dispatch(getAllPacks());
   }, [dispatch]);
 
-  //estados, estilo y funcion de los selects ⬇️⬇️⬇️⬇️⬇️⬇️
-  // const [filtros, setFiltros] = useState([{ estrellas: "" }, { opciones: "" }]);
-  // const [inputs, setInputs] = useState({
-  //   opciones: false,
-  // });
+  const transformOrder = (order) => {
+    if (order === 'nothing') return 'descendent';
+    if (order === 'descendent') return 'ascendent';
+    return 'nothing';
+  };
 
-  //estados de precios
-  const [minPrice, setMinPrice] = useState();
-  const [maxPrice, setMaxPrice] = useState();
+  const handleOrder = (name) => {
+    if (name === 'price') {
+      setOrderPrice(transformOrder(orderPrice));
+      setOrderDuration('nothing');
+      setOrderRating('nothing');
+    } else if (name === 'duration') {
+      setOrderDuration(transformOrder(orderDuration));
+      setOrderPrice('nothing');
+      setOrderRating('nothing');
+    } else {
+      setOrderRating(transformOrder(orderRating));
+      setOrderPrice('nothing');
+      setOrderDuration('nothing');
+    }
+  };
 
-  // const handleFilterPrice = () => {
-  //   const filteredPaq = paquetes.filter(
-  //     (paq) => paq.price >= minPrice && paq.price <= maxPrice
-  //   );
-  //   setPaquetes(filteredPaq);
-  // };
+  useEffect(() => {
+    if (orderPrice !== 'nothing') {
+      dispatch(orderPackages(orderPrice, 'price', paquetes));
+    }
+  }, [orderPrice]);
 
-  //estados de duracion
-  const [minDuration, setMinDuration] = useState();
-  const [maxDuration, setMaxDuration] = useState();
+  useEffect(() => {
+    if (orderDuration !== 'nothing') {
+      dispatch(orderPackages(orderDuration, 'duration', paquetes));
+    }
+  }, [orderDuration]);
 
-  // const handleFilterDuration = () => {
-  //   const filteredPaq = paquetes.filter(
-  //     (paq) => paq.duration >= minDuration && paq.duration <= maxDuration
-  //   );
-  //   setPaquetes(filteredPaq);
-  // };
-
-  // const handleChange = (event) => {
-  //   console.log('mayor que: ' + event.target.value);
-  //   // const numero = filtros.length - 1;
-  //   // setFiltros([...filtros, { ["opciones" + numero]: "" }]);
-  //   // setInputs({
-  //   //   ...inputs,
-  //   //   [event.target.name]: true,
-  //   //   ["opciones" + numero]: false,
-  //   // });
-  //   handleFilterPrice();
-  //   handleFilterDuration();
-  // };
-
-  // const handleDeleteFilters = () => {
-  //   setPaquetes({
-  //     ...paquetes,
-
-  //   })
-  //   setMaxDuration('');
-  //   setMinDuration('');
-  //   setMaxPrice('');
-  //   setMinPrice('');
-  // }
+  useEffect(() => {
+    if (orderRating !== 'nothing') {
+      dispatch(orderPackages(orderRating, 'rating', paquetes));
+    }
+  }, [orderRating]);
 
   return (
     <>
-      <SearchBar ubicacion={lugar}/>
-      <div>
-        {/*
-        <label>Precio:
-          <input type="number" value={minPrice} placeholder="Minimo" onChange={(event)=>setMinPrice(parseInt(event.target.value))}/>
-          <input type="number" value={maxPrice} placeholder="Maximo" onChange={(event)=>setMaxPrice(parseInt(event.target.value)) }/>
-        </label>
-        <button onClick={handleFilterPrice} variant="contained">Filtrar solo precio</button>
-        
-        <br/>
-        <label>Duracion:
-          <input type="number" value={minDuration} placeholder="Minimo" onChange={(event)=>setMinDuration(parseInt(event.target.value))}/>
-          <input type="number" value={maxDuration} placeholder="Maximo" onChange={(event)=>setMaxDuration(parseInt(event.target.value))}/>
-        </label>
-        <button onClick={handleFilterDuration} variant="contained">Filtrar solo duracion</button>*/}
-        {/* {filtros && filtros.map((item) =>{
-                if (item.hasOwnProperty("estrellas")){
-                    return (
-                        <div>
-                        <select name={Object.keys(item)[0]}>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                        <br/>
-                        </div>
-                    )
-                }
-                else return (
-                    <div>
-                    <select name={Object.keys(item)[0]} onChange={handleChange}>
-                        <option>-----------</option>
-                        <option>precio mayor que</option>
-                        <option>precio menor que</option>
-                        <option>duracion mayor que</option>
-                        <option>duracion menor que</option>
-                    </select>
-                    {inputs[Object.keys(item)[0]]? (<input type="text" placeholder="ejemplo"></input>) : ("")}
-                    <br/>
-                    </div>
-                )
-            })} */}
-      </div>
-      {/*
-      <Button variant="contained" onClick={handleChange}>Aplicar filtros</Button>
-      <Button variant="contained" onClick={handleDeleteFilters}>Borrar filtros</Button>
-      */}
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-        marginBottom="2em"
-      >
-        {paquetes.length ? (
-          paquetes.map((p, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index}>
-              <Paquete key={index} paquete={p} />
-            </Grid>
-          ))
-        ) : (
+      <SearchBar ubicacion={lugar} />
+      <FilterPackage handleSubmit={handleFilteredPackages} />
+      <Card>
+        <Grid
+          display='flex'
+          flexDirection='row'
+          sx={{ width: '15vw', marginLeft: '2%' }}
+        >
+          <Grid>
+            <IconButton onClick={() => handleOrder('price')}>
+              {objOrder[orderPrice]}
+            </IconButton>
+            <Tooltip title='ordenar por precio'>
+              <IconButton disableRipple onClick={() => handleOrder('price')}>
+                <AttachMoneyIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+          <Grid>
+            <IconButton onClick={() => handleOrder('duration')}>
+              {objOrder[orderDuration]}
+            </IconButton>
+            <Tooltip title='ordenar por duracion'>
+              <IconButton disableRipple onClick={() => handleOrder('duration')}>
+                <AvTimerIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+          <Grid>
+            <IconButton onClick={() => handleOrder('rating')}>
+              {objOrder[orderRating]}
+            </IconButton>
+            <Tooltip title='ordenar por rating de los usuarios'>
+              <IconButton disableRipple onClick={() => handleOrder('rating')}>
+                <GradeIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        </Grid>
+        <CardContent>
+          <Grid container spacing={1}>
+            {paquetes.length ? (
+              paquetes.map((p, index) => (
+                <Grid item xs={12} key={index}>
+                  <Paquete key={index} paquete={p} />
+                </Grid>
+              ))
+            ) : (
+              <Grid
+                container
+                direction='column'
+                justifyContent='center'
+                alignItems='center'
+                style={{ height: '100vh' }}
+              >
+                <Grid item>
+                  {setTimeout(() => {
+                    setTimedMsj(true);
+                  }, 10000) && ""}
+                  {timedMsj
+                  ? (<Typography variant='h2' fontWeight="800">No hay paquetes que cumplan estos requisitos</Typography>)
+                  : (<LoadingComponent/>)
+                  }
+                </Grid>
+              </Grid>
+            )}
+          </Grid>
           <Grid
             container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            style={{ height: "100vh" }}
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
+            margin='1em'
           >
-            <Grid item>
-              <LoadingComponent />
-            </Grid>
+            <Link to={'/home'}>
+              <Button variant='contained'>Inicio</Button>
+            </Link>
           </Grid>
-        )}
-      </Grid>
-      <Grid 
-       container
-       direction="column"
-       justifyContent="center"
-       alignItems="center"
-       margin= "1em"
-      >
-      <Link to={"/home"}>
-        <Button variant="contained">Inicio</Button>
-      </Link>
-      </Grid>
+        </CardContent>
+      </Card>
     </>
   );
 }

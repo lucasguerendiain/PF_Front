@@ -1,0 +1,63 @@
+.actividad-card {
+    background-color: rgb(4, 15, 57);
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .actividad-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .actividad-card .MuiCardActionArea-root:hover .MuiCardMedia-img {
+    transform: scale(1.1);
+  }
+  
+  .actividad-card .MuiCardActionArea-root:hover .MuiCardContent-root {
+    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgb(218, 224, 233);
+  }
+  
+  .actividad-card .MuiTypography-h5,
+  .actividad-card .MuiTypography-body2 {
+    margin-bottom: 8px;
+  }
+  
+  .actividad-card .MuiRating-root {
+    margin-bottom: 8px;
+  }
+  
+  .actividad-card .MuiButton-root:hover {
+    background-color: rgb(31, 89, 215);
+    color: blue;
+  }
+  
+  .actividad-card .MuiButton-root:hover svg {
+    fill: rgb(23, 23, 130);
+  }
+  
+  .actividad-card .MuiCardActions-root {
+    justify-content: flex-end;
+  }
+  
+  .actividad-card .MuiCardActions-root .MuiButton-root {
+    margin-left: 8px;
+  }
+  
+  .actividad-card .MuiCardActions-root .MuiSvgIcon-root {
+    color: white;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .actividad-card .MuiCardActions-root .MuiSvgIcon-root:hover {
+    color: rgb(139, 139, 223);
+  }
+  
+  
+  .MuiTypography-body2 {
+    background-color: rgb(106, 160, 252);
+    padding-top: 5px;
+    border-radius: 10px;
+  }
+  

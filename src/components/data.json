@@ -1,0 +1,166 @@
+{
+    "id": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+    "name": "Vivi las llanuras y las pampas gauchas",
+    "location": "Santa Rosa, La Pampa",
+    "price": 2000,
+    "duration": 4,
+    "img": [
+        "http://res.cloudinary.com/patagonia/image/upload/v1684086297/patagonia/paquete/rd4eydobeuerkwvk5ist.jpg",
+        "http://res.cloudinary.com/patagonia/image/upload/v1684086297/patagonia/paquete/atw8pzamr0c7hnhq7lnr.jpg",
+        "http://res.cloudinary.com/patagonia/image/upload/v1684086297/patagonia/paquete/dtmhagdal2ozanjhzgzj.jpg"
+    ],
+    "description": "La Pampa invita al visitante a conocer todos sus ambientes naturales, donde el silencio espera a la aventura.\n            Aquí los viajeros aventureros podrán disfrutar de actividades turísticas que se desarrollan en ambientes silvestres, en estrecho contacto con la naturaleza, con servicios personalizados, sin perder el énfasis puesto en la conservación de la naturaleza.\n            La provincia de La Pampa cuenta con dos centros termales acondicionados especialmente para ofrecer al visitante una gran diversidad de tratamientos terapéuticos, complementados con servicios que facilitan la práctica turístico – recreativa, además de los servicios de spa ofrecidos por dos grandes hoteles de la capital pampeana.\n            ",
+    "quotas": 75,
+    "dateInit": "2023-05-14T17:44:22.447Z",
+    "dateEnd": "2023-05-18T17:44:22.447Z",
+    "hotelId": 1,
+    "userId": 3,
+    "restaurants": [
+        {
+            "id": 1,
+            "name": "Bodegón Don Cristobal",
+            "location": "25 de mayo 126 ,Santa Rosa, La Pampa",
+            "img": [
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086272/patagonia/restaurant/isira2cyk7b7uyfv8mli.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086272/patagonia/restaurant/w4djmywljpgfumrtbnkl.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086271/patagonia/restaurant/ytj3oo7beecpvv4zhtsc.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086272/patagonia/restaurant/jhy2f91venmucslgypnl.jpg"
+            ],
+            "price": 300,
+            "description": "\"Bodegon don Cristobal, restaurante de comidas típicas y clásicas como las hacían en tu hogar. Recetas de antaño y locales.\"",
+            "packageRestaurant": {
+                "createdAt": "2023-05-14T17:45:01.896Z",
+                "updatedAt": "2023-05-14T17:45:01.896Z",
+                "packageId": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+                "restaurantId": 1
+            }
+        },
+        {
+            "id": 3,
+            "name": "La Rural Restaurante",
+            "location": "Avenida Spinetto 551, Santa Rosa 6300 Argentina",
+            "img": [
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086273/patagonia/restaurant/bbzaeoqkmxtfdv3hchfj.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086273/patagonia/restaurant/cspf2mefat1wr2rcoywq.jpg"
+            ],
+            "price": 600,
+            "description": "Churrasqueria, parrila",
+            "packageRestaurant": {
+                "createdAt": "2023-05-14T17:45:01.896Z",
+                "updatedAt": "2023-05-14T17:45:01.896Z",
+                "packageId": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+                "restaurantId": 3
+            }
+        }
+    ],
+    "activities": [
+        {
+            "id": 18,
+            "name": "Tratamientos termales en las termas de Bernardo Larroudé",
+            "duration": 5,
+            "img": [
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086295/patagonia/activities/pz99x7h3ebxctxgcyman.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086295/patagonia/activities/x8cvjxn3wyrdvksqoc6i.jpg"
+            ],
+            "description": " Las termas de Bernardo Larroudé ofrecen piletas con aguas termales. Boxes individuales para baños de inmersión o hidromasajes, gabinetes de masajes, de cosmética, sauna, gimnasio, y yacuzzi; servicios de fangoterapia local y general, tratamiento con algas (filoterapia), masajes, estética facial y corporal, dermatología (psoriasis, acné) para enfermedades reumáticas (artrosis, contracturas musculares, lumbalgias, citalgias) enfermedades vasculares (varices, trastornos circulatorios periféricos, enfermedades cardiacas). Terapias para relajarse y disfrutar, además de distintas actividades deportivas y recreativas caracterizan este entorno natural de 24 ha arboladas.",
+            "typeAct": "relax",
+            "price": 400,
+            "packageActivity": {
+                "createdAt": "2023-05-14T17:45:01.888Z",
+                "updatedAt": "2023-05-14T17:45:01.888Z",
+                "packageId": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+                "activityId": 18
+            }
+        },
+        {
+            "id": 16,
+            "name": "Turismo rural en Estancia Villaverde",
+            "duration": 12,
+            "img": [
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086294/patagonia/activities/jtjlrjijw66n3i213oce.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086294/patagonia/activities/cwvuvdkyrhmerxupdonx.jpg"
+            ],
+            "description": "A cinco minutos de Santa Rosa se ubica la Estancia Villaverde, la primera estancia turística de la provincia que invita a disfrutar de la paz del paisaje pampeano, degustando las más exquisitas comidas caseras elaboradas con productos de su granja.\n\n                Atendida por la familia propietaria, deslumbra por su caso principal y su parque de 30 has en donde se puede disfrutar de su piscina con cascada y solarium.\n                \n                Además, se puede participar de diversas tareas vinculadas con el agroturismo, como el arreo y encierre de ganado, siembra o cosecha de cereales, yerra, esquila, señalada de hacienda, cabalgatas o realizar excursiones de aventura, safaris fotográficos y observación de aves y fauna, entre otras actividades.",
+            "typeAct": "travel",
+            "price": 230,
+            "packageActivity": {
+                "createdAt": "2023-05-14T17:45:01.888Z",
+                "updatedAt": "2023-05-14T17:45:01.888Z",
+                "packageId": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+                "activityId": 16
+            }
+        },
+        {
+            "id": 13,
+            "name": "Pesca deportiva en las lagunas Don Tomás",
+            "duration": 4,
+            "img": [
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086292/patagonia/activities/ud0qklj2mdfhsfbjsfwi.jpg"
+            ],
+            "description": "Especies como el pejerrey, bagre sapo, tararira o dientudo pueden capturarse en la temporada que se extiende desde principios de noviembre hasta fines de agosto.También es posible capturar ejemplares de carpa común durante todo el año.",
+            "typeAct": "relax",
+            "price": 370,
+            "packageActivity": {
+                "createdAt": "2023-05-14T17:45:01.888Z",
+                "updatedAt": "2023-05-14T17:45:01.888Z",
+                "packageId": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+                "activityId": 13
+            }
+        },
+        {
+            "id": 2,
+            "name": "actividades acuáticas en el Río Colorado",
+            "duration": 4,
+            "img": [
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086278/patagonia/activities/s1xoodau3mvndsp2wkfv.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086278/patagonia/activities/nppzi8avtb1bpjdrl7jh.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086280/patagonia/activities/nmhzujoqrquk1hdliwnp.jpg"
+            ],
+            "description": "escuelita de canotaje, pequeñas islas en las que descender y apreciar la espectacularidad de la naturaleza virgen.\n                    La recorrida se puede hacer en canoa, lancha, botes, motos náuticas, etc.",
+            "typeAct": "travel",
+            "price": 150,
+            "packageActivity": {
+                "createdAt": "2023-05-14T17:45:01.888Z",
+                "updatedAt": "2023-05-14T17:45:01.888Z",
+                "packageId": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+                "activityId": 2
+            }
+        },
+        {
+            "id": 1,
+            "name": "Escalada en las Sierras del Parque Nacional Lihué Calel",
+            "duration": 5,
+            "img": [
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086276/patagonia/activities/yq9rj7fbcp3sgcr7t5ym.jpg",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086277/patagonia/activities/x7sx3aridatwhqhfpqd0.png",
+                "http://res.cloudinary.com/patagonia/image/upload/v1684086276/patagonia/activities/frw4oejjaar2zeydiym1.jpg"
+            ],
+            "description": "Las serranías de Lihué Calel -o \"sierras de la vida\", según su traducción- emergen desde la estepa en la zona centro-sur de la provincia de La Pampa, regalando una atractiva topografía que rompe con el llano circundante.\n\n                Especies de flora exclusivas de esta zona, incluyendo desde herbáceas hasta el majestuoso caldén, junto a una gran riqueza de fauna que incluye varias especies amenazadas y una serie de pictografías que atestiguan el paso del hombre por estos sitios miles de años atrás, son sólo algunos de los tesoros que ofrece al público esta área protegida creada en 1976.",
+            "typeAct": "treking",
+            "price": 250,
+            "packageActivity": {
+                "createdAt": "2023-05-14T17:45:01.888Z",
+                "updatedAt": "2023-05-14T17:45:01.888Z",
+                "packageId": "db2c87a5-64f4-44bf-8375-b7b5a7f2293c",
+                "activityId": 1
+            }
+        }
+    ],
+    "hotel": {
+        "id": 1,
+        "name": "Hotel Mercure Santa Rosa",
+        "location": "Av Santiago Marzo N 25, Santa Rosa L6300, La Pampa (Argentina)",
+        "description": "Habitaciones\n        Te sentirás como en tu propia casa en una de las 86 habitaciones con aire acondicionado y minibar La conexión a Internet wifi gratis te mantendrá en contacto con los tuyos; también podrás ver tu programa favorito en el televisor con canales por cable El cuarto de baño está provisto de ducha y bañera combinadas y secador de pelo Las comodidades incluyen caja fuerte, escritorio y la posibilidad de solicitar cunas (de pago)\n        Servicios de ocio, spa y Premium\n        Para tus ratos libres, tienes instalaciones recreativas como bañera de hidromasaje, sauna y piscina al aire libre de temporada a tu disposición\n        Para comer\n        Prueba deliciosos platos sin moverte de este hotel, que cuenta con un restaurante y ofrece servicio de habitaciones las 24 horas Disfruta de tu bebida favorita en el bar o lounge o en el bar junto a la piscina",
+        "img": [
+            "http://res.cloudinary.com/patagonia/image/upload/v1684086274/patagonia/hotel/stegy1abqo7lpziltnro.jpg",
+            "http://res.cloudinary.com/patagonia/image/upload/v1684086274/patagonia/hotel/s4apwdtcmlve01wqyetp.jpg",
+            "http://res.cloudinary.com/patagonia/image/upload/v1684086274/patagonia/hotel/eymjv2ldjtpucqfkajml.jpg",
+            "http://res.cloudinary.com/patagonia/image/upload/v1684086274/patagonia/hotel/xb0bdfb74cbyghrhfadi.jpg"
+        ],
+        "stars": 4,
+        "priceDay": 200,
+        "createdAt": "2023-05-14T17:44:39.282Z",
+        "updatedAt": "2023-05-14T17:44:39.282Z"
+    },
+    "rating": null
+}
