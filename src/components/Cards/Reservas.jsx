@@ -1,10 +1,13 @@
 export default function Reservas(props) {
-    const { name, price, img } = props
+    console.log(props);
+    const { name, price } = props.reserva.package
+    const { email } = props.reserva.user
     return (
         <div>
-            <img alt="">{img[0]}</img>
-            <p>{name}</p>
-            <p>{price}</p>
+            <p>Nombre: {name}</p>
+            <p>Email: {email}</p>
+            <p>Precio: ${price}</p>
+            <hr/>
         </div>
     )
 }
