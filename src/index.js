@@ -9,7 +9,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 
 import axios from 'axios';
 
-axios.defaults.baseURL= "https://pfback-production.up.railway.app"
+axios.defaults.baseURL= "https://main--warm-elf-1c5965.netlify.app"
 // axios.defaults.baseURL = 'http://localhost:3001';
 
 const root = document.getElementById('root');
