@@ -315,7 +315,7 @@ export default function CreatePackageForm() {
                   <Typography>Desc. : {item.description}</Typography>
                   <Typography>Ubicacion : {item.location}</Typography>
                   <Typography>Imagenes : [{item.img}]</Typography>
-                  <Typography>Precio? : {item.price} USD</Typography>
+                  <Typography>Precio : {item.price} USD</Typography>
                   <Button
                     variant='contained'
                     size='small'
@@ -691,15 +691,14 @@ export default function CreatePackageForm() {
                 addNewItem={addNewResto}
                 defaultValues={defaultValuesResto}
               />
+            </Grid>
             <Button
               onClick={handleSubmit}
-              fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
               Confirmar
             </Button>
-            </Grid>
           </Grid>
           </Grid>
           <Box>

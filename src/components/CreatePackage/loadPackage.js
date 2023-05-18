@@ -52,7 +52,7 @@ export const package1 = {
       ],
       description: `Especies como el pejerrey, bagre sapo, tararira o dientudo pueden capturarse en la temporada que se extiende desde principios de noviembre hasta fines de agosto.También es posible capturar ejemplares de carpa común durante todo el año.`,
       typeAct: 'relax',
-      price: 370,
+      price: 40,
     },
     {
       name: 'Turismo rural en Estancia Villaverde',
@@ -99,7 +99,7 @@ export const package1 = {
         Para comer
         Prueba deliciosos platos sin moverte de este hotel, que cuenta con un restaurante y ofrece servicio de habitaciones las 24 horas Disfruta de tu bebida favorita en el bar o lounge o en el bar junto a la piscina`,
     stars: 4,
-    priceDay: 200,
+    priceDay: 130,
   },
   resto: [
     {
@@ -111,7 +111,7 @@ export const package1 = {
         'https://media-cdn.tripadvisor.com/media/photo-p/0c/9a/fc/22/photo1jpg.jpg',
         'https://img.restaurantguru.com/r09f-meals-Bodegon-Don-Cristobal-2022-10-3.jpg',
       ],
-      price: '300',
+      price: '30',
       description: `"Bodegon don Cristobal, restaurante de comidas típicas y clásicas como las hacían en tu hogar. Recetas de antaño y locales."`,
     },
     {
@@ -121,7 +121,7 @@ export const package1 = {
         'https://media-cdn.tripadvisor.com/media/photo-s/07/d4/75/fe/la-rural-restaurante.jpg',
         'https://media-cdn.tripadvisor.com/media/photo-s/07/d4/76/7f/la-rural-restaurante.jpg',
       ],
-      price: '600',
+      price: '60',
       description: 'Churrasqueria, parrila',
     },
   ]
@@ -131,7 +131,7 @@ export const package2 = {
   package: {
     name: 'Neuquen propaganda',
     location: 'San Martín de los Andes, Neuquen',
-    price: 4100,
+    price: 2123,
     duration: 7,
     img: 'https://wanderlust.com.ar/wp-content/uploads/2018/10/san-martin-de-los-andes-2-640x360.jpg',
     img2: 'https://www.chapelco.com/imagenes/institucional/sm1.jpg',
@@ -233,7 +233,7 @@ export const package2 = {
     ],
     description: `Rotuí, Apart Hotel en San Martin de los Andes, los invita a disfrutar de una cálida estadía y descubrir nuestra aldea de montaña; ubicado a 200 mts de la avenida principal de la ciudad, una zona estratégica donde la calidez y el murmullo de sus 120 mts de costa de arroyo se mezclan para brindarle un descanso único.`,
     stars: 5,
-    priceDay: 2500,
+    priceDay: 170,
   },
   resto: [
     {
@@ -246,7 +246,7 @@ export const package2 = {
         'https://media-cdn.tripadvisor.com/media/photo-s/18/d0/6a/2a/el-fondo-parrilla-y-ahumados.jpg',
         'https://media-cdn.tripadvisor.com/media/photo-s/18/d0/6a/33/el-fondo-parrilla-y-ahumados.jpg',
       ],
-      price: '800',
+      price: '87',
       description: 'TIPOS DE COMIDA: Parrilla, Sudamericana',
     },
     {
@@ -258,7 +258,7 @@ export const package2 = {
         'https://media-cdn.tripadvisor.com/media/photo-s/12/22/7b/56/salon.jpg',
         'https://media-cdn.tripadvisor.com/media/photo-s/14/37/e4/32/una-joya-en-san-martin.jpg',
       ],
-      price: '700',
+      price: '62',
       description: 'Apto para vegetarianos, Opciones sin gluten',
     },
     {
@@ -267,7 +267,7 @@ export const package2 = {
       img: [
         'https://media-cdn.tripadvisor.com/media/photo-s/10/b9/2f/07/la-casona-restaurant.jpg',
       ],
-      price: '500',
+      price: '70',
       description: `TIPOS DE COMIDA:
         Internacional, Contemporánea
         Dietas especiales:
@@ -328,7 +328,7 @@ export const package3 = {
       ],
       description: `Esa meseta que se visualiza al sur desde Las Grutas, invita a descubrir… ¡La Patagonia Templaria! La travesía la realizamos en un legendario convoy de camiones militares todoterreno visitando la Villa de los Pulperos; diversión en los médanos de Piedras Coloradas con trineos de arena y almorzamos un espectacular asado patagónico frente al mar. Luego del postre, reiniciamos el derrotero para explicar en El Sótano cómo y porqué se forman las mareas y, en el Fuerte Argentino, hacemos snorkeling en la Laguna de Loma Blanca, para terminar la tarde escuchando la fabulosa leyenda de los Templarios. ¡Una excursión didáctica y divertida, para todas las edades!.`,
       typeAct: 'travel',
-      price: '750',
+      price: '650',
     },
     {
       name: 'avistamiento de ballenas',
@@ -371,8 +371,8 @@ export const package3 = {
     ],
     description: `Nuestro complejo se compone de modernos departamentos a 50 metros del mar ubicados en planta baja, 1º y 2º piso con vistas al mar y al balneario y dispone de un espacio con múltiples opciones para el ocio y el esparcimiento. Cuenta con dos piscinas de grandes dimensiones con dos niveles de profundidad, para niños y adultos. Además, tiene repartida en toda su expansión una serie de sectores de parrilleros con mobiliario, espacios de césped y decks de madera para solarium que permite el uso simultáneo de las instalaciones entre todos los residentes del complejo. La superficie total del mismo es de 1700 m2 con dos accesos, uno por la calle Aguada Cecilio y otro, por la calle Nahuel Huapi.
                     Telefono: 02920 15-51-3212`,
-    stars: 4,
-    priceDay: 500,
+    stars: 3,
+    priceDay: 80,
   },
   resto: [
     {
@@ -383,7 +383,7 @@ export const package3 = {
         'https://media-cdn.tripadvisor.com/media/photo-s/16/8f/a2/af/marisqueria-terra-mare.jpg',
         'https://i2.wp.com/orgasmikcooking.com/wp-content/uploads/2019/08/Calamarata-Terra-E-Mare-3.jpg',
       ],
-      price: '250',
+      price: '100',
       description: `TIPOS DE COMIDA:
             Mariscos, Argentina, Sudamericana
             Comidas:
@@ -472,7 +472,7 @@ export const package4 = {
                 Algunos objetos de la colección de Las Piedras se pueden observar en el edificio de La Mercante. 
                 `,
       typeAct: 'show',
-      price: '1750',
+      price: '550',
     },
     {
       name: 'conoce la pingüinera de Punta Tombo',
@@ -495,7 +495,7 @@ export const package4 = {
                 
                 Además de los pingüinos se observan ñandúes, guanacos y maras.`,
       typeAct: 'travel',
-      price: '500',
+      price: '200',
     },
     {
       name: 'treking en Las Bardas',
@@ -549,7 +549,7 @@ export const package4 = {
         Y por encima de todo, una excelente atención.
         Telefono: 0280 - 4604627`,
     stars: 2,
-    priceDay: 200,
+    priceDay: 102,
   },
   resto: [
     {
@@ -560,7 +560,7 @@ export const package4 = {
         'https://turismodolavon.com.ar/wp-content/uploads/2021/07/1625086270-1024x684.jpg',
         'https://turismodolavon.com.ar/wp-content/uploads/2021/07/1626177706-1-1024x539.jpg',
       ],
-      price: '300',
+      price: '40',
       description: `Reina Momo es un bar cultural y gastronómico. Un espacio para escuchar la mejor música, compartir con amigos y disfrutar las mejores cervezas y tragos
 
         - Shows de bandas en vivo
@@ -578,7 +578,7 @@ export const package4 = {
         'https://turismodolavon.com.ar/wp-content/uploads/2021/07/DOLAVON-45-1024x683.jpg',
         'https://turismodolavon.com.ar/wp-content/uploads/2021/07/DOLAVON-44-1024x683.jpg',
       ],
-      price: '400',
+      price: '15',
       description: `Mona Lowisa ofrece el auténtico té galés, herencia pura, donde ya 4 generaciones manufacturan exquisiteces meramente galesas.
 
         Delicias como pan casero, las “teisen bach” (tortitas hechas a la plancha), los scons y la tradicional torta negra se pueden degustar en su casa de té, situada en la chacra que también se presta como sitio recreativo y de esparcimiento.
@@ -593,7 +593,7 @@ export const package4 = {
         'https://turismodolavon.com.ar/wp-content/uploads/2020/08/el-molino-web-1024x683.jpg',
         'https://turismodolavon.com.ar/wp-content/uploads/2020/08/DSC_0906-1.jpg',
       ],
-      price: '700',
+      price: '25',
       description: `El Viejo Molino tiene un nombre importante en la gastronomía local que hoy  se destaca por una cocina en donde la leña y el horno de barro son los protagonistas.
 
         Ademas cuenta con fábrica de cerveza artesanal -La Dolavense-, cocina al aire libre, cocktelería de autor y una gintonería con 15 marcas nacionales.
