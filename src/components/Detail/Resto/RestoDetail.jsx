@@ -155,7 +155,6 @@ export default function RestoDetail() {
       ) : (
         <LoadingComponent />
       )}
-
       <CommentBoard
         restaurantId={restaurant.id}
         arrayComments={restaurant.comments}

@@ -350,11 +350,14 @@ export default function PackageDetail() {
         </Button>
       </Box>
       <Box sx={{ marginTop: '5%', marginBottom: '3%' }}>
-        <PayPalScriptProvider
-          options={{
-            'client-id':
-              'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
-          }}
+
+        {Object.values(user).length?
+        (<PayPalScriptProvider
+        options={{
+          'client-id':
+            'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
+        }}
+
         >
           <PayPalButtons
             forceReRender={[pack]}
@@ -378,7 +381,8 @@ export default function PackageDetail() {
               return alert('Pago cancelado.');
             }}
           />
-        </PayPalScriptProvider>
+        </PayPalScriptProvider>)
+        : (<Typography variant='h3' fontWeight="600">La compra es solo para usuarios registrados</Typography>)}
       </Box>
       <CommentBoard packageId={pack.id} arrayComments={pack.comments} />
     </Box>
