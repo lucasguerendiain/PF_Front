@@ -94,7 +94,7 @@ export default function Paquete(props) {
                     <Typography>DESCRIPCION</Typography>
                     <ExpandMore
                       expand={expanded}
-                      onClick={handleExpandClick}
+                      onClick={() => ""}
                       aria-expanded={expanded}
                       aria-label='show more'
                     >
