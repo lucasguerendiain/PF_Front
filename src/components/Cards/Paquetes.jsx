@@ -13,7 +13,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import './Paquetes.css';
-import imagen3 from '../../assets/imagen6.png'; 
+import imagen3 from '../../assets/imagen6.png';
+import { Rating } from '@mui/material';
 // For expand
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -49,9 +50,8 @@ export default function Paquete(props) {
     restaurants,
     activities,
     hotel,
-    raiting,
+    rating,
   } = props.paquete;
-  console.log(props);
 
   const transformDate = (date) => {
     const newDate = new Date(date);
@@ -68,8 +68,10 @@ export default function Paquete(props) {
   return (
     <Grid container justifyContent='center'>
       <Grid item xs={12} sm={10} md={10}>
-        <Card className='card-grande' style={{ backgroundImage: `url(${imagen3})` }}>
-          
+        <Card
+          className='card-grande'
+          style={{ backgroundImage: `url(${imagen3})` }}
+        >
           <CardActionArea key={id} component={Link} to={`/package/${id}`}>
             <CardHeader
               title={name}
@@ -86,7 +88,12 @@ export default function Paquete(props) {
           <CardContent>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Carousel autoPlay showStatus={false} showThumbs={false} infiniteLoop={true}>
+                <Carousel
+                  autoPlay
+                  showStatus={false}
+                  showThumbs={false}
+                  infiniteLoop={true}
+                >
                   {img?.map((i) => {
                     return (
                       <div key={i}>
@@ -152,15 +159,27 @@ export default function Paquete(props) {
                 <Grid></Grid>
               </Grid>
             </Grid>
-            <p>
-              ¿Estás esperando un paquete turístico? ¡No busques más! Descubre nuestras increíbles ofertas y vive una
-              experiencia inolvidable. Explora destinos emocionantes, disfruta de alojamientos de lujo, saborea la
-              deliciosa gastronomía local y sumérgete en aventuras inigualables. ¡No pierdas más tiempo y reserva tu
-              paquete turístico hoy mismo!
-            </p>
+            <Grid>
+              <p>
+                ¿Estás esperando un paquete turístico? ¡No busques más! Descubre
+                nuestras increíbles ofertas y vive una experiencia inolvidable.
+                Explora destinos emocionantes, disfruta de alojamientos de lujo,
+                saborea la deliciosa gastronomía local y sumérgete en aventuras
+                inigualables. ¡No pierdas más tiempo y reserva tu paquete
+                turístico hoy mismo!
+              </p>
+            </Grid>
+            <Rating
+              className='custom-rating-right'
+              name='half-rating-read'
+              value={rating}
+              precision={0.5}
+              readOnly
+              size='large'
+            />
           </CardContent>
         </Card>
       </Grid>
     </Grid>
   );
-                    }
+}
