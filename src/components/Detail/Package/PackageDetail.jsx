@@ -87,7 +87,16 @@ export default function PackageDetail() {
       userId: user.id,
       packageId: pack.id
     }
-    await axios.post("/reservation", datosAMandar);
+    const response = await axios.post("/reservation", datosAMandar);
+    if (response.status === 200) {
+      setValid(false);
+      const body = {
+        userEmail: user.email,
+        dateInit: transformDate(pack.dateInit),
+        price: pack.price
+      }
+      const mail = await axios.post("/mails/confirmation", body);
+    }
     setValid(false);
   }
 

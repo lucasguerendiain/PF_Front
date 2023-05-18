@@ -26,7 +26,7 @@ function Footer() {
     <footer className='footer'>
       <div className='footer-container'>
         <div className='footer-options'>
-          <a onClick={() => alert("no es mucho, pero es trabajo honrado")}>Acerca de nosotros</a>
+          {/*<a onClick={() => alert("no es mucho, pero es trabajo honrado")}>Acerca de nosotros</a>*/}
           <a onClick={() => handleNav("/activitycards")}>Destinos turísticos</a>
           <a onClick={() => handleNav("/packagecards")}>Reservas y precios</a>
           <a onClick={() => setOpen(true)}>Contacto</a>
