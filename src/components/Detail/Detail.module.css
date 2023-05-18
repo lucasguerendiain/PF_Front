@@ -12,6 +12,20 @@
     padding-top: 18px;
     padding-inline: 10px;
 }
+.name2 {
+    position: absolute;
+    top: 230px;
+    z-index: +1;
+    /* font-size: 80px; */
+    background-color: rgba(4, 15, 57, .7);
+    color: white;
+    border-bottom-color: #1d66cb;
+    border-bottom-style: solid;
+    border-bottom-width: 8px;
+    height: 82px;
+    padding-top: 18px;
+    padding-inline: 10px;
+}
 
 .image {
     width: 1300px;
@@ -40,9 +54,17 @@
     justify-content: center;
 }
 
+
 .containerProp {
     position: absolute;
     top: 450px;
     left: 1558px;
+}
+
+.containerProp2 {
+    position: absolute;
+    display:flex;
+    top: 840px;
+    left: 150px;
 }
 

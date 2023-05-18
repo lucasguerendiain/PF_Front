@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPackageDetailById } from '../../../redux/actions/packageActions';
 import LoadingComponent from '../../Loading/LoadingComponent';
 import { useParams } from 'react-router-dom/dist';
+import { Rating } from "@mui/material";
 import {
   Box,
   Button,
@@ -24,6 +25,10 @@ import './PackageDetail.css';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import CommentBoard from '../../CommentBoard/CommentBoard';
 import axios from "axios";
+import styles from "../Detail.module.css"
+// import Actividades from '../../Cards/Actividades';
+// import Hoteles from '../../Cards/Hoteles';
+// import Restaurant from "../../Cards/Hoteles"
 
 export default function PackageDetail() {
   const navigate = useNavigate();
@@ -38,9 +43,9 @@ export default function PackageDetail() {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: false,
-    adaptativeHeigth: false,
-    variableWidth: false,
+    // centerMode: false,
+    // adaptativeHeigth: false,
+    // variableWidth: false,
     autoplay: true,
     autoplaySpeed: 6000,
   };
@@ -49,9 +54,9 @@ export default function PackageDetail() {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: false,
-    adaptativeHeigth: false,
-    variableWidth: false,
+    // centerMode: false,
+    // adaptativeHeigth: false,
+    // variableWidth: false,
   };
 
   const transformDate = (date) => {
@@ -105,7 +110,7 @@ export default function PackageDetail() {
       alert(
         '¡Excelente! Tu transacción ha sido realizada con éxito.',
       );
-      setTimeout(()=> {
+      setTimeout(() => {
         handleSubmit();
       }, 1000);
     }
@@ -118,21 +123,20 @@ export default function PackageDetail() {
         flexDirection: 'column',
         textAlign: 'center',
         justifyContent: 'space-between',
-        backgroundColor: 'beige',
-        marginLeft: '8%',
-        marginRight: '8%',
-        width: '85vw',
-        border: '1px solid black',
+        // backgroundColor: 'beige',
+        // marginLeft: '8%',
+        // marginRight: '8%',
+        // width: '85vw',
+        // border: '1px solid black',
       }}
     >
       {Object.keys(pack).length ? (
         <Grid>
           <Typography
-            variant='h1'
-            component='h2'
+            variant="h2"
             gutterBottom
-            fontWeight='600'
-            sx={{ marginTop: '1%' }}
+            fontWeight="400"
+            className={styles.name2}
           >
             {pack.name}
           </Typography>
@@ -140,82 +144,60 @@ export default function PackageDetail() {
             {pack.img.map((item, index) => (
               <Box
                 key={index}
-                sx={{
-                  maxWidth: '70%',
-                }}
+
               >
-                <img src={item} alt=''></img>
+                <img className={styles.image} src={item} alt=""></img>
               </Box>
             ))}
           </Slider>
-          <Grid
-            marginTop='4%'
-            marginBottom='4%'
-            sx={{ display: 'flex', flexDirection: 'column' }}
-          >
-            <Typography
-              variant='h3'
-              gutterBottom
-              display='inline'
-              fontWeight='600'
-            >
-              {'Ubicacion: '}
-              <Typography variant='h3' display='inline'>
-                {pack.location}
-              </Typography>
-            </Typography>
-            <Typography
-              display='inline'
-              fontWeight='600'
-              variant='h4'
-              gutterBottom
-            >
-              {'Duracion: '}
-              <Typography variant='h4' display='inline'>
-                {pack.duration} dias
-              </Typography>
-            </Typography>
-            <Typography variant='h4' gutterBottom fontWeight='600'>
-              {'Descripcion: '}
-              <Typography variant='h4' whiteSpace='pre-line'>
-                {pack.description}
-              </Typography>
-            </Typography>
-            <Typography
-              display='inline'
-              fontWeight='600'
-              variant='h4'
-              gutterBottom
-            >
-              {'Cupos: '}
-              <Typography variant='h4' display='inline'>
-                {pack.quotas}
-              </Typography>
-            </Typography>
-            <Typography
-              display='inline'
-              fontWeight='600'
-              variant='h4'
-              gutterBottom
-            >
-              {'Fecha inicio: '}
-              <Typography variant='h4' display='inline'>
-                {transformDate(pack.dateInit)}
-              </Typography>
-            </Typography>
-            <Typography
-              display='inline'
-              fontWeight='600'
-              variant='h4'
-              gutterBottom
-            >
-              {'Fecha fin: '}
-              <Typography variant='h4' display='inline'>
-                {transformDate(pack.dateEnd)}
-              </Typography>
-            </Typography>
-          </Grid>
-          <Typography gutterBottom variant='h3' sx={{ fontWeight: '700' }}>
+
+          <Box className={styles.containerProp2}>
+
+            <Box className={styles.containerRating} sx={{ marginInline: "20px" }}>
+              <Typography variant='h5'>Ubicación:</Typography>
+              <Typography variant='h6' sx={{ lineHeight: "1", fontSize: "17px" }}>{pack.location}</Typography>
+            </Box>
+
+            <Box className={styles.containerRating} sx={{ marginInline: "20px" }}>
+              <Typography variant='h5'>Duracion:</Typography>
+              <Typography variant='h4'>{pack.duration} días</Typography>
+            </Box>
+
+            <Box className={styles.containerRating} sx={{ marginInline: "20px" }}>
+              <Typography variant='h5'>Rating</Typography>
+              {pack.rating ?
+                <Rating name="half-rating-read" value={pack.rating} precision={0.5} readOnly size="large" className={styles.rating} /> :
+                <Typography variant='h4'>S/Puntaje</Typography>
+              }
+            </Box>
+
+            <Box className={styles.containerRating} sx={{ marginInline: "20px" }}>
+              <Typography variant='h5'>Fecha Inicio:</Typography>
+              <Typography variant='h4'>{transformDate(pack.dateInit)}</Typography>
+            </Box>
+
+            <Box className={styles.containerRating} sx={{ marginInline: "20px" }}>
+              <Typography variant='h5'>Fecha Final:</Typography>
+              <Typography variant='h4'>{transformDate(pack.dateEnd)}</Typography>
+            </Box>
+
+            <Box className={styles.containerRating} sx={{ marginInline: "20px" }}>
+              <Typography variant='h5'>Cupos:</Typography>
+              <Typography variant='h4'>{pack.quotas} </Typography>
+            </Box>
+
+            <Box className={styles.containerRating} sx={{ marginInline: "20px" }}>
+              <Typography variant='h5'>Precio:</Typography>
+              <Typography variant='h4'>{pack.price} USD</Typography>
+            </Box>
+          </Box>
+
+          <Typography variant='h4' sx={{ marginTop: "25px" }}>
+            {pack.description}
+          </Typography>
+
+
+          <Typography gutterBottom variant='h3' sx={{ fontWeight: '700', marginTop: "25px" }}>
             Actividades:{' '}
           </Typography>
           <Slider {...settings2}>
@@ -369,13 +351,13 @@ export default function PackageDetail() {
       </Box>
       <Box sx={{ marginTop: '5%', marginBottom: '3%' }}>
         <PayPalScriptProvider
-        options={{
-          'client-id':
-            'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
-        }}
+          options={{
+            'client-id':
+              'AYUz54121CeOUjgpCAsy19Y_mYQUlhihSs4Y0z_e5PK3MBjJxIsEHPRGOGLO6wxhnUtNd20Xw7k0z0km',
+          }}
         >
           <PayPalButtons
-          forceReRender={[pack]}
+            forceReRender={[pack]}
             createOrder={(data, actions) => {
               return actions.order.create({
                 purchase_units: [
@@ -398,7 +380,7 @@ export default function PackageDetail() {
           />
         </PayPalScriptProvider>
       </Box>
-    <CommentBoard packageId = {pack.id} arrayComments = {pack.comments}/>
+      <CommentBoard packageId={pack.id} arrayComments={pack.comments} />
     </Box>
   );
 }
