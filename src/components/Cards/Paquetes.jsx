@@ -92,14 +92,6 @@ export default function Paquete(props) {
                 <Grid>
                   <CardActions>
                     <Typography>DESCRIPCION</Typography>
-                    <ExpandMore
-                      expand={expanded}
-                      onClick={() => ""}
-                      aria-expanded={expanded}
-                      aria-label='show more'
-                    >
-                      <ExpandMoreIcon />
-                    </ExpandMore>
                   </CardActions>
                   <Collapse in={expanded} timeout='auto' unmountOnExit>
                     <CardContent>
