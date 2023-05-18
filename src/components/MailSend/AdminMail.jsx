@@ -42,6 +42,13 @@ export default function AdminMail() {
       const response = await axios.post('/mails/admin', mensaje);
       if (response.status === 200) {
         alert('mensaje mandado con exito');
+        setInputs({
+          to: '',
+          title: '',
+          img: '',
+          content: '',
+          link: '', 
+        })
         navigate(0);
       } else console.log(response.data);
     } catch (error) {
@@ -85,10 +92,10 @@ export default function AdminMail() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: "rgb(82, 82, 192)",
+          backgroundColor: "rgb(204, 205, 207)",
           width: '80vw',
           borderRadius: '1rem',
-          borderBottom: "0.3rem solid rgb(82, 82, 192)",
+          borderBottom: "0.3rem solid rgb(249, 249, 249)",
           padding: "20px",
           marginLeft: '10%',
           marginTop: '0.5%',
@@ -107,7 +114,7 @@ export default function AdminMail() {
             onChange={handleChange}
             InputProps={{disableUnderline: true}}
             InputLabelProps={{color: "grey"}}
-            sx={{backgroundColor: "lightblue", borderRadius: "0.3rem"}}
+            sx={{backgroundColor: "rgb(249, 249, 249)", borderRadius: "0.5rem"}}
           />
         </Grid>
         <Grid item sx={{ width: '70vw' }}>
@@ -121,7 +128,7 @@ export default function AdminMail() {
             palceholder='cada usuario va separado por una coma'
             InputProps={{disableUnderline: true}}
             InputLabelProps={{color: "grey"}}
-            sx={{backgroundColor: "lightblue", borderRadius: "0.3rem"}}
+            sx={{backgroundColor: "rgb(249, 249, 249)", borderRadius: "0.3rem"}}
           />
         </Grid>
         <Grid item sx={{ width: '70vw' }}>
@@ -136,7 +143,7 @@ export default function AdminMail() {
             value={inputs.content}
             InputProps={{disableUnderline: true}}
             InputLabelProps={{color: "grey"}}
-            sx={{backgroundColor: "lightblue", borderRadius: "0.3rem"}}
+            sx={{backgroundColor: "rgb(249, 249, 249)", borderRadius: "0.3rem"}}
           />
         </Grid>
         <Grid item sx={{ width: '70vw', marginBottom: '0.5%' }}>
@@ -149,12 +156,12 @@ export default function AdminMail() {
             onChange={handleChange}
             InputProps={{disableUnderline: true}}
             InputLabelProps={{color: "grey"}}
-            sx={{backgroundColor: "lightblue", borderRadius: "0.3rem"}}
+            sx={{backgroundColor: "rgb(249, 249, 249)", borderRadius: "0.3rem"}}
           />
         </Grid>
         <Grid container sx={{display: "flex", flexDirection: "row" , justifyContent: "space-evenly"}}>
-            <Button onClick={() => handlePetition("reservas")} variant='contained'>reservas de esta semana</Button>
-            <Button onClick={() => handlePetition("spam")} variant='contained'>spam</Button>
+            <Button sx={{ backgroundColor: "rgb(4, 15, 57)", marginTop: '1%'}} onClick={() => handlePetition("reservas")} variant='contained'>reservas de esta semana</Button>
+            <Button sx={{ backgroundColor: "rgb(4, 15, 57)", marginTop: '1%'}} onClick={() => handlePetition("spam")} variant='contained'>spam</Button>
         </Grid>
       </Grid>
       <CardContent
@@ -164,32 +171,35 @@ export default function AdminMail() {
           alignItems: 'left',
           width: '78.2vw',
           marginLeft: '10%',
-          backgroundColor: "darkgray",
+          marginTop: '5%',
+          backgroundColor: "rgb(249, 249, 249)",
           paddingTop: '1%',
           borderRadius: "1rem",
+          border: "2px solid black",
+          
         }}
       >
-        <Typography gutterBottom fontWeight='600' variant='h2'>
+        <Typography gutterBottom fontWeight='600' variant='h2'sx={{width: '75vw',  borderBottom: "2px solid black", }}>
           Vista previa:
         </Typography>
-        <Grid sx={{width: '75vw', border: "2px solid black", borderRadius: "1rem", borderBottom: "2px solid black", borderTop: "2px solid black"}}>
+        <Grid sx={{width: '75vw',  borderRadius: "1rem", }}>
           <Typography
             variant='h2'
             gutterBottom
             sx={{ marginLeft: '1%', marginTop: "1%"}}
           >
-            Titulo :
-            <Typography variant='h3' marginLeft='1%'>
+            
+            <Typography variant='h2' marginLeft='1%'>
               {inputs.title}
             </Typography>
           </Typography>
           <Typography
-            variant='h2'
+            variant='h4'
             gutterBottom
-            sx={{ paddingLeft: '1%', borderTop: "1px solid black"}}
+            sx={{ paddingLeft: '1%', }}
           >
             Destinatarios:
-            <Typography variant='h3' marginLeft='1%'>
+            <Typography variant='h6' marginLeft='1%'>
               {inputs.to
                 .replace(/\s+/g, '')
                 .split(',')
@@ -197,18 +207,18 @@ export default function AdminMail() {
                   return `<${elem}>`;
                 })}
             </Typography>
-            <Typography variant='h4' marginLeft='1%'>
-              {inputs.to && inputs.to.split(',').length} destinatario/s
-            </Typography>
+            {/* <Typography variant='h6' marginLeft='1%'>
+              {inputs.to && inputs.to.split(',').length} 
+            </Typography> */}
           </Typography>
           <Typography
-            variant='h2'
+            variant='h4'
             gutterBottom
-            sx={{ paddingLeft: '1%', borderTop: "1px solid black" }}
+            sx={{ paddingLeft: '1%', }}
           >
-            Contenido:
+            
             <Typography
-              variant='h3'
+              variant='h4'
               sx={{ whiteSpace: 'pre-line', marginLeft: '1%'}}
             >
               {`
@@ -221,7 +231,7 @@ export default function AdminMail() {
       </CardContent>
       <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
         <Button
-          sx={{ alignSelf: 'center' }}
+          sx={{ alignSelf: 'center', backgroundColor: "rgb(4, 15, 57)", marginTop: '1%' }}
           variant='contained'
           size='large'
           onClick={handleSubmit}
